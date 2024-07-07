@@ -1,79 +1,92 @@
-"use client"
-import React, { useState, useEffect } from "react";
-import { Input, Button, Checkbox } from '@nextui-org/react';
-import { EyeIcon } from '@heroicons/react/16/solid';
-import { EyeSlashIcon } from '@heroicons/react/16/solid';
+"use client";
+import React, { useState } from "react";
+import { Input, Button, Checkbox, image } from "@nextui-org/react";
+import { EyeFilledIcon } from "@/components/icons/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "@/components/icons/EyeSlashFilledIcon";
+import { SocialIcon } from "react-social-icons";
+import { Image } from "@nextui-org/image";
+import images from "../../../public/images/images";
 
+export function Login() {
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
-const Login: React.FC = () => {
-
-    const [isVisible, setIsVisible] = React.useState(false);
-
-    const toggleVisibility = () => setIsVisible(!isVisible);
-
-    return (
-      <div className='flex'>
-        <div className="w-[986px] h-[1000px] absolute left-[40px] top-[40px] bg-yellow-400 rounded-[42px] shadow-lg"></div>
-        <div className="w-[682px] h-[682px] absolute left-[319px] top-[228px] bg-yellow-300 rounded-full"></div>
-        <img
-          className="w-[662px] h-[880px] absolute left-[533px] top-[160px] object-cover"
-          src="/mnt/data/Login.jpg"
-          alt="Skincare"
-        />
-        <div className="absolute left-[112px] top-[228px] flex flex-col justify-start items-start gap-3">
-          <div className="text-yellow-700 text-7xl font-normal leading-[72px] font-['Playfair Display']">Join Us!</div>
-          <div className="relative w-[540px] h-[260px]">
-            <div className="absolute left-0 top-0 text-yellow-50 text-9xl font-semibold leading-[128px] font-['Playfair Display']">MYG</div>
-            <div className="absolute left-[51px] top-[132px] text-yellow-200 text-9xl font-semibold leading-[128px] font-['Playfair Display']">Essentia</div>
-          </div>
-        </div>
-        <div className="absolute left-[1227px] top-[176px] flex flex-col justify-start items-center gap-[58px]">
-          <img className="w-[160.07px] h-[111px]" src="/vercel.svg" alt="Logo" />
-          <div className="flex flex-col justify-start items-center gap-7">
-            <div className="flex flex-col justify-center items-center gap-5 w-full">
-              <Input
-                isRequired
-                type="email"
-                label="Email"
-                placeholder="Masukkan email Anda"
-                className="w-full flex-wrap md:flex-nowrap"
-              />
-               <Input
-                label="Password"
-                variant="bordered"
-                placeholder="Enter your password"
-                endContent={
-                    <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
-                    {isVisible ? (
-                        <EyeIcon className="text-2xl text-default-400 pointer-events-none" />
-                    ) : (
-                        <EyeSlashIcon className="text-2xl text-default-400 pointer-events-none" />
-                    )}
-                    </button>
-                }
-                type={isVisible ? "text" : "password"}
-                className="max-w-xs"
-               />
-              <div className="flex justify-between items-center w-full max-w-xs">
-                <Checkbox>Remember me</Checkbox>
-                <Button>Lupa Password?</Button>
-              </div>
-            </div>
-            <Button className="w-full max-w-xs bg-yellow-400 text-white">Masuk</Button>
-            <div className="text-zinc-600 text-lg font-normal">atau</div>
-            <div className="flex flex-col justify-center items-center gap-5 w-full">
-              <Button className="w-full max-w-xs bg-white text-slate-700 border border-gray-300">Sign in with Google</Button>
-              <Button className="w-full max-w-xs bg-blue-600 text-white">Sign in with Facebook</Button>
-            </div>
-            <div className="flex justify-start items-center gap-1">
-              <div className="text-zinc-600 text-lg font-normal">Belum mempunyai akun?</div>
-              <Button className="text-yellow-500">Daftar akun</Button>
-            </div>
-          </div>
-        </div>
+  return (
+    <div className="flex flex-row h-full w-full mx-auto">
+      {/* Bagian 1 */}
+      <div className="items-center justify-center py-10 px-10 w-[60%] hidden xl:flex relative">
+        <Image
+            src={images.login_img.src}
+            alt="Image"
+            className="object-cover"
+            style={{ width: "90%", height: "90%" }}
+          />
       </div>
-    );
-  };
-  
+
+      {/* Bagian 2 */}
+      <div className="flex flex-col mx-auto items-center justify-center sm:max-w-sm md:w-full xl:w-full xl:h-full xl:ml-0">
+        <Image
+          src={images.myg_logo.src}
+          alt="Logo"
+          className="object-cover w-32 sm:mt-8"
+        />
+
+        <div className="flex flex-col w-full my-12 gap-3">
+          <Input
+            isRequired
+            type="email"
+            label="Email"
+            variant="bordered"
+            placeholder="Masukkan email Anda"
+            className="w-full"
+          />
+
+          <Input
+            label="Password"
+            variant="bordered"
+            placeholder="Enter your password"
+            endContent={
+              <button
+                className="focus:outline-none"
+                type="button"
+                onClick={toggleVisibility}
+              >
+                {isVisible ? (
+                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                ) : (
+                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                )}
+              </button>
+            }
+            type={isVisible ? "text" : "password"}
+            className="w-full"
+          />
+
+          <div className="flex justify-between items-center w-full">
+            <Checkbox className="font-inter text-gray-700">Remember me</Checkbox>
+            <Button variant="light" className="font-sans text-kuning">Lupa Password?</Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5 justify-center items-center w-full">
+          <Button variant="light" className="w-full font-sans text-white bg-kuning2">Masuk</Button>
+
+          <a className="font-normal text-gray-600"> atau </a>
+
+          <Button variant="bordered" className="w-full font-sans">Sign in with Google</Button>
+
+          <Button color="primary" className="w-full font-sans">Sign in with Facebook</Button>
+
+          <div className="flex justify-between items-center w-full">
+            <a className="font-inter font-normal text-gray-400">Belum mempunyai akun? </a>
+            <Button variant="light" className="font-sans text-kuning"> Daftar akun </Button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 export default Login;
-  
