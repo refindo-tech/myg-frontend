@@ -1,11 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Input, Button, Checkbox, image } from "@nextui-org/react";
-import { EyeFilledIcon } from "@/components/icons/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "@/components/icons/EyeSlashFilledIcon";
-import { SocialIcon } from "react-social-icons";
-import { Image } from "@nextui-org/image";
-import images from "../../../public/images/images";
+import { Input, Button, Checkbox, Image } from "@nextui-org/react";
+import icons from "@/components/icons/icon";
+import images from "../../../../public/images/images";
 
 export function Login() {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,11 +21,11 @@ export function Login() {
       </div>
 
       {/* Bagian 2 */}
-      <div className="flex flex-col mx-auto items-center justify-center sm:max-w-sm md:w-full xl:w-full xl:h-full xl:ml-0">
+      <div className="flex flex-col mx-auto items-center sm:max-w-sm md:w-full xl:w-full xl:h-full xl:ml-0">
         <Image
           src={images.myg_logo.src}
           alt="Logo"
-          className="object-cover w-32 sm:mt-8"
+          className="object-cover mt-24 w-32"
         />
 
         <div className="flex flex-col w-full my-12 gap-3">
@@ -52,9 +49,9 @@ export function Login() {
                 onClick={toggleVisibility}
               >
                 {isVisible ? (
-                  <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  <icons.EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                 ) : (
-                  <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  <icons.EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
                 )}
               </button>
             }
@@ -73,11 +70,11 @@ export function Login() {
 
           <a className="font-normal text-gray-600"> atau </a>
 
-          <Button variant="bordered" className="w-full font-sans">Sign in with Google</Button>
+          <Button startContent={<icons.GoogleIcon/>} variant="bordered" className="w-full font-sans">Sign in with Google</Button>
 
-          <Button color="primary" className="w-full font-sans">Sign in with Facebook</Button>
+          <Button startContent={<icons.FacebookIcon/>} color="primary" className="w-full font-sans">Sign in with Facebook</Button>
 
-          <div className="flex justify-between items-center w-full">
+          <div className="flex gap-6 items-center w-full">
             <a className="font-inter font-normal text-gray-400">Belum mempunyai akun? </a>
             <Button variant="light" className="font-sans text-kuning"> Daftar akun </Button>
           </div>

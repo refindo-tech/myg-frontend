@@ -11,11 +11,17 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['Inter', 'sans-serif', 'open-sans'],
+        inter: ['Inter', 'sans-serif'],
+        openSans: ['Open Sans', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif'],
       },
       colors: {
         kuning: '#DBA200',
         kuning2: '#FFC300',
+        abu: '#EFF0F6',
+      },
+      fontSize: {
+        '10px': '10px',
       },
     },
   },
