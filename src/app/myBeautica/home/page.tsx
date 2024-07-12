@@ -1,5 +1,6 @@
 "use client";
 import type { NextPage } from "next";
+<<<<<<< HEAD
 import React, { useState, ChangeEvent } from "react";
 
 import { 
@@ -32,39 +33,67 @@ const users = [
 const services = [
   {
     id: 1,
+=======
+import React from "react";
+import { Button, Image, Input, Avatar } from "@nextui-org/react";
+import icons from "@/components/icons/icon";
+import images from "../../../../public/images/images";
+import { useState } from "react";
+
+const services = [
+  {
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
     title: "8 Benefits Of Using Facial Serum",
     description:
       "Serum wajah adalah produk perawatan yang memiliki tekstur ringan dan memiliki konsentrasi bahan aktif yang tinggi...",
     price: "IDR 250.000",
     imageUrl: images.myBeautica_image2,
+<<<<<<< HEAD
     views: 0,
   },
   {
     id: 2,
+=======
+  },
+  {
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
     title: "4 Benefits of Hand & Body Lotion",
     description:
       "Melindungi kulit dari kekeringan, menjaga kelembaban kulit, dan memberikan nutrisi yang dibutuhkan...",
     price: "IDR 120.000",
     imageUrl: images.myBeautica_image2,
+<<<<<<< HEAD
     views: 0,
   },
   {
     id: 3,
+=======
+  },
+  {
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
     title: "Chemical Peels Facial Treatment",
     description:
       "Perawatan kulit yang membantu mengurangi keriput, bekas luka, dan jerawat dengan cara mengelupas kulit...",
     price: "IDR 199.000",
     imageUrl: images.myBeautica_image2,
+<<<<<<< HEAD
     views: 0,
   },
   {
     id: 4,
+=======
+  },
+  {
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
     title: "Chemical Peels Facial Treatment",
     description:
       "Perawatan kulit yang membantu mengurangi keriput, bekas luka, dan jerawat dengan cara mengelupas kulit...",
     price: "IDR 199.000",
     imageUrl: images.myBeautica_image2,
+<<<<<<< HEAD
     views: 0,
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
   },
 ];
 
@@ -116,6 +145,7 @@ const testimonials = [
     role: "Pelanggan",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquet orci in odio volutpat auctor. Sed leo velit.",
   },
+<<<<<<< HEAD
   {
     name: "John Doe",
     role: "Pelanggan",
@@ -131,14 +161,19 @@ const testimonials = [
     role: "Pelanggan",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquet orci in odio volutpat auctor. Sed leo velit.",
   },
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
 ];
 
 const Home: NextPage = () => {
   const [openFAQIndices, setOpenFAQIndices] = useState<number[]>([]);
+<<<<<<< HEAD
   const [serviceViews, setServiceViews] = useState(services);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [newTestimonial, setNewTestimonial] = useState({ name: users[0].name, role: users[0].role, text: '' });
 
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
 
   const toggleFAQ = (index: number) => {
     if (openFAQIndices.includes(index)) {
@@ -148,6 +183,7 @@ const Home: NextPage = () => {
     }
   };
 
+<<<<<<< HEAD
   const incrementViews = (id: number) => {
     setServiceViews((prevViews) =>
       prevViews.map((service) =>
@@ -171,6 +207,8 @@ const Home: NextPage = () => {
   const mostViewedService = serviceViews.reduce((max, service) => 
     (service.views > max.views ? service : max), serviceViews[0]);
 
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
   return (
     <div className="w-screen h-screen">
       {/* Navbar */}
@@ -264,6 +302,7 @@ const Home: NextPage = () => {
               Daftar layanan
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<<<<<<< HEAD
               {serviceViews.map((service) => (
                 <div
                   key={service.id}
@@ -271,6 +310,15 @@ const Home: NextPage = () => {
                   onClick={() => incrementViews(service.id)}
                 >
                   <Image
+=======
+              {services.map((service, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col rounded-md p-4 mb-6 gap-2
+                "
+                >
+                  <img
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
                     src={service.imageUrl.src}
                     alt={service.title}
                     className="w-full h-40 md:h-64 object-cover rounded-t-md"
@@ -278,9 +326,12 @@ const Home: NextPage = () => {
                   <h3 className="text-lg font-semibold ">{service.title}</h3>
                   <p className="text-pink-500 font-bold ">{service.price}</p>
                   <p className="text-gray-700 ">{service.description}</p>
+<<<<<<< HEAD
                   <p className="text-gray-500 text-sm">
                     Dilihat: {service.views} kali
                   </p>
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
                 </div>
               ))}
             </div>
@@ -296,14 +347,21 @@ const Home: NextPage = () => {
             <div className="flex flex-col items-center gap-6 xl:flex-row">
               <div className="xl:w-3/5">
                 <Image
+<<<<<<< HEAD
                   src={mostViewedService.imageUrl.src}
                   alt="Service Image"
                   className="w-[179px] h-[165px] rounded-lg xl:w-[826px] xl:h-[759px]"
+=======
+                  src={images.myBeautica_image3.src}
+                  alt="Service Image"
+                  className="w-full rounded-lg"
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
                 />
               </div>
 
               <div className="flex flex-col justify-center gap-3 xl:w-2/5">
                 <h3 className="text-lg font-semibold xl:text-4xl">
+<<<<<<< HEAD
                   {mostViewedService.title}
                 </h3>
                 <p className="text-pink-500 font-bold text-xs xl:text-2xl">
@@ -311,6 +369,20 @@ const Home: NextPage = () => {
                 </p>
                 <p className="text-zinc text-xs font-normal xl:text-2xl">
                   {mostViewedService.description}
+=======
+                  Chemical Peels Facial Treatment
+                </h3>
+                <p className="text-pink-500 font-bold text-xs xl:text-2xl">
+                  IDR 199.000
+                </p>
+                <p className="text-zinc text-xs font-normal xl:text-2xl">
+                  Chemical peels offer numerous benefits for the skin, including
+                  improved texture, reduction of fine lines and wrinkles, and
+                  treatment of acne and acne scars. By promoting collagen
+                  production and cell turnover, they help to smooth and refine
+                  the skin, lighten areas of hyperpigmentation, and reduce the
+                  appearance of enlarged pores.
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
                 </p>
                 <Button className="bg-ungu text-white font-semibold font-openSans rounded-lg">
                   Pesan Layanan
@@ -375,6 +447,7 @@ const Home: NextPage = () => {
             </div>
 
             <div className="grid grid-cols-2 justify-center gap-3">
+<<<<<<< HEAD
               {testimonials.slice(0, 3).map((testimonial, index) => (
                 <div
                   key={index}
@@ -384,6 +457,16 @@ const Home: NextPage = () => {
                   //     ? "col-span-full sm:col-span-1 md:col-span-1 md:col-start-2"
                   //     : ""
                   // }`}
+=======
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className={`bg-white shadow-md p-6 rounded-lg ${
+                    index === 2
+                      ? "col-span-full sm:col-span-1 md:col-span-1 md:col-start-2"
+                      : ""
+                  }`}
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
                 >
                   <p className="text-lg italic mb-4">"{testimonial.text}"</p>
                   <div className="flex items-center gap-1">
@@ -400,17 +483,21 @@ const Home: NextPage = () => {
                   </div>
                 </div>
               ))}
+<<<<<<< HEAD
               {/* Testimonial input */}
               <div className="bg-white shadow-md p-6 rounded-lg flex flex-col items-center justify-center">
                 <Button className="bg-ungu text-white font-semibold font-openSans rounded-lg" onPress={onOpen}>
                   Tambah Testimonial
                 </Button>
               </div>
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
             </div>
           </div>
         </section>
       </main>
 
+<<<<<<< HEAD
       {/* Modal for adding testimonial */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
@@ -454,6 +541,8 @@ const Home: NextPage = () => {
       </Modal>
 
 
+=======
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
       {/* Footer */}
       <footer className="bg-stone-800 flex flex-col text-white py-8 px-6 w-screen xl:px-32">
         <div className="flex flex-col xl:flex-row xl:justify-between pb-3 border-b">
@@ -470,6 +559,10 @@ const Home: NextPage = () => {
               Unduh Aplikasi
             </Button>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
         </div>
 
         <div className="flex flex-col mt-3 gap-6 xl:flex-row xl:justify-between">
@@ -524,6 +617,10 @@ const Home: NextPage = () => {
         </div>
 
         <div className="text-xs opacity-40">&copy; 2023 — Copyright</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 208ca8c2a0812e9f0c67992575fadb9edd34e4f0
       </footer>
     </div>
   );
