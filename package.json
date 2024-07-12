@@ -13,7 +13,12 @@
     "@eslint/config-array": "^0.17.0",
     "@eslint/object-schema": "^2.1.4",
     "@heroicons/react": "^2.1.4",
+    "@nextui-org/avatar": "0.0.0-canary-20240616172522",
+    "@nextui-org/user": "0.0.0-canary-20240616172522",
     "@nextui-org/react": "^2.4.2",
+    "@nextui-org/system": "^2.2.2",
+    "@nextui-org/theme": "^2.2.6",
+    "framer-motion": "^11.3.2",
     "glob": "^10.4.2",
     "lru-cache": "^10.3.0",
     "next": "14.2.4",
@@ -33,8 +38,22 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
+  "compilerOptions": {
+
+    "target": "es5",
+
+    "module": "commonjs",
+
+    "strict": true,
+
+    "esModuleInterop": true,
+
+    "jsx": "react"
+
+  },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "index.js",
   "author": "",
   "license": "ISC"
+  
 }
