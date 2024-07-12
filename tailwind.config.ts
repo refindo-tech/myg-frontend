@@ -19,6 +19,12 @@ const config: Config = {
         kuning: '#DBA200',
         kuning2: '#FFC300',
         abu: '#EFF0F6',
+        ungu: `#B680A2`,
+        ungu2: `#834077`,
+        pink1: `#FBECEF`,
+        pink2: `#FDF4F4`,
+        pink3: `#FDF4F4`,
+        zinc: `#71717A`,
       },
       fontSize: {
         '10px': '10px',
