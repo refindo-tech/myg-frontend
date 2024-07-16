@@ -9,9 +9,11 @@ const MyAcademyTes = () => {
         <>
             <NavbarMyAcademy />
             <p>Hello World</p>
-            <ComingSoonEvent/>
-            <RecommendationEvent/>
-            <div className="hidden lg:block">
+            <ComingSoonEvent />
+            <div className="min-h-screen">
+                <RecommendationEvent />
+            </div>
+            <div className="hidden lg:block mb-[60px]">
                 <Promotion />
                 <Review />
             </div>
