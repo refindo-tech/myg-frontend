@@ -14,10 +14,10 @@
     "@eslint/object-schema": "^2.1.4",
     "@heroicons/react": "^2.1.4",
     "@nextui-org/avatar": "0.0.0-canary-20240616172522",
-    "@nextui-org/user": "0.0.0-canary-20240616172522",
-    "@nextui-org/react": "^2.4.2",
+    "@nextui-org/react": "^0.0.0-canary-20240616172522",
     "@nextui-org/system": "^2.2.2",
     "@nextui-org/theme": "^2.2.6",
+    "@nextui-org/user": "0.0.0-canary-20240616172522",
     "framer-motion": "^11.3.2",
     "glob": "^10.4.2",
     "lru-cache": "^10.3.0",
@@ -25,6 +25,7 @@
     "punycode": "^2.3.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-scroll": "^1.9.0",
     "react-social-icons": "^6.16.0",
     "rimraf": "^5.0.7"
   },
@@ -32,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-scroll": "^1.8.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
@@ -39,21 +41,14 @@
     "typescript": "^5"
   },
   "compilerOptions": {
-
     "target": "es5",
-
     "module": "commonjs",
-
     "strict": true,
-
     "esModuleInterop": true,
-
     "jsx": "react"
-
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "index.js",
   "author": "",
   "license": "ISC"
-  
 }
