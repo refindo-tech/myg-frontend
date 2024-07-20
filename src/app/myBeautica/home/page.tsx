@@ -252,7 +252,7 @@ const Home: NextPage = () => {
 
           <Dropdown className="xl:hidden">
             <DropdownTrigger>
-              <Button isIconOnly variant="light">
+              <Button isIconOnly variant="light" className="xl:hidden">
                 <icons.MenuIcon />
               </Button>
             </DropdownTrigger>
