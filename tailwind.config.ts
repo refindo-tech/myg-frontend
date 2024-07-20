@@ -25,6 +25,16 @@ const config: Config = {
         pink2: `#FDF4F4`,
         pink3: `#FDF4F4`,
         zinc: `#71717A`,
+        foreground: "#71717A",
+        mya: {
+          50: '#FEF5F5',
+          100: '#FEF1EC',
+          500: "#FA9FA4",
+          600: "#D77482",
+        },
+        myg: {
+          500: '#FFC300',
+        },
       },
       fontSize: {
         '10px': '10px',
@@ -32,7 +42,10 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui(
+    {
+      addCommonColors: true,
+    }
+  )],
 };
-
 export default config;
