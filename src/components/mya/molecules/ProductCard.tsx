@@ -26,28 +26,24 @@ const ProductCard: React.FC<ProductCardProps> = (
     // Implement your component logic here
 
     return (
-        <Card 
-        className={`w-full rounded-2xl shadow-md p-1 flex flex-col justify-between ${isDetail ? 'bg-white' : 'bg-mya-100'}`}
-        >
-            <CardHeader className="pb-0 pt-2 px-4 flex-col flex-1 h-full items-start flex-grow">
+        <Card className={`w-full rounded-2xl shadow-md p-1 flex flex-col justify-between ${isDetail ? 'bg-white' : 'bg-mya-100'}`}>
+            <CardHeader className="pb-0 pt-2 px-4 flex-col flex-1 items-start">
                 <span className="text-default-500 text-xs font-normal font-openSans uppercase">{category}</span>
-                <h4 className="text-black text-2xl font-medium font-playfair leading-8 flex-1">{name}</h4>
-                <div className='flex flex-col w-full'>
+                <p className="pt-2 -mb-3 text-black text-2xl font-medium font-playfair leading-8">{name}</p>
+            </CardHeader>
+            <CardBody className="flex-0 justify-end items-end">
+                <div className='flex flex-col w-full py-2'>
                     <div className="flex items-center gap-2">
-                        <EyeIcon className="h-5 w-5 text-default-500" />
+                        <EyeIcon className="h-4 w-4 text-default-300" />
                         <span className="text-default-500 text-xs font-normal">{'Dilihat ' + views + ' orang'}</span>
                     </div>
-                    <p className="text-sm font-normal font-openSans text-default-700 leading-tight mt-4">{cutDescription(description)} </p>
+                    <p className="text-sm font-normal font-openSans text-default-700 leading-normal mt-1">{cutDescription(description)} </p>
                 </div>
-            </CardHeader>
-            <CardBody className="flex-1">
-                <div className="overflow-visible py-2 bottom-0 flex justify-center items-center h-40 bg-neutral-50 rounded-xl">
-                    <Image
-                        alt="Card background"
-                        className="object-cover h-32 w-auto flex-none"
+                <div className="overflow-visible bottom-0 flex justify-center items-center w-full bg-neutral-50 rounded-xl">
+                    <img
+                        className="object-contain w-full h-64 rounded-xl"
                         src={image}
-                        width={270}
-                        height={200}
+                        alt={name}
                     />
                 </div>
             </CardBody>

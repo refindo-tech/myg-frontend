@@ -9,7 +9,7 @@ const product = {
   name: "Ultimate Rejuve Serum",
   views: 200,
   description: "Body lotion with tone up effect + UV protection ekslusif bertekstur milk dengan wangi yang manis dan lembut dari almond. melembabkan, meningkatkan kecerahan kulit alami yang signifikan yang dilengkapi dengan proteksi sinar UVA & UVB Niacinamide atau dikenal juga sebagai nitocinamide, adalah salah satu zat turunan dari vitamin B3 (niacin). Dalam dunia dermatologi, zat ini digunakan untuk mengatasi jerawat dan bekasnya, mencerahkan kulit, serta mengendalikan gejala rosacea. Probiobalance memberikan hidrasi kulit, menutrisi kulit, sekaligus melembabkan kulit. Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-  image: "/assets/images/product/placeholder/a.png",
+  image: "/assets/images/product/placeholder/3.jpg",
   price: "Rp.120.000"
 };
 
@@ -25,7 +25,7 @@ const relatedProducts = [
     name: "Ultimate Rejuve Serum",
     views: 200,
     description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
+    image: "/assets/images/product/placeholder/1.jpg",
     price: "Rp.120.000"
   },
   {
@@ -33,7 +33,7 @@ const relatedProducts = [
     name: "Ultimate Dermal Shield Serum",
     views: 200,
     description: "Memperbaiki skin barier kulit yang rusak dan menjaga kelembapan kulit sehingga tampak lebih lembab.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/5077a01605ccd41eca81de9a3bdeb9864303efcadc5888b24bc1692ac067309c?apiKey=04edd4fc20274006b83b68624fe67059&",
+    image: "/assets/images/product/placeholder/2.jpg",
     price: "Rp.120.000"
   },
   {
@@ -41,7 +41,7 @@ const relatedProducts = [
     name: "Ultimate Brightening Serum",
     views: 200,
     description: "Kombinasi ekslusif untuk mencerahkan, menutrisi dan menghidrasi kulit.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/026f43fc51d84fcf38879f1b79de66ad25c9edfb53cfa1011e2f24f446a0752b?apiKey=04edd4fc20274006b83b68624fe67059&",
+    image: "/assets/images/product/placeholder/4.jpg",
     price: "Rp.120.000"
   },
   {
@@ -49,14 +49,10 @@ const relatedProducts = [
     name: "Ultimate Rejuve Serum",
     views: 200,
     description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
+    image: "/assets/images/product/placeholder/5.jpg",
     price: "Rp.120.000"
   }
 ];
-
-
-
-
 
 const Home: React.FC = () => {
   return (

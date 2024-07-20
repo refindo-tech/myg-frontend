@@ -2,7 +2,6 @@
 
 import React from 'react';
 import HomePage from '@components/mya/templates/HomePage';
-import { avatar } from '@nextui-org/react';
 
 const heroData = {
   title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
