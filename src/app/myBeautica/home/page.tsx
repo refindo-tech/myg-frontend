@@ -2,9 +2,26 @@
 import type { NextPage } from "next";
 import React, { useState, ChangeEvent, useRef } from "react";
 import {
-  Button, Image, Input, Avatar,
-  Textarea, Modal, ModalContent, ModalHeader,
-  ModalBody, ModalFooter, useDisclosure
+  Button,
+  Image,
+  Input,
+  Avatar,
+  Textarea,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
@@ -39,7 +56,7 @@ const users: User[] = [
   { id: 1, fullName: "Farah Adelia Putri", role: "Pelanggan" },
   { id: 2, fullName: "John Doe", role: "Pelanggan" },
   { id: 3, fullName: "Muhammad Rafli Gimnastiar", role: "Pelanggan" },
-];
+];  
 
 const services: Service[] = [
   {
@@ -158,51 +175,101 @@ const Home: NextPage = () => {
   return (
     <div className="w-full h-full">
       {/* Navbar */}
-      <header className="bg-white text-white py-4 flex justify-between items-center px-4 md:px-8 xl:px-64">
-        <div className="flex">
-          <Image
-            src={images.my_Beauty_logo.src}
-            alt="Image"
-            className="object-cover w-[70px] h-[46px] xl:w-[115px] xl:h-[76px]"
-          />
-        </div>
-        
-        <div className="text-black gap-16 justify-between font-playfair font-semibold hidden xl:flex">
-          <div className="flex text-ungu">Home</div>
-          <div className="flex text-zinc cursor-pointer" onClick={handleConsultationClick}>Konsultasi</div>
-        </div>
+      <Navbar isBordered>
+        <NavbarContent justify="start">
+          <NavbarBrand className="mr-4">
+            <Image
+              src={images.my_Beauty_logo.src}
+              alt="Logo"
+              className="object-cover w-[70px] h-[46px] "
+            />
+          </NavbarBrand>
+          <NavbarContent className="hidden xl:flex gap-16 font-playfair font-semibold">
+            <NavbarItem>
+              <Link color="foreground" href="#">
+                Home
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="#"
+                onClick={handleConsultationClick}
+                className="cursor-pointer text-zinc"
+              >
+                Konsultasi
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
+        </NavbarContent>
 
-        <div className="text-black hidden items-center gap-4 xl:flex xl:justify-between">
-          <div className="flex">
-            <Input
-              type="search"
-              radius="full"
-              isClearable
-              variant="bordered"
-              placeholder="I'am looking for..."
-              classNames={{
-                label: "text-black/50 dark:text-white/90",
-                input: ["bg-transparent", "placeholder:font-openSans italic text-zinc"],
-              }}
-              endContent={<icons.SearchIcon />}
-            />
-          </div>
-          <div className="flex items-center gap-2 font-openSans text-zinc">
-            <Avatar
-              showFallback
-              name="Jane Doe"
-              src="https://images.unsplash.com/broken"
-              className="bg-ungu2 text-white font-inter"
-            />
-            Login
-          </div>
-        </div>
-        <div className="flex xl:hidden">
-          <Button isIconOnly variant="light">
-            <icons.MenuIcon />
-          </Button>
-        </div>
-      </header>
+        <NavbarContent as="div" className="items-center" justify="end">
+          <Input
+            type="search"
+            radius="full"
+            isClearable
+            variant="bordered"
+            placeholder="I'am looking for..."
+            classNames={{
+              label: "text-black/50 dark:text-white/90",
+              input: [
+                "bg-transparent",
+                "placeholder:font-openSans italic text-zinc",
+              ],
+            }}
+            endContent={<icons.SearchIcon />}
+            className="hidden xl:flex"
+          />
+          <Dropdown
+            placement="bottom-end"
+            className="hidden xl:flex items-center gap-2 font-openSans text-zinc"
+          >
+            <DropdownTrigger>
+              <div className="xl:flex items-center hidden">
+                <Avatar
+                  showFallback
+                  name="Jane Doe"
+                  src="https://images.unsplash.com/broken"
+                  className="bg-ungu2 text-white font-inter"
+                />
+                <Button isIconOnly variant="light">
+                  Login
+                </Button>
+              </div>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">zoey@example.com</p>
+              </DropdownItem>
+              <DropdownItem key="settings">My Profile</DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
+
+          <Dropdown className="xl:hidden">
+            <DropdownTrigger>
+              <Button isIconOnly variant="light">
+                <icons.MenuIcon />
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">zoey@example.com</p>
+              </DropdownItem>
+              <DropdownItem key="settings">My Profile</DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          
+        </NavbarContent>
+      </Navbar>
 
       <main>
         {/* content 1 */}
@@ -211,13 +278,19 @@ const Home: NextPage = () => {
             <div className="bg-pink2 flex rounded-tr-lg my-3 mr-3 w-full">
               <div className="flex flex-col justify-center py-12 p-3 xl:px-32 xl:gap-8">
                 <h1 className="text-3xl font-bold text-ungu font-playfair text-left xl:text-5xl">
-                  My Beautica: Solusi Kecantikan Premium untuk Kulit yang Memukau
+                  My Beautica: Solusi Kecantikan Premium untuk Kulit yang
+                  Memukau
                 </h1>
                 <p className="mt-4 text-zinc font-openSans text-left xl:text-xl xl:pr-16">
-                  My Beautica menawarkan pelayanan kecantikan eksklusif dengan menggunakan produk-produk inovatif yang dirancang khusus untuk mempercantik dan meremajakan kulit Anda.
+                  My Beautica menawarkan pelayanan kecantikan eksklusif dengan
+                  menggunakan produk-produk inovatif yang dirancang khusus untuk
+                  mempercantik dan meremajakan kulit Anda.
                 </p>
                 <div className="flex items-start mt-4 xl:w-2/5">
-                  <Button className="bg-ungu text-white font-semibold font-openSans rounded-lg" onClick={handleExploreProductsClick}>
+                  <Button
+                    className="bg-ungu text-white font-semibold font-openSans rounded-lg"
+                    onClick={handleExploreProductsClick}
+                  >
                     Jelajahi Produk kami
                   </Button>
                 </div>
@@ -252,7 +325,9 @@ const Home: NextPage = () => {
                     className="w-full h-40 md:h-64 object-cover rounded-t-md"
                   />
                   <h3 className="text-lg font-semibold ">{service.title}</h3>
-                  <p className="text-pink-500 font-bold ">{formatToRupiah(service.price)}</p>
+                  <p className="text-pink-500 font-bold ">
+                    {formatToRupiah(service.price)}
+                  </p>
                   <p className="text-gray-700 line-clamp-3">
                     {service.description}
                   </p>
@@ -289,7 +364,10 @@ const Home: NextPage = () => {
                 <p className="text-zinc text-xs font-normal xl:text-2xl">
                   {mostViewedService.description}
                 </p>
-                <Button className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2 w-full" onClick={() => handleOrderClick(mostViewedService)}>
+                <Button
+                  className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2 w-full"
+                  onClick={() => handleOrderClick(mostViewedService)}
+                >
                   Pesan Layanan
                 </Button>
               </div>
@@ -300,7 +378,9 @@ const Home: NextPage = () => {
         {/* Content 4 */}
         <section className="py-8 bg-white">
           <div className="container mx-auto px-4 md:px-8">
-            <h2 className="text-2xl font-semibold mb-4 text-center xl:text-left">FAQs</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center xl:text-left">
+              FAQs
+            </h2>
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
               {faqItems.map((item, index) => (
                 <div key={index} className="mb-4">
@@ -308,11 +388,23 @@ const Home: NextPage = () => {
                     className="w-full text-left p-4 bg-white border-b flex justify-between items-center"
                     onClick={() => toggleFAQ(index)}
                   >
-                    <h4 className={`font-semibold font-openSans ${openFAQIndices.includes(index) ? "text-ungu" : ""}`}>
+                    <h4
+                      className={`font-semibold font-openSans ${
+                        openFAQIndices.includes(index) ? "text-ungu" : ""
+                      }`}
+                    >
                       {item.question}
                     </h4>
-                    <span className={`text-xl ${openFAQIndices.includes(index) ? "text-ungu" : ""}`}>
-                      {openFAQIndices.includes(index) ? <icons.MinusIcon /> : <icons.PlusIcon />}
+                    <span
+                      className={`text-xl ${
+                        openFAQIndices.includes(index) ? "text-ungu" : ""
+                      }`}
+                    >
+                      {openFAQIndices.includes(index) ? (
+                        <icons.MinusIcon />
+                      ) : (
+                        <icons.PlusIcon />
+                      )}
                     </span>
                   </button>
                   {openFAQIndices.includes(index) && (
@@ -338,15 +430,20 @@ const Home: NextPage = () => {
             </div>
             <div className="grid grid-cols-2 justify-center gap-3">
               {testimonials.slice(0, 3).map((testimonial, index) => (
-                <div key={index} className={`bg-white shadow-md p-6 rounded-lg`}>
+                <div
+                  key={index}
+                  className={`bg-white shadow-md p-6 rounded-lg`}
+                >
                   <p className="text-lg italic mb-4">"{testimonial.comment}"</p>
                   <div className="flex items-center gap-1">
-                    <Avatar
-                      showFallback
-                      name={testimonial.fullName}
-                      src="https://images.unsplash.com/broken"
-                      className="bg-ungu2 text-white font-inter"
-                    />
+                    <div className="flex-shrink-0">
+                      <Avatar
+                        showFallback
+                        name={testimonial.fullName}
+                        src="https://images.unsplash.com/broken"
+                        className="bg-ungu2 text-white font-inter w-10 h-10 rounded-full"
+                      />
+                    </div>
                     <div>
                       <h4 className="font-bold">{testimonial.fullName}</h4>
                       <p className="text-gray-500">{testimonial.role}</p>
@@ -355,13 +452,18 @@ const Home: NextPage = () => {
                 </div>
               ))}
               <div className="bg-white shadow-md p-6 rounded-lg flex flex-col items-center justify-center">
-                <Button className="bg-ungu text-white font-semibold font-openSans rounded-lg" onPress={onOpen}>
+                <Button
+                  className="bg-ungu text-white font-semibold font-openSans rounded-lg"
+                  onPress={onOpen}
+                >
                   Tambah Testimonial
                 </Button>
               </div>
             </div>
           </div>
         </section>
+
+
       </main>
 
       {/* Modal for adding testimonial */}
@@ -369,11 +471,29 @@ const Home: NextPage = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Tambah Testimonial</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                Tambah Testimonial
+              </ModalHeader>
               <ModalBody>
-                <Input isReadOnly fullWidth label="Nama" value={newTestimonial.fullName} />
-                <Input isReadOnly fullWidth label="Peran" value={newTestimonial.role} />
-                <Textarea fullWidth label="Testimonial" name="text" value={newTestimonial.comment} onChange={handleInputChange} />
+                <Input
+                  isReadOnly
+                  fullWidth
+                  label="Nama"
+                  value={newTestimonial.fullName}
+                />
+                <Input
+                  isReadOnly
+                  fullWidth
+                  label="Peran"
+                  value={newTestimonial.role}
+                />
+                <Textarea
+                  fullWidth
+                  label="Testimonial"
+                  name="comment"
+                  value={newTestimonial.comment}
+                  onChange={handleInputChange}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -410,7 +530,9 @@ const Home: NextPage = () => {
             <p className="text-sm opacity-60 leading-tight">
               Beauty, cosmetic & personal care
               <br />
-              Griya Baladika Asri, Jl. Perintis No.11 Rt. 001 Rw. 015, Taman Kopassus, Kelurahan Drangong, Kecamatan Taktakan, Kota Serang, Provinsi Banten., Serang 42162
+              Griya Baladika Asri, Jl. Perintis No.11 Rt. 001 Rw. 015, Taman
+              Kopassus, Kelurahan Drangong, Kecamatan Taktakan, Kota Serang,
+              Provinsi Banten., Serang 42162
             </p>
           </div>
           <div>
