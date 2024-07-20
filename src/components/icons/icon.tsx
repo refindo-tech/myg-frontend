@@ -8,6 +8,7 @@ import PlusIcon from "./plus";
 import MinusIcon from "./minus";
 import InstagramIcon from "./Instagram";
 import YoutubeIcon from "./youtubeIcon";
+import AddCommentIcon from "./CommentIcon";
 
 const icons = {
     GoogleIcon,
@@ -20,6 +21,7 @@ const icons = {
     MinusIcon,
     InstagramIcon,
     YoutubeIcon,
+    AddCommentIcon,
 };
 
 export default icons;

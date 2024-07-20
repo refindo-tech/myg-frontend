@@ -13,7 +13,6 @@
     "@heroicons/react": "^2.1.5",
     "@eslint/config-array": "^0.17.0",
     "@eslint/object-schema": "^2.1.4",
-    "@heroicons/react": "^2.1.4",
     "@nextui-org/avatar": "0.0.0-canary-20240616172522",
     "@nextui-org/react": "^0.0.0-canary-20240616172522",
     "@nextui-org/system": "^2.2.2",
