@@ -31,7 +31,7 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 
-import images from "../../../../public/images/images";
+import images from "../../../public/images/images";
 
 const DataProfile = () => {
   const [selected, setSelected] = useState("data-pengguna");
