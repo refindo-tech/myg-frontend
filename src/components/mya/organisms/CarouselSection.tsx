@@ -22,8 +22,8 @@ const CarouselSection: React.FC<CarouselProps> = ({ children: slides, autoSlide 
     }, [autoSlide, autoSlideInterval]);
 
     return (
-        <section className="max-w-screen mx-auto bg-white p-8">
-            <div className='relative overflow-hidden rounded-lg bg-mya-600'>
+        <section className="w-full max-w-[1440px] mx-auto bg-white p-8 xl:px-32">
+            <div className='relative max-h-[600px] overflow-hidden rounded-lg bg-mya-600'>
                 <div className='flex transition-transform ease-out duration-500' style={{ transform: `translateX(-${curr * 100}%)` }}>
                     {slides}
                 </div>

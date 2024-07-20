@@ -1,7 +1,17 @@
 import React from 'react';
-import { Button, Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+import { Button, Link, Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from '@nextui-org/react';
 
-const UserActions: React.FC = () => {
+interface NavItem {
+    label: string;
+    isActive: boolean;
+    href: string;
+}
+
+interface NavigationProps {
+    NavItems: NavItem[];
+}
+
+const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
     
     return (
         <Dropdown placement="bottom-end">
@@ -16,15 +26,32 @@ const UserActions: React.FC = () => {
                 />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
+
+                <DropdownSection showDivider title={'Menu'} className='sm:hidden'>
+                    {NavItems.map((item, index) => (
+                        <DropdownItem key={index}>
+                            <Link href={item.href} className='font-normal text-mya-600'>
+                                {item.label}
+                            </Link>
+                        </DropdownItem>
+                    ))}
+                </DropdownSection>
+
+                <DropdownSection showDivider title={'Settings'}>
+                <DropdownItem key="profile">Profile</DropdownItem>
+                <DropdownItem key="settings">My Settings</DropdownItem>
+                </DropdownSection>
+
+                <DropdownSection>
                 <DropdownItem key="profile" className="h-14 gap-2">
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">mybeautica@gmail.com</p>
                 </DropdownItem>
-                <DropdownItem key="profile">Profile</DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
                 <DropdownItem key="logout" color="danger">
                     Log Out
                 </DropdownItem>
+                </DropdownSection>
+                
             </DropdownMenu>
         </Dropdown>
     );

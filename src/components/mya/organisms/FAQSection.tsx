@@ -22,7 +22,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs }) => {
   };
 
   return (
-    <section className="w-full max-w-[1420px] mx-auto bg-white p-16">
+    <section className="w-full max-w-[1420px] mx-auto bg-white p-16 xl:px-32">
       <div className="w-full flex justify-center items-center relative">
         <div className="bg-red-300 rounded-full w-20 h-10 absolute z-0 right-1/2 -top-21 blur-2xl" />
         <h1 className="text-[65px] text-default-700 font-normal mb-8 font-playfair">

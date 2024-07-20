@@ -4,8 +4,8 @@ import { InstagramIcon, YoutubeIcon } from '../icons';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="w-full mx-auto bg-stone-800 m-8">
-            <div className="w-full flex flex-col px-16 py-2 divide-y divide-stone-700">
+        <footer className="w-full mx-auto bg-stone-800">
+            <div className="w-full flex flex-col px-16 xl:px-32 py-2 divide-y divide-stone-700">
                 <div className="w-full flex py-2">
                     {/* logo */}
                     <div className="flex-1 inline-flex items-center h-24 justify-center md:justify-start">

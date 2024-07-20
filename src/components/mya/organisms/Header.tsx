@@ -38,10 +38,10 @@ const Header: React.FC<HeaderProps> = ({ logo }) => {
             >
                 <NavbarContent className="items-center gap-4 flex" justify="start">
 
-                    <NavbarMenuToggle
+                    {/* <NavbarMenuToggle
                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                         className="sm:hidden"
-                    />
+                    /> */}
 
                     <NavbarBrand className="flex-none">
                         <Image
@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({ logo }) => {
                 </NavbarContent>
                 <NavbarContent justify="end" as="div" className="items-center">
                     <SearchBar />
-                    <UserActions />
+                    <UserActions NavItems={navItems} />
                 </NavbarContent>
             </Navbar>
         </header>

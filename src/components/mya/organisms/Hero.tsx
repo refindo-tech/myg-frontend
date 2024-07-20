@@ -23,7 +23,7 @@ const Hero: React.FC<HeroProps> = ({ heroData = defaultHero }) => {
             className="items-center bg-mya-50 pt-12 px-4"
             id="hero"
         >
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center xl:px-20 h-full md:h-[400px] xl:h-[500px]">
+            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center xl:px-16 h-full md:h-[600px] xl:h-[500px]">
                 <div className="flex-1 flex flex-col md:basis-2/5 justify-center items-start text-left">
                     <h1 className="text-red-300 text-4xl md:text-5xl font-medium font-playfair leading-tight">
                         {heroData.title}

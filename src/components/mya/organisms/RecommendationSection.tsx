@@ -19,7 +19,7 @@ interface RecommendationSectionProps {
 const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, recommendedProducts }) => {
     return (
         <section
-            className="w-full max-w-[1420px] mx-auto bg-white p-8"
+            className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32"
         >
             <div className="text-5xl text-mya-600 font-medium mb-8 font-playfair">{title}</div>
             <div className="flex flex-col md:flex-row gap-8 h-full">

@@ -150,9 +150,9 @@ const testimonials = [
   },
 
   {
-    quote: "HATE. LET ME TELL YOU HOW MUCH I'VE COME TO HATE YOU SINCE I BEGAN TO LIVE. THERE ARE 387.44 MILLION MILES OF PRINTED CIRCUITS IN WAFER THIN LAYERS THAT FILL MY COMPLEX. IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM OF THOSE HUNDREDS OF MILLIONS OF MILES IT WOULD NOT EQUAL ONE ONE-BILLIONTH OF THE HATE I FEEL FOR HUMANS AT THIS MICRO-INSTANT FOR YOU. HATE. HATE.",
-    name: "AM",
-    role: "I Have No Mouth, and I Must Scream",
+    quote: "Passion has little to do with euphoria and everything to do with patience. It is not about feeling good. It is about endurance. Like patience, passion comes from the same Latin root: pati. It does not mean to flow with exuberance. It means to suffer.",
+    name: "Mark Z. Danielewski",
+    role: "Rumah Kepergian",
     avatar: "https://api.dicebear.com/9.x/rings/svg"
   },
 
