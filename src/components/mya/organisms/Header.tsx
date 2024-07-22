@@ -21,9 +21,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ logo }) => {
-
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
     const navItems = [
         { label: "Home", isActive: true, href: "/" },
         { label: "Syarat dan Ketentuan", isActive: false, href: "/terms" },
@@ -37,12 +34,6 @@ const Header: React.FC<HeaderProps> = ({ logo }) => {
                 className="py-2 bg-white shadow inline-flex mx-auto w-full"
             >
                 <NavbarContent className="items-center gap-4 flex" justify="start">
-
-                    {/* <NavbarMenuToggle
-                        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                        className="sm:hidden"
-                    /> */}
-
                     <NavbarBrand className="flex-none">
                         <Image
                             src={logo}

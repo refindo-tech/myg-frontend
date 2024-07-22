@@ -7,7 +7,7 @@ interface Product {
     name: string;
     views: number;
     description: string;
-    image: string;
+    imageUrl: string;
     price: string;
 }
 
@@ -31,7 +31,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                             width="auto"
                             alt={recommendedProducts[0].name}
                             className="w-full object-cover"
-                            src={recommendedProducts[0].image}
+                            src={recommendedProducts[0].imageUrl}
                         />
                     </CardBody>
                     <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
@@ -51,7 +51,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                                     height={200}
                                     alt={product.name}
                                     className="h-full md:h-36 w-auto object-cover"
-                                    src={product.image}
+                                    src={product.imageUrl}
                                 />
                             </CardBody>
                             <CardFooter className="pb-0 pt-2 px-4 flex-col items-start flex-grow">

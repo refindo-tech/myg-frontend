@@ -4,13 +4,13 @@ import { Button, Card, CardHeader, CardBody, CardFooter, Image } from "@nextui-o
 interface HeroData {
     title: string;
     description: string;
-    image: string;
+    imageUrl: string;
 }
 
 const defaultHero: HeroData = {
     title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
     description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
-    image: "https://via.placeholder.com/888x709",
+    imageUrl: "https://via.placeholder.com/888x709",
 };
 
 interface HeroProps {
@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ heroData = defaultHero }) => {
                 <div className="flex-1 flex flex-col md:basis-3/5 justify-center items-center mt-12 md:mt-0 relative h-full">
                     <img
                         className="w-full h-auto md:w-auto md:h-full rounded-md"
-                        src={heroData.image}
+                        src={heroData.imageUrl}
                         alt="Model Image"
                     />
                     <Card className="md:absolute bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">

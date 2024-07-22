@@ -65,7 +65,7 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ category, name, v
                 </div>
             </CardHeader>
             <CardBody className="">
-                <p className="text-sm font-normal font-openSans text-default-400 leading-shallow">{description} </p>
+                <p className="text-sm text-justify font-normal font-openSans text-default-400 leading-shallow">{description} </p>
             </CardBody>
         </Card>
     );
