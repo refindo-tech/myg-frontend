@@ -20,12 +20,12 @@ const DetailPage: React.FC<DetailPageProps> = ({ logo, product, relatedProducts,
   return (
     <div className="flex flex-col h-full bg-white w-screen">
       <Header logo={logo} />
-      <main className="flex flex-col w-full h-full">
+      <main className="flex flex-col w-full">
         <DetailSection product={product} />
         <ProductSection title="Produk Lainnya" products={relatedProducts} isDetail />
         <Hero heroData={heroData} />
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 };

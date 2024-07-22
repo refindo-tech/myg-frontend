@@ -7,7 +7,7 @@ interface ProductCardProps {
     name: string;
     views: number;
     description: string;
-    image: string;
+    imageUrl: string;
     price: string;
     isDetail?: boolean;
 }
@@ -21,7 +21,7 @@ const cutDescription = (description: string, length = 85) => {
 };
 
 const ProductCard: React.FC<ProductCardProps> = (
-    { category, name, views, description, image, price, isDetail = false }
+    { category, name, views, description, imageUrl: image, price, isDetail = false }
 ) => {
     // Implement your component logic here
 
@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = (
                 </div>
                 <div className="overflow-visible bottom-0 flex justify-center items-center w-full bg-neutral-50 rounded-xl">
                     <img
-                        className="object-contain w-full h-64 rounded-xl"
+                        className="object-cover w-full h-48 rounded-xl"
                         src={image}
                         alt={name}
                     />

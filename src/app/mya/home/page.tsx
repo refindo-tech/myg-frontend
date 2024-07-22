@@ -6,7 +6,7 @@ import HomePage from '@components/mya/templates/HomePage';
 const heroData = {
   title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
   description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
-  image: "/assets/images/hero/menhera.png",
+  imageUrl: "/assets/images/hero/menhera.png",
 };
 
 const faceProducts = [
@@ -15,7 +15,7 @@ const faceProducts = [
     name: "Ultimate Rejuve Serum",
     views: 200,
     description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -23,7 +23,7 @@ const faceProducts = [
     name: "Ultimate Dermal Shield Serum",
     views: 200,
     description: "Memperbaiki skin barier kulit yang rusak dan menjaga kelembapan kulit sehingga tampak lebih lembab.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/5077a01605ccd41eca81de9a3bdeb9864303efcadc5888b24bc1692ac067309c?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/5077a01605ccd41eca81de9a3bdeb9864303efcadc5888b24bc1692ac067309c?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -31,7 +31,7 @@ const faceProducts = [
     name: "Ultimate Brightening Serum",
     views: 200,
     description: "Kombinasi ekslusif untuk mencerahkan, menutrisi dan menghidrasi kulit.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/026f43fc51d84fcf38879f1b79de66ad25c9edfb53cfa1011e2f24f446a0752b?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/026f43fc51d84fcf38879f1b79de66ad25c9edfb53cfa1011e2f24f446a0752b?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -39,7 +39,7 @@ const faceProducts = [
     name: "Ultimate Rejuve Serum",
     views: 200,
     description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/d3c58a4738ff84a3d0b7b99ae02e6ce74fc26fc19a065ee68d8cddf2d02286c4?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   }
 ];
@@ -50,7 +50,7 @@ const skinProducts = [
     name: "Milky Mask and Moisturizer",
     views: 200,
     description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/c4414680ffb796e086841f44dbce7a96d333cc4b65eb30c1142121f4e28325f3?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/c4414680ffb796e086841f44dbce7a96d333cc4b65eb30c1142121f4e28325f3?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -58,7 +58,7 @@ const skinProducts = [
     name: "Brightening Body Serum",
     views: 200,
     description: "Pelembab tubuh ekslusif bertekstur milk dengan wangi yang manis dan lembut dari vanila.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/55e5563cd3762a46035ab5ecc0adf925b43d2cde1e2812bec28ee04734f5ef46?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/55e5563cd3762a46035ab5ecc0adf925b43d2cde1e2812bec28ee04734f5ef46?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -66,7 +66,7 @@ const skinProducts = [
     name: "Luxury Body Brightening Lotion (Rose)",
     views: 200,
     description: "Pelembab tubuh esklusif bertekstur milk dengan wangi yang manis dan lembut dari rose.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/8cbc12bf1310253a2f3e73bd232b7def521c97dbb4f9b84bfdf26a531e55105a?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/8cbc12bf1310253a2f3e73bd232b7def521c97dbb4f9b84bfdf26a531e55105a?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -74,7 +74,7 @@ const skinProducts = [
     name: "Luxury Body Brightening Lotion (Almond)",
     views: 200,
     description: "Protection ekslusif bertekstur milk dengan wangi yang manis dan lembut dari almond.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/38a467f991a5bfa1e867352b33c8eafd9b1230f02df17d53b01106d46b2ca2ed?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/38a467f991a5bfa1e867352b33c8eafd9b1230f02df17d53b01106d46b2ca2ed?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   }
 ];
@@ -85,7 +85,7 @@ const recommendedProducts = [
     name: "Brightening Body Serum",
     views: 200,
     description: "Body lotion with tone up effect + UV protection ekslusif bertekstur milk dengan wangi yang manis dan lembut dari almond. Melembabkan, meningkatkan kecerahan kulit alami dengan proteksi sinar UVA & UVB",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/55e5563cd3762a46035ab5ecc0adf925b43d2cde1e2812bec28ee04734f5ef46?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/55e5563cd3762a46035ab5ecc0adf925b43d2cde1e2812bec28ee04734f5ef46?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -93,7 +93,7 @@ const recommendedProducts = [
     name: "Luxury Body Brightening Lotion (Rose)",
     views: 200,
     description: "Pelembab tubuh eksklusif bertekstur milk dengan wangi yang manis dan lembut dari rose..",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/8cbc12bf1310253a2f3e73bd232b7def521c97dbb4f9b84bfdf26a531e55105a?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/8cbc12bf1310253a2f3e73bd232b7def521c97dbb4f9b84bfdf26a531e55105a?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
   {
@@ -101,7 +101,7 @@ const recommendedProducts = [
     name: "Luxury Body Brightening Lotion (Almond)",
     views: 200,
     description: "Argireline atau dikenal dengan acetly hexapeptide-8 atau acetly  hexapeptide-3 memberikan nutrisi pada kulit dan melembabkan kulit.",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/38a467f991a5bfa1e867352b33c8eafd9b1230f02df17d53b01106d46b2ca2ed?apiKey=04edd4fc20274006b83b68624fe67059&",
+    imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/38a467f991a5bfa1e867352b33c8eafd9b1230f02df17d53b01106d46b2ca2ed?apiKey=04edd4fc20274006b83b68624fe67059&",
     price: "Rp.120.000"
   },
 ];

@@ -6,7 +6,7 @@ interface Product {
     name: string;
     views: number;
     description: string;
-    image: string;
+    imageUrl: string;
     price: string;
 }
 

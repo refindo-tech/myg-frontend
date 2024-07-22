@@ -7,7 +7,7 @@ interface Product {
     name: string;
     views: number;
     description: string;
-    image: string;
+    imageUrl: string;
     price: string;
 }
 
@@ -28,7 +28,7 @@ const DetailSection: React.FC<DetailSectionProps> = ({ product }) => {
                 <div className="flex flex-none flex-col w-full md:basis-1/2 justify-center items-start text-left">
                     <img
                         className="sm:rounded-2xl object-cover aspect-square w-full"
-                        src={product.image}
+                        src={product.imageUrl}
                         alt={product.name}
                     />
                 </div>
