@@ -13,17 +13,18 @@ interface DetailPageProps {
   logo: string;
   relatedProducts: any[];
   heroData: any;
+  heroProduct: any;
   product: any;
 }
 
-const DetailPage: React.FC<DetailPageProps> = ({ logo, product, relatedProducts, heroData }) => {
+const DetailPage: React.FC<DetailPageProps> = ({ logo, product, relatedProducts, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
       <Header logo={logo} />
       <main className="flex flex-col w-full">
         <DetailSection product={product} />
         <ProductSection title="Produk Lainnya" products={relatedProducts} isDetail />
-        <Hero heroData={heroData} />
+        <Hero heroData={heroData} showcaseProduct={heroProduct} />
       </main>
       <Footer />
     </div>

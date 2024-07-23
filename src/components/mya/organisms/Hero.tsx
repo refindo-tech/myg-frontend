@@ -1,5 +1,8 @@
 import React from "react";
-import { Button, Card, CardHeader, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { useRouter, usePathname } from "next/navigation";
+import Product from "@/types/mya/product";
+import { imageUrl, cutDescription } from "@/lib/mya/helpers";
+import { Button, Card, CardHeader, CardBody, CardFooter, Image, Link } from "@nextui-org/react";
 
 interface HeroData {
     title: string;
@@ -7,17 +10,28 @@ interface HeroData {
     imageUrl: string;
 }
 
-const defaultHero: HeroData = {
-    title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
-    description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
-    imageUrl: "https://via.placeholder.com/888x709",
-};
-
 interface HeroProps {
-    heroData?: HeroData;
+    heroData: HeroData;
+    showcaseProduct: Product;
 }
 
-const Hero: React.FC<HeroProps> = ({ heroData = defaultHero }) => {
+const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
+    const router = useRouter();
+    const pathname = usePathname();
+    function redirectToProductDetail() {
+        router.push(`/mya/product/${showcaseProduct.productId}`);
+    }
+    function redirectToHome() {
+        //to #produk id, smooth scroll
+        //check if on home page
+        const produkElement = document.getElementById("produk");
+        if (produkElement) {
+            produkElement.scrollIntoView({ behavior: "smooth" });
+        } else {
+            router.push("/mya#produk");
+        }
+
+    }
     return (
         <section
             className="items-center bg-mya-50 pt-12 px-4"
@@ -31,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ heroData = defaultHero }) => {
                     <p className="text-zinc-500 text-lg font-normal font-openSans leading-7 mt-4">
                         {heroData.description}
                     </p>
-                    <Button className="bg-rose-400 text-white font-semibold rounded-xl mt-6 px-6 py-3">
+                    <Button className="bg-rose-400 text-white font-semibold rounded-xl mt-6 px-6 py-3" onClick={redirectToHome}>
                         Jelajahi produk kami
                     </Button>
                 </div>
@@ -43,20 +57,26 @@ const Hero: React.FC<HeroProps> = ({ heroData = defaultHero }) => {
                     />
                     <Card className="md:absolute bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">
                         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                            <h4 className="text-black text-md font-medium font-playfair leading-tight">Luxury Body Brightening Lotion (Almond)</h4>
-                            <p className="text-tiny font-normal">Protection ekslusif bertekstur milk dengan wangi yang manis dan lembut dari almond.</p>
+                            {/* <h4 className="text-black text-md font-medium font-playfair leading-tight"> {showcaseProduct.name} </h4> */}
+                            <Link
+                                href={`/mya/product/${showcaseProduct.productId}`}
+                                className="text-black py-2 text-md font-medium font-playfair leading-tight hover:text-mya-600"
+                            >
+                                {showcaseProduct.name}
+                            </Link>
+                            <p className="text-tiny font-normal">{cutDescription(showcaseProduct.description, 125)}</p>
                             {/* <small className="text-default-500">12 Tracks</small> */}
                         </CardHeader>
                         <CardBody className="overflow-visible py-2">
                             <Image
                                 alt="Card background"
-                                className="object-cover rounded-xl h-28 w-full"
-                                src="https://via.placeholder.com/250x250"
+                                className="object-cover rounded-xl h-28 w-full hover:scale-105 transition-transform duration-300"
+                                src={imageUrl(showcaseProduct.productImages)}
                                 width={270}
                             />
                         </CardBody>
                         <CardFooter className="flex justify-end items-center px-4">
-                            <Button className="bg-rose-400 text-white font-semibold rounded-xl px-6 py-2">
+                            <Button className="bg-rose-400 text-white font-semibold rounded-xl px-6 py-2" onClick={redirectToProductDetail}>
                                 Beli Sekarang
                             </Button>
                         </CardFooter>

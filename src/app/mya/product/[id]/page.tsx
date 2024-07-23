@@ -1,9 +1,8 @@
 'use client';
-
-import React from 'react';
-import DetailPage from '@components/mya/templates/DetailPage';
+import { NextPage } from 'next';
 import useProducts from '@hooks/mya/useProducts';
-
+import DetailPage from '@components/mya/templates/DetailPage';
+import LoadingPage from '@/components/mya/templates/LoadingPage';
 
 
 const product = {
@@ -21,53 +20,21 @@ const heroData = {
   imageUrl: "/assets/images/hero/menhera.png",
 };
 
-const relatedProducts = [
-  {
-    category: "Perawatan wajah",
-    name: "Ultimate Rejuve Serum",
-    views: 200,
-    description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    imageUrl: "/assets/images/product/placeholder/1.jpg",
-    price: "Rp.120.000"
-  },
-  {
-    category: "Perawatan wajah",
-    name: "Ultimate Dermal Shield Serum",
-    views: 200,
-    description: "Memperbaiki skin barier kulit yang rusak dan menjaga kelembapan kulit sehingga tampak lebih lembab.",
-    imageUrl: "/assets/images/product/placeholder/2.jpg",
-    price: "Rp.120.000"
-  },
-  {
-    category: "Perawatan wajah",
-    name: "Ultimate Brightening Serum",
-    views: 200,
-    description: "Kombinasi ekslusif untuk mencerahkan, menutrisi dan menghidrasi kulit.",
-    imageUrl: "/assets/images/product/placeholder/4.jpg",
-    price: "Rp.120.000"
-  },
-  {
-    category: "Perawatan wajah",
-    name: "Ultimate Rejuve Serum",
-    views: 200,
-    description: "Mengurangi kerutan pada kulit seperti habis botoks. memberikan nutrisi pada kulit dan melembabkan.",
-    imageUrl: "/assets/images/product/placeholder/5.jpg",
-    price: "Rp.120.000"
-  }
-];
-
-const Detail: React.FC = () => {
-  
+// id from url, e.g. /product/[id]/page.tsx
+export default function Product({ params }: { params: { id: string } }) {
   const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1 });
+  const { data: relatedProducts, isLoading: relatedLoading } = useProducts.all({ limit: 4 }); 
+  const { data: product, isLoading: productLoading } = useProducts.byId(Number(params.id));
+  const isHeroLoading = heroLoading || relatedLoading || productLoading;
+  if (isHeroLoading) return <LoadingPage />;
+
   return (
     <DetailPage
       logo="https://cdn.builder.io/api/v1/image/assets/TEMP/3286fac76e3ba9a985929c27e761a770990e30ecdadb8c2ecd7a514c9a3db612?apiKey=04edd4fc20274006b83b68624fe67059&"
       product={product}
       heroData={heroData}
-      heroProduct={heroProducts}
+      heroProduct={heroProducts[0]}
       relatedProducts={relatedProducts}
     />
   );
-};
-
-export default Detail;
+}

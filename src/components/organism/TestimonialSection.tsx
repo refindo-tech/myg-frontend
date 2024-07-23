@@ -1,42 +1,49 @@
 import React from 'react';
-import { Card, CardBody, Avatar, Button } from '@nextui-org/react';
-import { YoutubeIcon, AddCommentIcon } from '../icons';
+import Testimony from '@/types/testimony';
+import { Avatar, } from '@nextui-org/react';
+import { YoutubeIcon, AddCommentIcon } from '@/components/mya/icons';
 
 import AddNewTestimony from '@components/mya/molecules/AddNewTestimony';
 
-interface TestimonialProps {
-    quote: string;
-    name: string;
-    role: string;
-    avatar?: string;
-}
+import useTestimonies from '@/hooks/useTestimonies';
 
 interface TestimonialSectionProps {
-    testimonials: TestimonialProps[];
+    testimonials?: Testimony[];
 }
 
-const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, avatar }) => {
+const Testimonial: React.FC<Testimony> = (testimony) => {
+
+    // Random Avatar sementara
+    function randomAvatar() {
+        const avatars = [
+            "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Felix",
+            "https://api.dicebear.com/9.x/rings/svg",
+            "https://api.dicebear.com/9.x/thumbs/svg?seed=Felix",
+        ];
+        return avatars[Math.floor(Math.random() * avatars.length)];
+    }
+
     return (
         <div className="relative px-8 py-10 bg-zinc-100 rounded-[14px] shadow flex-col items-center gap-5 inline-flex min-h-full">
             <div className='flex-1 w-full h-full flex flex-col items-center justify-center'>
                 <div className="absolute -top-8 text-black text-[120px] font-normal font-['Open Sans'] leading-normal">“</div>
                 <div className="relative flex-col flex py-4 min-h-[150px] xl:min-h-[100px] items-center justify-center">
-                    <div className="w-full text-center text-black text-normal font-normal font-['Open Sans'] leading-normal"> "{quote}" </div>
+                    <div className="w-full text-center text-black text-normal font-normal font-['Open Sans'] leading-normal"> "{testimony.comment}"</div>
                 </div>
             </div>
 
             {/* User Info */}
             <div className="justify-start bottom-0 gap-4 flex flex-col md:flex-row items-center md:w-full">
                 <Avatar
-                    src={avatar}
+                    src={randomAvatar()}
                     alt="Avatar"
                     size="lg"
                     className="flex-none"
                 />
                 <div className="justify-start items-start inline-flex h-full">
                     <div className="flex-col justify-start items-center md:items-start flex">
-                        <div className="text-black text-lg font-semibold font-['Open Sans']">{name}</div>
-                        <div className="text-center text-black text-sm font-normal font-['Open Sans']">{role}</div>
+                        <div className="text-black text-lg font-semibold font-['Open Sans']">{testimony.fullName}</div>
+                        <div className="text-center text-black text-sm font-normal font-['Open Sans']">{testimony.role}</div>
                     </div>
                 </div>
             </div>
@@ -44,7 +51,10 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, name, role, avatar }) 
     );
 };
 
-const TestimonialSection: React.FC<TestimonialSectionProps> = ({ testimonials }) => {
+
+const TestimonialSection: React.FC<TestimonialSectionProps> = () => {
+    const { data: testimonials, isLoading: testimoniesLoading } = useTestimonies.all({ limit: 3 });
+    if (testimoniesLoading) return <div>Loading...</div>;
     return (
         <section className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32">
             <div className="w-full items-center flex flex-col lg:flex-row gap-8">
@@ -59,7 +69,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ testimonials })
 
                     {/* Input Testimonial */}
 
-                    <div className="flex px-8 py-10 bg-zinc-100 rounded-[14px] shadow flex-col items-center gap-5 inline-flex min-h-full">
+                    <div className="px-8 py-10 bg-zinc-100 rounded-[14px] shadow flex-col items-center gap-5 inline-flex min-h-full">
                         <div className='flex-1 w-full h-full flex flex-row lg:flex-col xl:flex-row items-center justify-center gap-5'>
                             <div className="w-full h-full p-5 rounded-xl shadow border border-dashed border-black flex-col justify-center items-center gap-2 inline-flex">
                                 <div className="self-stretch text-center text-black text-normal font-normal font-['Open Sans'] leading-normal">Berikan Pendapatmu disini!</div>
@@ -74,7 +84,6 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ testimonials })
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

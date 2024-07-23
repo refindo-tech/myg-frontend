@@ -1,10 +1,11 @@
-import React from "react";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+'use client'
 
+import React from "react";
 export default function App() {
+
   return (
     <div>
-        Welcome
+      <h1>Hello World</h1>
     </div>
   );
 }

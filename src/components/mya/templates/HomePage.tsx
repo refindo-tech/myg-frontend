@@ -7,7 +7,7 @@ import ProductSection from '@components/mya/organisms/ProductSection';
 import CarouselSection from '@components/mya/organisms/CarouselSection';
 import RecommendationSection from '@components/mya/organisms/RecommendationSection';
 import FAQSection from '@components/mya/organisms/FAQSection';
-import TestimonialSection from '@components/mya/organisms/TestimonialSection';
+import TestimonialSection from '@/components/organism/TestimonialSection';
 import Footer from '@components/mya/organisms/Footer';
 
 interface HomePageProps {
@@ -17,16 +17,18 @@ interface HomePageProps {
   recommendedProducts: any[];
   slides: string[];
   faqs: any[];
-  testimonials: any[];
+  // testimonials?: any[];
   heroData: any;
+  heroProduct: any;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ logo, faceProducts, skinProducts, recommendedProducts, slides, faqs, testimonials, heroData }) => {
+const HomePage: React.FC<HomePageProps> = ({ logo, faceProducts, skinProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
       <Header logo={logo} />
       <main className="flex flex-col w-full">
-        <Hero heroData={heroData} />
+        <Hero heroData={heroData} showcaseProduct={heroProduct} />
+        <div id="produk" />
         <ProductSection title="Perawatan wajah" products={faceProducts} />
         <CarouselSection autoSlide={true} >
           {[...slides.map((s,index) => (
@@ -36,7 +38,7 @@ const HomePage: React.FC<HomePageProps> = ({ logo, faceProducts, skinProducts, r
         <ProductSection title="Perawatan kulit" products={skinProducts} />
         <RecommendationSection title="Produk rekomendasi" recommendedProducts={recommendedProducts} />
         <FAQSection faqs={faqs} />
-        <TestimonialSection testimonials={testimonials} />
+        <TestimonialSection />
       </main>
       <Footer />
       
