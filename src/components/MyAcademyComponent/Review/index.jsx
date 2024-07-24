@@ -1,8 +1,8 @@
-import CardReview from "@/components/CardReview"
+import CardReview from "@/components/MyAcademyComponent/CardReview"
 const Review = () => {
     return (
         <>
-            <div className="flex justify-center mb-5">
+            <div className="flex justify-center py-[60px]">
                 <div className="flex flex-row justify-between  items-start">
                     <div className="flex justify-start w-[506.54px] pt-[5%] h-full bg-[url('/images/bg-review.png')] bg-no-repeat bg-right">
                         <h1 className="w-[408px] text-right font-playfair font-bold text-[70px] text-wrap">Apa Kata Peserta Sebelumnya?</h1>

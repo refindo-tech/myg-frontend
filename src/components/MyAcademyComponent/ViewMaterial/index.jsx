@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/button"
 import { Image } from "@nextui-org/image"
 const ViewMaterial = () => {
     return (
-        <>
+        <div className="w-full bg-gray-200 py-[60px]">
             <Card className="min-h-screen container mx-auto py-[44px] flex flex-col gap-y-[44px]">
                 <div className="w-[90%] mx-auto">
                     <h3 className="font-semibold font-playfair text-[36px] text-biru">Workshop Kecantikan Alami</h3>
@@ -13,7 +13,7 @@ const ViewMaterial = () => {
                     <iframe src="https://www.youtube.com/embed/Ht83QKbvO6c" width="100%" height={500} className="rounded-lg" />
                 </div>
                 <div className="w-[90%] mx-auto flex flex-row gap-x-[20px]">
-                    <Card className="min-h-[30vh] w-[30%] py-3">
+                    <Card className="min-h-[30vh] sm:w-[50%] lg:w-[30%] py-3">
                         <h4 className="text-zinc text-roboto font-medium text-[24px] w-[90%] mx-auto my-3 text-center">Workshop Kecantikan Alami</h4>
                         <div className="w-[100px] mx-auto">
                             <Image
@@ -23,13 +23,13 @@ const ViewMaterial = () => {
                                 className="mx-auto"
                             />
                         </div>
-                        <div className="flex justify-end px-3">
+                        <div className="flex justify-end p-3">
                             <Button color="primary" variant="solid" size="sm">Download</Button>
                         </div>
                     </Card>
-                    <Card className="min-h-[30vh] w-[30%] py-3">
+                    <Card className="min-h-[30vh] sm:w-[50%] lg:w-[30%] py-3">
                         <h4 className="text-zinc text-roboto font-medium text-[24px] w-[90%] mx-auto my-3 text-center">Workshop Kecantikan Alami</h4>
-                        <div className="w-[100px] mx-auto">
+                        <div className="w-[100px] mx-auto h-[134px] flex items-center">
                             <Image
                                 alt="pptlogo"
                                 src="/images/ppt.png"
@@ -37,13 +37,14 @@ const ViewMaterial = () => {
                                 className="mx-auto"
                             />
                         </div>
-                        <div className="flex justify-end px-3">
+                        <div className="flex justify-end p-3">
                             <Button color="primary" variant="solid" size="sm">Download</Button>
                         </div>
                     </Card>
                 </div>
             </Card>
-        </>
+        </div>
+
     )
 }
 export default ViewMaterial

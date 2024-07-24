@@ -21,6 +21,7 @@ const config: Config = {
         kuning: '#DBA200',
         kuning2: '#FFC300',
         abu: '#EFF0F6',
+        abugelap: '#3F3F46',
         abumuda:'#A1A1AA',
         ungu: `#B680A2`,
         ungu2: `#834077`,
