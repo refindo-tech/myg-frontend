@@ -32,7 +32,7 @@ const config: Config = {
         footer:'#292B22',
         biru: '#0364B6',
         birumuda: '#E6F1FE',
-        foreground: "#71717A"
+        foreground: "#71717A",
       },
       mya: {
         50: '#FEF5F5',
