@@ -33,15 +33,15 @@ const config: Config = {
         biru: '#0364B6',
         birumuda: '#E6F1FE',
         foreground: "#71717A",
-      },
-      mya: {
-        50: '#FEF5F5',
-        100: '#FEF1EC',
-        500: "#FA9FA4",
-        600: "#D77482",
-      },
-      myg: {
-        500: '#FFC300',
+        mya: {
+          50: '#FEF5F5',
+          100: '#FEF1EC',
+          500: "#FA9FA4",
+          600: "#D77482",
+        },
+        myg: {
+          500: '#FFC300',
+        },
       },
       fontSize: {
         '10px': '10px',
