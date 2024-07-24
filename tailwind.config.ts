@@ -25,6 +25,9 @@ const config: Config = {
         pink2: `#FDF4F4`,
         pink3: `#FDF4F4`,
         zinc: `#71717A`,
+        footer:'#292B22',
+        biru: '#0364B6',
+        birumuda: '#E6F1FE',
         foreground: "#71717A",
         mya: {
           50: '#FEF5F5',
