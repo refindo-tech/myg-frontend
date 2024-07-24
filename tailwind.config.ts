@@ -14,11 +14,15 @@ const config: Config = {
         inter: ['Inter', 'sans-serif'],
         openSans: ['Open Sans', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
+        roboto:['Roboto', 'serif']
       },
       colors: {
+        active: '#06ADFE',
         kuning: '#DBA200',
         kuning2: '#FFC300',
         abu: '#EFF0F6',
+        abugelap: '#3F3F46',
+        abumuda:'#A1A1AA',
         ungu: `#B680A2`,
         ungu2: `#834077`,
         pink1: `#FBECEF`,

@@ -7,4 +7,5 @@ const SearchIcon = () => (
 </svg>
 );
 
+
 export default SearchIcon;

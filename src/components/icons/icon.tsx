@@ -8,6 +8,13 @@ import PlusIcon from "./plus";
 import MinusIcon from "./minus";
 import InstagramIcon from "./Instagram";
 import YoutubeIcon from "./youtubeIcon";
+import AvatarIcon from "./AvatarIcon";
+import PlaceIcon from "./PlaceIcon";
+import CalendarIcon from "./CalendarIcon";
+import CloudIcon from './CloudIcons';
+import CollectionIcon from './CollectionIcon';
+import HamburgerIcon from './HamburgerIcon';
+import ArrowUp from './ArrowUp'
 
 const icons = {
     GoogleIcon,
@@ -20,6 +27,13 @@ const icons = {
     MinusIcon,
     InstagramIcon,
     YoutubeIcon,
+    AvatarIcon,
+    PlaceIcon,
+    CalendarIcon,
+    CloudIcon,
+    CollectionIcon,
+    HamburgerIcon,
+    ArrowUp
 };
 
 export default icons;
