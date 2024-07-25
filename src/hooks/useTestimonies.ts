@@ -1,5 +1,4 @@
 // SWR + Axios, axios berfungsi untuk mengambil data dari API, sedangkan SWR berfungsi untuk mengelola state dari data yang diambil dari API.
-
 import useSWR from 'swr';
 import Testimony from '@/types/testimony';
 import TestimonyService from '@/lib/testimonyService';
