@@ -12,14 +12,13 @@ import PaymentSuccess from '@components/mya/molecules/Checkout/PaymentSuccess';
 import ProductPaymentSection from '@/components/mya/organisms/ProductCheckoutSection';
 
 interface CheckoutPageProps {
-  logo: string;
   products: any[];
 }
 
-const CheckoutPage: React.FC<CheckoutPageProps> = ({ logo, products }) => {
+const CheckoutPage: React.FC<CheckoutPageProps> = ({ products }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
-      <Header logo={logo} />
+      <Header />
       <div className="flex flex-grow flex-col lg:flex-row px-8 lg:px-32 py-8">
       <main className="flex lg:w-[70%] mx-auto flex-grow">
         <ProductPaymentSection products={products} />

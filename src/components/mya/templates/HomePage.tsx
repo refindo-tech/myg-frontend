@@ -11,7 +11,6 @@ import TestimonialSection from '@/components/common/organism/TestimonialSection'
 import Footer from '@components/mya/organisms/Footer';
 
 interface HomePageProps {
-  logo: string;
   faceProducts: any[];
   skinProducts: any[];
   recommendedProducts: any[];
@@ -22,10 +21,10 @@ interface HomePageProps {
   heroProduct: any;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ logo, faceProducts, skinProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
+const HomePage: React.FC<HomePageProps> = ({ faceProducts, skinProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
-      <Header logo={logo} />
+      <Header/>
       <main className="flex flex-col w-full">
         <Hero heroData={heroData} showcaseProduct={heroProduct} />
         <div id="produk" />

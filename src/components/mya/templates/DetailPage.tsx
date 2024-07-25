@@ -10,17 +10,16 @@ import ProductSection from '@components/mya/organisms/ProductSection';
 import Footer from '@components/mya/organisms/Footer';
 
 interface DetailPageProps {
-  logo: string;
   relatedProducts: any[];
   heroData: any;
   heroProduct: any;
   product: any;
 }
 
-const DetailPage: React.FC<DetailPageProps> = ({ logo, product, relatedProducts, heroData, heroProduct }) => {
+const DetailPage: React.FC<DetailPageProps> = ({product, relatedProducts, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
-      <Header logo={logo} />
+      <Header />
       <main className="flex flex-col w-full">
         <DetailSection product={product} />
         <ProductSection title="Produk Lainnya" products={relatedProducts} isDetail />

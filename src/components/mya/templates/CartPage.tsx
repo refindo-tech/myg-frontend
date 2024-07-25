@@ -10,14 +10,13 @@ import Footer from '@components/mya/organisms/Footer';
 import ProductCartSection from '@components/mya/organisms/ProductCartSection';
 
 interface CartPageProps {
-  logo: string;
   productCart: any[];
 }
 
-const CartPage: React.FC<CartPageProps> = ({ logo, productCart }) => {
+const CartPage: React.FC<CartPageProps> = ({ productCart }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
-      <Header logo={logo} />
+      <Header/>
       <div className="flex flex-grow flex-col lg:flex-row px-8 lg:px-32 py-8">
       <main className="flex lg:w-[70%] mx-auto flex-grow">
         <ProductCartSection products={productCart} />

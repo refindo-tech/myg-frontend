@@ -18,6 +18,7 @@ interface HomePageProps {
   services: any[];
 }
 
+
 const HomePage: React.FC<HomePageProps> = ({ heroData, slides, faqs, services }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
