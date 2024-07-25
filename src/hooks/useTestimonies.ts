@@ -5,7 +5,7 @@ import TestimonyService from '@/lib/testimonyService';
 
 class useTestimonies {
   static all(params: { limit: number }) {
-    const { data, error } = useSWR<Testimony[], Error>(['products', params], () => TestimonyService.fetchTestimonies(params));
+    const { data, error } = useSWR<Testimony[], Error>(['testimones', params], () => TestimonyService.fetchTestimonies(params));
     return {
       data: data || [],
       isLoading: !error && !data,
@@ -13,7 +13,7 @@ class useTestimonies {
     };
   }
   static byId(id: number) {
-    const { data, error } = useSWR<Testimony, Error>(`product/${id}`, () => TestimonyService.fetchTestimonyById(id));
+    const { data, error } = useSWR<Testimony, Error>(`testimony/${id}`, () => TestimonyService.fetchTestimonyById(id));
     return {
       data: data,
       isLoading: !error && !data,
