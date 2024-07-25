@@ -23,7 +23,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ logo }) => {
     const navItems = [
         { label: "Home", isActive: true, href: "/mya" },
-        { label: "Syarat dan Ketentuan", isActive: false, href: "/terms" },
+        { label: "Syarat dan Ketentuan", isActive: false, href: "/mya/term" },
         { label: "Konsultasi", isActive: false, href: "/consultation" },
     ];
 

@@ -20,7 +20,7 @@ class TestimonyService {
 
   static async fetchTestimonyById(id: number) {
     try {
-      const response = await axios.get(`${API_URL}/${id}`);
+      const response = await axios.get(`${API_URL}${id}/`);
       return response.data.meta.message;
     } catch (error) {
       console.error("Error fetching testimony by id", error);
