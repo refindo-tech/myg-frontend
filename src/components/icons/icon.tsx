@@ -15,6 +15,7 @@ import CloudIcon from './CloudIcons';
 import CollectionIcon from './CollectionIcon';
 import HamburgerIcon from './HamburgerIcon';
 import ArrowUp from './ArrowUp'
+import AddCommentIcon from "./CommentIcon";
 
 const icons = {
     GoogleIcon,
@@ -33,7 +34,8 @@ const icons = {
     CloudIcon,
     CollectionIcon,
     HamburgerIcon,
-    ArrowUp
+    ArrowUp,
+    AddCommentIcon,
 };
 
 export default icons;
