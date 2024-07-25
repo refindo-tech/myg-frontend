@@ -29,10 +29,8 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
 
                 <DropdownSection showDivider title={'Menu'} className='sm:hidden'>
                     {NavItems.map((item, index) => (
-                        <DropdownItem key={index}>
-                            <Link href={item.href} className='font-normal text-mya-600'>
-                                {item.label}
-                            </Link>
+                        <DropdownItem key={index} textValue='text'>
+                            <span>{item.label}</span>
                         </DropdownItem>
                     ))}
                 </DropdownSection>

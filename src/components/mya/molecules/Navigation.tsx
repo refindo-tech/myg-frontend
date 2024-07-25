@@ -28,7 +28,7 @@ const Navigation: React.FC<NavigationProps> = ({ NavItems }) => {
                     href={item.label === "Konsultasi" ? "#" : item.href}
                     className={`font-semibold font-playfair leading-tight ${item.isActive ? "text-mya-500" : "text-foreground"}`}
                 >
-                    {item.label}
+                    <span>{item.label}</span>
                 </Link>
             ))}
         </div>
