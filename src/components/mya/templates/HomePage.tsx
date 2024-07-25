@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Header from '@components/mya/organisms/Header';
 import Hero from '@components/mya/organisms/Hero';
 import ProductSection from '@components/mya/organisms/ProductSection';
-import CarouselSection from '@components/mya/organisms/CarouselSection';
+import CarouselSection from '@/components/common/organism/CarouselSection';
 import RecommendationSection from '@components/mya/organisms/RecommendationSection';
-import FAQSection from '@components/mya/organisms/FAQSection';
+import FAQSection from '@/components/common/organism/FAQSection';
 import TestimonialSection from '@/components/common/organism/TestimonialSection';
 import Footer from '@components/mya/organisms/Footer';
 
@@ -30,11 +30,11 @@ const HomePage: React.FC<HomePageProps> = ({ logo, faceProducts, skinProducts, r
         <Hero heroData={heroData} showcaseProduct={heroProduct} />
         <div id="produk" />
         <ProductSection title="Perawatan wajah" products={faceProducts} />
-        {/* <CarouselSection autoSlide={true} >
+        <CarouselSection autoSlide={true} >
           {[...slides.map((s,index) => (
             <img src={s} key={index} className="object-cover" />
           ))]}
-        </CarouselSection> */}
+        </CarouselSection>
         <ProductSection title="Perawatan kulit" products={skinProducts} />
         <RecommendationSection title="Produk rekomendasi" recommendedProducts={recommendedProducts} />
         <FAQSection faqs={faqs} />

@@ -9,6 +9,7 @@ import useTestimonies from '@/hooks/useTestimonies';
 
 interface TestimonialSectionProps {
     testimonials?: Testimony[];
+    service?: string;
 }
 
 const Testimonial: React.FC<Testimony> = (testimony) => {
@@ -52,14 +53,31 @@ const Testimonial: React.FC<Testimony> = (testimony) => {
 };
 
 
-const TestimonialSection: React.FC<TestimonialSectionProps> = () => {
+const TestimonialSection: React.FC<TestimonialSectionProps> = ({ service = "mya" }) => {
     const { data: testimonials, isLoading: testimoniesLoading } = useTestimonies.all({ limit: 3 });
     if (testimoniesLoading) return <div>Loading...</div>;
+
+    const mainColor = (service: string) => {
+        switch (service) {
+            case "mya":
+                return "text-mya-600";
+            case "mybeautica":
+                return "text-mybeautica-500";
+            case "myacademy":
+                return "text-myacademy-500";
+            case "myg":
+                return "text-myg-500";
+            default:
+                return "text-mya-500";
+        }
+    };
+
     return (
         <section className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32">
             <div className="w-full items-center flex flex-col lg:flex-row gap-8">
                 <div className="h-full relative flex md:basis-2/5 justify-center items-center flex-col pr-0 md:pr-8 overflow-visible">
-                    <div className="absolute -top-30 right-0 text-mya-600 text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl">?</div>
+                    {/* <div className="absolute -top-30 right-0 text-mya-600 text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl">?</div> */}
+                    <div className={`absolute -top-30 right-0 ${mainColor(service)} text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl`}>?</div>
                     <div className="w-full text-right text-zinc-700 text-6xl md:text-6xl xl:text-7xl font-bold font-playfair leading-shallow z-10">Apa Kata Pembeli Sebelumnya?</div>
                 </div>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4 md:basis-3/5">
