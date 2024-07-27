@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import ViewMaterial from "@/components/MyAcademyComponent/ViewMaterial"
 import DetailComingSoonEvent from "@/components/MyAcademyComponent/DetailComingSoonEvent"
-import {getDetailTraining} from '@/helpers/fetchAPI'
+import {getDetailTraining,getRecommendationTraining} from '@/helpers/fetchAPI'
 const DetailMaterial = () =>{
     const pathname = usePathname()
     const idTraining = pathname.split('/').pop()
@@ -18,7 +18,16 @@ const DetailMaterial = () =>{
         }
         fetchInit()
     },[idTraining])
-    console.log(detailTraining)
+    const [listTraining, setListTraining]=useState(null)
+    useEffect(()=>{
+        const fetchListTraining = async()=>{
+            const response=await getRecommendationTraining(4)
+            if(response){
+                setListTraining(response.results)
+            }
+        }
+        fetchListTraining()
+    },[])
     return(
         <>
             {/* <NavbarMyAcademy/> */}
@@ -26,7 +35,7 @@ const DetailMaterial = () =>{
                     (<ViewMaterial/>)
                 }
                 {detailTraining&&detailTraining.type === 'soon' &&
-                    (<DetailComingSoonEvent/>)
+                    (<DetailComingSoonEvent detailTraining={detailTraining} listRecommendationTraining={listTraining}/>)
                 }
         </>
     )

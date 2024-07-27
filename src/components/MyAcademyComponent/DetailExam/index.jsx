@@ -1,6 +1,6 @@
 'use client'
 import { Image } from "@nextui-org/image"
-import ComingSoonEvent from '@/components/MyAcademyComponent/ComingSoonEvent'
+import ContainerExam from "@/components/MyAcademyComponent//ContainerExam"
 import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import Review from '@/components/MyAcademyComponent/Review'
@@ -11,13 +11,13 @@ import icons from '@/components/icons/icon'
 import { useState, useEffect } from 'react'
 import { usePathname } from "next/navigation"
 import { formattedDate, formattedDateAndDay, formattedTime } from "@/helpers/formattedDate"
-const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) => {
+const DetailExam = ({ detailExam, listRecommendationExam }) => {
     const pathname = usePathname()
     const { CloudIcon, CollectionIcon } = icons
     const [data, setData] = useState({})
     useEffect(() => {
-        setData(detailTraining)
-    }, [detailTraining])
+        setData(detailExam)
+    }, [detailExam])
     return (
         <>
             <div className="relative top-0 left-0">
@@ -25,10 +25,10 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                 <div className=" h-[60vh] lg:h-screen flex items-center justify-center bg-[url('/images/bg-detailcomingsoon.png')] backdrop-contrast-0 bg-cover bg-center bg-no-repeat w-full px-[5%] lg:pt-0">
                     <div className="lg:grid lg:grid-cols-2 flex flex-col  container gap-y-3 mt-[200px] lg:mt-[100px]">
                         <div className="flex flex-col lg:gap-12 gap-3 max-w-[580px] sm:min-h-[15vh] md:min-h-[15vh] justify-center">
-                            <h3 className="font-playfair text-white text-xl lg:text-5xl font-medium">{detailTraining.trainingName}</h3>
+                            <h3 className="font-playfair text-white text-xl lg:text-5xl font-medium">{detailExam.title}</h3>
                             <p className="font-sans font-normal lg:text-lg text-xs text-white">
                                 {/* Pelajari teknik kecantikan alami menggunakan bahan-bahan organik dan metode tradisional. */}
-                                {detailTraining.description}
+                                {detailExam.description}
                             </p>
                             <button className=" w-fit px-3 flex flex-row gap-3 justify-center h-5 lg:h-12 items-center rounded-lg text-white bg-[#06ADFE] hover:text-opacity-75">
                                 <div className="h-5 w-5 hidden lg:block">
@@ -41,7 +41,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                             <div className="w-[90%] mx-auto flex flex-col gap-3">
                                 <h3 className="font-playfair text-black text-3xl lg:text-5xl font-bold">Date & Time</h3>
                                 <p className="font-sans font-normal text-xs lg:text-lg">
-                                    {formattedDateAndDay(detailTraining.dateStart)}
+                                    {formattedDateAndDay(detailExam.dateStart)}
                                 </p>
                                 <div className="flex flex-col gap-3">
                                     {/* <button className="flex flex-row items-center h-12 gap-2 rounded-lg border-2 border-active justify-center">
@@ -134,14 +134,14 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                     Waktu: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{formattedTime(data.dateStart, data.dateFinish)}</span>
                                 </p>
                                 <p className="font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                    Lokasi: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{`${data.address}`}</span>
+                                    Lokasi: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">Hotel Grand Lux, Jakarta</span>
                                 </p>
-                                {/* <div className="pl-6">
+                                <div className="pl-6">
                                     <ol className="list-disc font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                        <li>Jl. Sudirman No.45, Jakarta Pusat</li>
+                                        {/* <li>Jl. Sudirman No.45, Jakarta Pusat</li> */}
                                         <li>{`${data.address}`}</li>
                                     </ol>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-col gap-y-3">
@@ -150,7 +150,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                 <ol className="list-decimal font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                     <li>Klik tombol &apos;Daftar Sekarang&apos; di halaman acara.</li>
                                     <li>isi formulir pendaftaran dengan data lengkap Anda.</li>
-                                    <li>{`Pilih sesi '${data.trainingName}'.`} </li>
+                                    <li>{`Pilih sesi '${data.title}'.`} </li>
                                     <li>Lakukan pembayaran sesuai dengan instruksi yang diberikan.</li>
                                     <li>Konfirmasi pendaftaran Anda melalui email yang akan diberikan setelah pembayaran.</li>
                                 </ol>
@@ -182,7 +182,8 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                         </div>
                         <div className="flex flex-col gap-y-3 lg:gap-y-7">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi Acara</h3>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.068679646162!2d106.1766627!3d-6.1214586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e41f523e60126f3%3A0xc838a86a425b1d50!2sLe%20Dian%20Hotel%20%26%20Cottages!5e0!3m2!1sid!2sid!4v1722047996536!5m2!1sid!2sid" width={'100%'} height={300} style={{border:'0px'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe>
+                            <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Deskripsi Acara</h3>
+                            <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Hotel Grand Lux Jakarta</h3>
                             <p className="text-wrap font-sans text-xs lg:text-xl font-normal text-abumuda">
                                 {`${data.address}`}
                             </p>
@@ -190,7 +191,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                     </div>
                 </div>
                 <div className="bg-birumuda">
-                    <ComingSoonEvent bgcard={'bg-white'} title={'Daftar Acara Lainnya'} listTraining={listRecommendationTraining} />
+                    <ContainerExam bgcard={'bg-white'} title={'Daftar Acara Lainnya'} listExam={listRecommendationExam} />
                 </div>
                 <Review />
                 <FAQAcademy />
@@ -200,4 +201,4 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
         </>
     )
 }
-export default DetailComingSoonEvent
+export default DetailExam

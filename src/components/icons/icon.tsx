@@ -15,7 +15,8 @@ import CloudIcon from './CloudIcons';
 import CollectionIcon from './CollectionIcon';
 import HamburgerIcon from './HamburgerIcon';
 import ArrowUp from './ArrowUp'
-
+import ChevronUp from "./ChevronUp";
+import ChevronDown from "./ChevronDown";
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -33,7 +34,8 @@ const icons = {
     CloudIcon,
     CollectionIcon,
     HamburgerIcon,
-    ArrowUp
+    ArrowUp,
+    ChevronUp,
+    ChevronDown
 };
-
 export default icons;

@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react'
 import { Image } from "@nextui-org/image"
 import { Button } from "@nextui-org/button"
+import { Link } from "@nextui-org/link"
 import icons from "@/components/icons/icon"
-import formattedDate from '@/helpers/formattedDate'
+import {formattedDate} from '@/helpers/formattedDate'
 import { getRecommendationTraining } from '@/helpers/fetchAPI'
 const RecommendationEvent = () => {
     const { PlaceIcon, CalendarIcon } = icons
@@ -69,7 +70,7 @@ const RecommendationEvent = () => {
                                 </div>
                             </div>
                         </div>
-                        <Button color="primary" variant="solid" size="md"
+                        <Button color="primary" variant="solid" size="md" as={Link} href={`/MyacademyTes/material/${dataRecommendation.trainingId}`}
                             className="font-sans font-semibold border-[2px] text-[8px] lg:text-sm py-[12px] w-16 h-6 lg:w-[148px] lg:h-[48px]">
                             <span className="block lg:hidden">Daftar Acara</span>
                             <span className="hidden lg:block">Gabung Acara Ini</span>

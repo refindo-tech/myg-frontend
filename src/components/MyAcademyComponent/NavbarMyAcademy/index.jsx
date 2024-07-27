@@ -8,11 +8,10 @@ const NavbarMyAcademy = ({color}) => {
     const [isHamburgerActive, setHamburgerActive] = useState(false)
     const handleHamburgerIcon = () =>{
         setHamburgerActive(!isHamburgerActive)
-        console.log('anj')
     }
     return (
         <>
-            <nav className="absolute top-0 left-0 right-0 h-[60px] lg:h-[92px] flex justify-center items-center bg-white lg:bg-transparent shadow-xl lg:shadow-none">
+            <nav className="absolute top-0 left-0 right-0 h-[60px] lg:h-[92px] flex justify-center items-center bg-white lg:bg-transparent shadow-xl lg:shadow-none z-20">
                 <div className="container h-[60px] flex flex-row justify-between items-center px-6 lg:px-0">
                     <Image
                         // width={138}
@@ -68,8 +67,8 @@ const NavbarMyAcademy = ({color}) => {
                 </div>
             </nav>
             {isHamburgerActive&&
-                <div className="absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-xinc p-4">
-                    <div className="flex flex-col gap-4 font-sans font-semibold text-sm">
+                <div className="absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
+                    <div className="flex flex-col gap-4 font-playfair font-semibold text-sm">
                         <p>Home</p>
                         <p>Material</p>
                         <p>Konsultasi</p>
