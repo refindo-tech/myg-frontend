@@ -9,8 +9,8 @@ import Ornamen1 from "@/components/mybeautica/atoms/ornamen1";
 import Ornamen2 from "@/components/mybeautica/atoms/ornamen2";
 import { fetchServiceById, fetchServices, updateServiceViews } from "@/lib/fetchData";
 import Head from "next/head";
-import NavbarComponent from "@/components/mybeautica/Navbar";
-import FooterComponent from "@/components/mybeautica/Footer";
+import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
+import FooterComponent from "@/components/mybeautica/organisms/Footer";
 
 interface Service {
   serviceId: number;

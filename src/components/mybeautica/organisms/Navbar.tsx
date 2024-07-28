@@ -15,7 +15,7 @@ import {
   Image,
 } from "@nextui-org/react";
 import icons from "@/components/icons/icon";
-import images from "../../../public/images/images";
+import images from "../../../../public/images/images";
 
 type NavbarProps = {
   handleConsultationClick: () => void;
@@ -29,18 +29,22 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   onSearchChange,
 }) => {
   return (
-    <Navbar isBordered>
-      <NavbarContent justify="start">
-        <NavbarBrand className="mr-4">
-          <Image
-            src={images.my_Beauty_logo.src}
-            alt="Logo"
-            className="object-cover w-[70px] h-[46px]"
-          />
-        </NavbarBrand>
+    <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
+      <NavbarContent justify="start" className="flex-none ">
+        <Image
+          src={images.my_Beauty_logo.src}
+          alt="Logo"
+          className="object-cover w-[70px] h-[46px]"
+        />
+      </NavbarContent>
+
+      <NavbarContent
+        className="items-center gap-4 flex "
+        justify="start"
+      >
         <NavbarContent className="hidden xl:flex gap-16 font-playfair font-semibold">
           <NavbarItem>
-            <Link color="foreground" href="#">
+            <Link color="foreground" href="#" className="text-ungu px-5 text-[20px]">
               Home
             </Link>
           </NavbarItem>
@@ -49,7 +53,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
               color="foreground"
               href="#"
               onClick={handleConsultationClick}
-              className="cursor-pointer text-zinc"
+              className="cursor-pointer text-zinc px-5 text-[20px]"
             >
               Konsultasi
             </Link>
@@ -57,7 +61,11 @@ const NavbarComponent: React.FC<NavbarProps> = ({
         </NavbarContent>
       </NavbarContent>
 
-      <NavbarContent as="div" className="items-center" justify="end">
+      <NavbarContent
+        as="div"
+        className="items-center"
+        justify="end"
+      >
         <Input
           classNames={{
             base: "max-w-full sm:max-w-[10rem]",
