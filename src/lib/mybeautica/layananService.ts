@@ -1,7 +1,5 @@
 import axios from '../../axios/axiosConfig';
 
-// fetchData.ts
-
 const API_URL = 'http://localhost:5000/myg/api/layanan';
 const config = {
     headers: {
@@ -16,7 +14,7 @@ export const fetchServices = async () => {
         return response.data;
     } catch (error) {
         console.error('Error fetching services:', error);
-        return null;
+        return { meta: { success: false }, message: 'Gagal memuat layanan' };
     }
 };
 
@@ -26,7 +24,7 @@ export const fetchServiceById = async (id: string | string[]) => {
         return response.data;
     } catch (error) {
         console.error('Error fetching service by id:', error);
-        return null;
+        return { meta: { success: false }, message: 'Gagal memuat layanan berdasarkan ID' };
     }
 };
 
@@ -36,7 +34,7 @@ export const updateServiceById = async (id: string | string[], data: any) => {
         return response.data;
     } catch (error) {
         console.error('Error updating service by id:', error);
-        return null;
+        return { meta: { success: false }, message: 'Gagal memperbarui layanan' };
     }
 }
 

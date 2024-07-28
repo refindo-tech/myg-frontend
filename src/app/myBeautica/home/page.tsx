@@ -120,19 +120,19 @@ const Home = () => {
           TestimonyService.fetchTestimonies({ limit: 5 }),
         ]);
 
-        if (servicesData && servicesData.meta.success) {
+        if (servicesData) {
           setServices(servicesData.meta.message);
         } else {
-          setError("Failed to load services");
+          setError("Gagal memuat layanan");
         }
 
-        if (testimonialsData && testimonialsData.meta.success) {
-          setTestimonials(testimonialsData.meta.message);
+        if (testimonialsData) {
+          setTestimonials(testimonialsData);
         } else {
-          setError("Failed to load testimonials");
+          setError("Gagal memuat testimoni");
         }
       } catch (err) {
-        setError("Error fetching data");
+        setError("Terjadi kesalahan saat mengambil data");
       } finally {
         setLoading(false);
       }
@@ -193,7 +193,7 @@ const Home = () => {
         )
       );
     } catch (error) {
-      console.error("Failed to update views", error);
+      console.error("Gagal memperbarui jumlah tayangan", error);
     }
   };
 
@@ -209,7 +209,7 @@ const Home = () => {
   };
 
   const handleSubmit = () => {
-    console.log("Testimonial submitted:", newTestimonial);
+    console.log("Testimoni dikirim:", newTestimonial);
     onOpenChange();
   };
 
@@ -228,7 +228,7 @@ const Home = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Memuat...</div>;
   }
 
   if (error) {
