@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Image } from "@nextui-org/react";
 import icons from "@/components/icons/icon";
-import images from "../../../public/images/images";
+import images from "../../../../public/images/images";
 
 const FooterComponent = () => {
   return (
