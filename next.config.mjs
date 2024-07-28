@@ -11,6 +11,16 @@ const nextConfig = {
                 source: '/',
                 destination: '/dashboard',
                 permanent: true,
+            },
+            {
+                source: '/myBeautica',
+                destination: '/myBeautica/home',
+                permanent: true,
+            },
+            {
+                source: '/Myacademy',
+                destination: '/MyacademyTes',
+                permanent: true,
             }
         ];
     },
