@@ -2,7 +2,7 @@ export default interface Product {
     productId: number;
     name: string;
     description: string;
-    priceId: number;
+    price: number;
     stock: number;
     productImages: string;
     type: string;
