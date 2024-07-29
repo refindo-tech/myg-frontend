@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '@/types/mya/product';
+import { useRouter } from 'next/navigation';
 import { Card, CardBody, CardFooter, Image, Link } from "@nextui-org/react";
 import { rupiah, cutDescription, imageUrl } from '@/lib/mya/helpers';
 
@@ -13,6 +14,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
         return null; // or render a message indicating no products available
     }
 
+    const router = useRouter();
     const firstProduct = recommendedProducts[0];
 
     return (
@@ -27,7 +29,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                             width="auto"
                             alt={firstProduct.name}
                             className="w-full object-cover"
-                            src={imageUrl(firstProduct.productImages)}
+                            src={imageUrl(firstProduct.productImages[0])}
                         />
                     </CardBody>
                     <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
@@ -41,7 +43,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                             {cutDescription(firstProduct.description, 300)}
                         </div>
                         <span className="text-black text-xl md:text-sm xl:text-xl font-normal font-openSans py-2">
-                            {rupiah(firstProduct.priceId)}
+                            {rupiah(firstProduct.price.RETAIL)}
                         </span>
                     </CardFooter>
                 </Card>
@@ -56,7 +58,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                                     height={200}
                                     alt={product.name}
                                     className="h-full md:h-36 w-auto object-cover"
-                                    src={imageUrl(product.productImages)}
+                                    src={imageUrl(product.productImages[0])}
                                 />
                             </CardBody>
                             <CardFooter className="pb-0 pt-2 px-4 flex-col items-start flex-grow">
@@ -70,7 +72,7 @@ const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, re
                                     {cutDescription(product.description, 200)}
                                 </div>
                                 <span className="text-black text-xl md:text-sm xl:text-xl font-normal font-openSans py-2">
-                                    {rupiah(product.priceId)}
+                                    {rupiah(product.price.RETAIL)}
                                 </span>
                             </CardFooter>
                         </Card>
