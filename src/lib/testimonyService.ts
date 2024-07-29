@@ -10,7 +10,7 @@ class TestimonyService {
   static async fetchTestimonies({ limit = 10 }) {
     try {
       const response = await axios.get(API_URL, { params: { limit } });
-      console.log(response.data.meta.message);
+      // console.log(response.data.meta.message);
       return response.data.meta.message;
     } catch (error) {
       console.error("Error fetching testimonies", error);

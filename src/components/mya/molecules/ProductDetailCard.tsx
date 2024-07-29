@@ -1,31 +1,40 @@
 import React, {useState} from 'react';
 import { EyeIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import Product from '@/types/mya/product';
+
+import { rupiah } from '@/lib/mya/helpers';
 
 interface ProductDetailCardProps {
-    category: string;
-    name: string;
-    views: number;
-    description: string;
-    price: string;
+    product: Product;
 }
 
-type Order = number;
+type Quantity = number;
 
-const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ category, name, views, description, price }) => {
+const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
     // Implement your component logic here
     // Add and Minus Button
 
     //order reactive variable
-    const [order, setOrder] = useState<Order>(1);
+    const [quantity, setQuantity] = useState<Quantity>(1);
 
     const increaseOrder = () => {
-        setOrder(order + 1);
+        setQuantity(quantity + 1);
     }
     const decreaseOrder = () => {
-        if (order > 1) {
-            setOrder(order - 1);
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
         }
+    }
+
+    const addTocart = (id: Number, order: Number) => {
+        console.log('id', id);
+        console.log('quantity', order);
+    }
+
+    const orderProduct = (id: Number, order: Number) => {
+        console.log('id', id);
+        console.log('quantity', order);
     }
 
     return (
@@ -36,16 +45,16 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ category, name, v
         
         >
             <CardHeader className="pb-0 px-4 flex-col items-start flex-grow gap-2">
-                <span className="text-default-500 text-xs font-normal font-openSans uppercase">{category}</span>
-                <h4 className="text-black text-2xl font-medium font-playfair leading-8">{name}</h4>
+                <span className="text-default-500 text-xs font-normal font-openSans uppercase">category</span>
+                <h4 className="text-black text-2xl font-medium font-playfair leading-8">{product.name}</h4>
                 <span className="text-default-500 text-xs font-normal">Terjual 6rb+ produk/bulan . Stok Total : 2.000 pcs</span>
                 <div className='flex flex-col w-full'>
                     <div className="flex items-center gap-2">
                         <EyeIcon className="h-5 w-5 text-default-500" />
-                        <span className="text-default-500 text-xs font-normal">{'Dilihat ' + views + ' orang'}</span>
+                        <span className="text-default-500 text-xs font-normal">{'Dilihat orang'}</span>
                     </div>
                 </div>
-                <span className="text-default-700 py-1 text-lg md:text-sm xl:text-lg font-normal font-openSans">{price}</span>
+                <span className="text-default-700 py-1 text-lg md:text-sm xl:text-lg font-normal font-openSans">{rupiah(product.price)}</span>
                 <div className="flex gap-2 w-full">
                     <div className="flex-1 border border-gray rounded-xl p-2">
                         <div className="flex gap-2 items-center">
@@ -53,19 +62,23 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ category, name, v
                                 <MinusIcon className="h-2 w-2" />
                             </Button>
                             <span className="text-default-500 text-xs font-normal font-openSans justify-center items-center">
-                                {order}
+                                {quantity}
                                 </span>
                             <Button onClick= {increaseOrder} variant='bordered' radius='full' isIconOnly className="bg-white font-semibold flex items-center w-6 h-6 flex-none">
                                 <PlusIcon className="h-2 w-2" />
                             </Button>
                         </div>
                     </div>
-                    <Button className="bg-mya-600 w-full text-mya-100 font-semibold rounded-xl">Beli Sekarang</Button>
-                    <Button className="bg-white border border-mya-600 w-full text-mya-600 font-semibold rounded-xl">+ Keranjang</Button>
+                    <Button className="bg-mya-600 w-full text-mya-100 font-semibold rounded-xl" onClick={() => orderProduct(product.productId, quantity)}>
+                        Beli Sekarang
+                    </Button>
+                    <Button className="bg-white border border-mya-600 w-full text-mya-600 font-semibold rounded-xl" onClick={() => addTocart(product.productId, quantity)}>
+                        + Keranjang
+                        </Button>
                 </div>
             </CardHeader>
             <CardBody className="">
-                <p className="text-sm text-justify font-normal font-openSans text-default-400 leading-shallow">{description} </p>
+                <p className="text-sm text-justify font-normal font-openSans text-default-400 leading-shallow">{product.description}</p>
             </CardBody>
         </Card>
     );

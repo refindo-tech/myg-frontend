@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CartPage from '@components/mya/templates/CartPage';
+import useCarts from '@/hooks/mya/useCarts';
 
 
 const products = [
@@ -29,6 +30,8 @@ const products = [
 ];
 
 const Cart: React.FC = () => {
+  const { data, isLoading, isError } = useCarts.all();
+  console.log("Keranjang", data);
   return (
     <CartPage
       productCart={products}

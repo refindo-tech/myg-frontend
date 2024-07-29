@@ -28,11 +28,7 @@ const DetailSection: React.FC<DetailSectionProps> = ({ product }) => {
                 </div>
                 <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full">
                     <ProductDetailCard
-                        category= 'Perawatan wajah'
-                        name= {product.name}
-                        views= {200}
-                        description= {product.description}
-                        price= {rupiah(product.productId)}
+                        product={product}
                     />
                 </div>
             </div>
