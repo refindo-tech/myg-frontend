@@ -14,6 +14,18 @@ class OrderService {
         }
     }
 
+    //fetch order by id
+    static async fetchOrderById(orderId: number) {
+        try {
+            const response = await axios.get(API_URL + orderId + '/');
+            return response.data.meta.message;
+        }
+        catch (error) {
+            console.error("Error fetching order by id", error);
+            return null;
+        }
+    }
+
     //kalo beli satu produk
     static async orderProduct(productId: number, { quantity }: { quantity: number }) {
         try {

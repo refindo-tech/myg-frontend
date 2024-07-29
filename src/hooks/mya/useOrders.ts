@@ -1,17 +1,24 @@
 import useSWR from 'swr';
 import OrderService from '@/lib/mya/orderService';
 
-const useOrders = () => {
-  const orderProducts = async () => {
-    try {
-      const data = await OrderService.orderProducts();
-      return { data, isError: false };
-    } catch (error) {
-      return { data: null, isError: true };
+class useOrders {
+    static all() {
+        const { data, error } = useSWR<any, Error>('orders', () => OrderService.fetchOrder());
+        return {
+            data: data || [],
+            isLoading: !error && !data,
+            isError: error,
+        };
     }
-  };
 
-  return { orderProducts };
-};
+    static byId(orderId: number) {
+        const { data, error } = useSWR<any, Error>('orders', () => OrderService.fetchOrderById(orderId));
+        return {
+            data: data || [],
+            isLoading: !error && !data,
+            isError: error,
+        };
+    }
+}
 
 export default useOrders;
