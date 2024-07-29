@@ -9,7 +9,7 @@ export default interface Product {
         DISTRIBUTOR: number;
     };
     stock: number;
-    productImages: string;
+    productImages: string[];
     type: string;
     uploadedBy: number;
     createdAt: string;

@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = (
                 <div className="overflow-visible bottom-0 flex justify-center items-center w-full bg-neutral-50 rounded-xl">
                     <img
                         className="object-cover w-full h-48 rounded-xl"
-                        src={imageUrl(product.productImages)}
+                        src={imageUrl(product.productImages[0])}
                         alt={product.name}
                     />
                 </div>

@@ -10,6 +10,6 @@ export default interface CartItem {
             AGENT: number;
             DISTRIBUTOR: number;
         };
-        productImages: string;
+        productImages: string[];
     };
 }

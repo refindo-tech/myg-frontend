@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Checkbox } from '@nextui-org/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import CartItem from '@/types/mya/cartItem';
-import { rupiah } from '@/lib/mya/helpers';
+import { rupiah, imageUrl } from '@/lib/mya/helpers';
 
 interface OrderProductCardProps {
   cartItem: CartItem;
@@ -30,11 +30,11 @@ const OrderProductCard: React.FC<OrderProductCardProps> = ({ cartItem, isCheck }
   const totalPrice = cartItem.product.price.RETAIL * cartItem.quantity;
 
   return (
-    <div className="flex gap-5 justify-center px-6 py-6 mt-5 shadow-sm bg-zinc-50 rounded-[32px] max-md:flex-wrap max-md:px-5">
+    <div className="flex gap-5 justify-center px-6 py-2 mt-5 shadow-sm bg-zinc-50 rounded-[32px] max-md:flex-wrap max-md:px-5">
       {/* <input type="checkbox" className="shrink-0 my-auto w-5 h-5 border border-rose-400 border-solid" /> */}
       <Checkbox color="danger" isSelected={isCheck} />
       <div className="flex flex-none justify-center items-center">
-        <img loading="lazy" src={cartItem.product.productImages} alt={cartItem.product.name} className="aspect-square w-32" />
+        <img loading="lazy" src={imageUrl(cartItem.product.productImages[0])} alt={cartItem.product.name} className="aspect-square w-32 object-cover rounded-md" />
       </div>
       <div className="flex flex-col flex-1 my-auto max-md:max-w-full gap-2">
         <h3 className="text-md md:text-xl font-playfair text-zinc-700 max-md:max-w-full">{cartItem.product.name}</h3>
