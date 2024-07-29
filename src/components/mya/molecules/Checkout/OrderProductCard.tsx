@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Checkbox } from '@nextui-org/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import CartItem from '@/types/mya/cartItem';
@@ -7,19 +7,23 @@ import { rupiah, imageUrl } from '@/lib/mya/helpers';
 interface OrderProductCardProps {
   cartItem: CartItem;
   isCheck?: boolean;
+  updateCartItemQuantity?: (productId: number, newQuantity: number) => void;
 }
 
-type Order = number;
-
-const OrderProductCard: React.FC<OrderProductCardProps> = ({ cartItem, isCheck }) => {
+const OrderProductCard: React.FC<OrderProductCardProps> = ({ cartItem, isCheck, updateCartItemQuantity }) => {
 
   //cartItem.quantity
-  const [order, setOrder] = useState<Order>(cartItem.quantity);
+  const [order, setOrder] = useState<number>(cartItem.quantity);
 
-  //increast quantity
+  useEffect(() => {
+    if (updateCartItemQuantity) {
+      updateCartItemQuantity(cartItem.productId, order);
+    }
+  }, [order]);
+
+  //increase quantity
   const increaseOrder = () => {
     setOrder(order + 1);
-    console.log(cartItem.quantity);
   }
   const decreaseOrder = () => {
     if (order > 1) {
@@ -27,7 +31,7 @@ const OrderProductCard: React.FC<OrderProductCardProps> = ({ cartItem, isCheck }
     }
   }
 
-  const totalPrice = cartItem.product.price.RETAIL * cartItem.quantity;
+  const totalPrice = cartItem.product.price.RETAIL * order;
 
   return (
     <div className="flex gap-5 justify-center px-6 py-2 mt-5 shadow-sm bg-zinc-50 rounded-[32px] max-md:flex-wrap max-md:px-5">

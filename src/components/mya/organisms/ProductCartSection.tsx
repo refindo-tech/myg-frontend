@@ -6,11 +6,12 @@ import Cart from '@/types/mya/cart';
 
 
 interface ProductCartSectionProps {
-  products: Cart;
+  cartItems: CartItem[];
+  updateCartItemQuantity: (productId: number, newQuantity: number) => void;
 }
 
-const ProductCartSection: React.FC<ProductCartSectionProps> = ({ products }) => {
-  console.log(products);
+const ProductCartSection: React.FC<ProductCartSectionProps> = ({ cartItems: cartItems, updateCartItemQuantity }) => {
+  console.log(cartItems);
   return (
       <section className="flex flex-col w-full">
         <div className="flex flex-col grow max-md:mt-2 max-md:max-w-full">
@@ -28,8 +29,8 @@ const ProductCartSection: React.FC<ProductCartSectionProps> = ({ products }) => 
               <Button variant='ghost' size='lg' className="border-none font-playfair text-lg text-rose-400 leading-[150%]">Hapus</Button>
             </div>
           </header>
-          {products.cartItems.map((product, index) => (
-            <OrderProductCard key={index} cartItem={product} isCheck={false} />
+          {cartItems.map((product, index) => (
+            <OrderProductCard key={index} cartItem={product} isCheck={false} updateCartItemQuantity={updateCartItemQuantity} />
           ))}
         </div>
       </section>

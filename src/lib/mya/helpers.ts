@@ -1,8 +1,16 @@
 //Rupiah converter
-export const rupiah = (value: number) => {
+export const rupiah = (value: number, negative = false) => {
     /**
    * `Konversi angka ke format rupiah`
     */
+
+  if (negative) {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(value).replace("Rp", "- Rp");
+  }
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
