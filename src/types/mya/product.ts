@@ -2,7 +2,12 @@ export default interface Product {
     productId: number;
     name: string;
     description: string;
-    price: number;
+    category: string;
+    price: {
+        RETAIL: number;
+        AGENT: number;
+        DISTRIBUTOR: number;
+    };
     stock: number;
     productImages: string;
     type: string;
