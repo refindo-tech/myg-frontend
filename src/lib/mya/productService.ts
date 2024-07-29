@@ -14,10 +14,10 @@ const config = {
 };
 
 class ProductService {
-  static async fetchProducts({ limit = 10, category }: { limit: number, category?: string }) {
+  static async fetchProducts({ limit = 10, category, isRecommended }: { limit: number, category?: string, isRecommended?: boolean }) {
     try {
       const response = await axios.get(API_URL, {
-        params: { limit },
+        params: { limit, category, isRecommended },
         ...config,
       });
       return response.data.meta.message;

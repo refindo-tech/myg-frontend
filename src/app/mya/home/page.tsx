@@ -45,7 +45,8 @@ const Home: React.FC = () => {
 
   const { data: faceProducts, isLoading: faceLoading } = useProducts.all({ limit: 4, category: "FACE_CARE" });
   const { data: skinProducts, isLoading: skinLoading } = useProducts.all({ limit: 4, category: "SKIN_CARE" });
-  const { data: recommendedProducts, isLoading: recommendedLoading } = useProducts.all({ limit: 3 });
+  const { data: recommendedProducts, isLoading: recommendedLoading } = useProducts.all({ limit: 3, isRecommended: true });
+  console.log("recommendedProducts", recommendedProducts);
   const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1 });
   // const { data: testimonies, isLoading: testimoniesLoading } = useTestimonies.all({ limit: 3 });
 
