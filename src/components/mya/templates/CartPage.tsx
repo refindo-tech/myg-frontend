@@ -8,9 +8,10 @@ import Header from '@components/mya/organisms/Header';
 import OrderSummary from '@/components/mya/molecules/Checkout/OrderSummary';
 import Footer from '@components/mya/organisms/Footer';
 import ProductCartSection from '@components/mya/organisms/ProductCartSection';
+import Cart from '@/types/mya/cart';
 
 interface CartPageProps {
-  productCart: any[];
+  productCart: Cart;
 }
 
 const CartPage: React.FC<CartPageProps> = ({ productCart }) => {

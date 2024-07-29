@@ -3,7 +3,7 @@ import { EyeIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
 import Product from '@/types/mya/product';
 
-import { rupiah } from '@/lib/mya/helpers';
+import { rupiah, category } from '@/lib/mya/helpers';
 
 interface ProductDetailCardProps {
     product: Product;
@@ -45,16 +45,16 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
         
         >
             <CardHeader className="pb-0 px-4 flex-col items-start flex-grow gap-2">
-                <span className="text-default-500 text-xs font-normal font-openSans uppercase">category</span>
+                <span className="text-default-500 text-xs font-normal font-openSans uppercase">{category(product.category)}</span>
                 <h4 className="text-black text-2xl font-medium font-playfair leading-8">{product.name}</h4>
-                <span className="text-default-500 text-xs font-normal">Terjual 6rb+ produk/bulan . Stok Total : 2.000 pcs</span>
+                <span className="text-default-500 text-xs font-normal">Terjual 6rb+ produk/bulan . Stok Total : {product.stock} pcs</span>
                 <div className='flex flex-col w-full'>
                     <div className="flex items-center gap-2">
                         <EyeIcon className="h-5 w-5 text-default-500" />
                         <span className="text-default-500 text-xs font-normal">{'Dilihat orang'}</span>
                     </div>
                 </div>
-                <span className="text-default-700 py-1 text-lg md:text-sm xl:text-lg font-normal font-openSans">{rupiah(product.price)}</span>
+                <span className="text-default-700 py-1 text-lg md:text-sm xl:text-lg font-normal font-openSans">{rupiah(product.price.RETAIL)}</span>
                 <div className="flex gap-2 w-full">
                     <div className="flex-1 border border-gray rounded-xl p-2">
                         <div className="flex gap-2 items-center">

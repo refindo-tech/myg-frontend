@@ -1,20 +1,11 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:5000/myg/api/mya/keranjang/';
-//access token
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-  },
-  withCredentials: true,
-};
+// import axios from 'axios';
+import axios from '@/axios/axiosConfig';
+const API_URL = process.env.NEXT_PUBLIC_BASE_API + '/myg/api/mya/keranjang/';
 
 class CartService {
     static async fetchCart() {
         try {
-        const response = await axios.get(API_URL, {
-            ...config,
-        });
+        const response = await axios.get(API_URL);
         return response.data.meta.message;
         } catch (error) {
         console.error("Error fetching carts", error);

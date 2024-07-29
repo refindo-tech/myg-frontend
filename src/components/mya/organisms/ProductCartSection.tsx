@@ -1,22 +1,18 @@
 import React from 'react';
 import OrderProductCard from '@/components/mya/molecules/Checkout/OrderProductCard';
 import { Checkbox, Button } from '@nextui-org/react';
+import CartItem from '@/types/mya/cartItem';
+import Cart from '@/types/mya/cart';
 
-interface Product {
-  imageUrl: string;
-  name: string;
-  price: string;
-  quantity: number;
-  totalPrice: string;
-}
 
 interface ProductCartSectionProps {
-  products: Product[];
+  products: Cart;
 }
 
 const ProductCartSection: React.FC<ProductCartSectionProps> = ({ products }) => {
+  console.log(products);
   return (
-      <section className="flex flex-col max-md:w-full">
+      <section className="flex flex-col w-full">
         <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
           <header className="flex flex-col justify-center p-6 text-2xl bg-white border-b border-solid border-zinc-300 max-md:px-5 max-md:max-w-full">
             <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
@@ -32,8 +28,8 @@ const ProductCartSection: React.FC<ProductCartSectionProps> = ({ products }) => 
               <Button variant='ghost' size='lg' className="border-none font-playfair text-lg text-rose-400 leading-[150%]">Hapus</Button>
             </div>
           </header>
-          {products.map((product, index) => (
-            <OrderProductCard key={index} products={product} isCheck={false} />
+          {products.cartItems.map((product, index) => (
+            <OrderProductCard key={index} cartItem={product} isCheck={false} />
           ))}
         </div>
       </section>
