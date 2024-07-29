@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Input, Button, Checkbox, Image } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { loginUser } from "@/lib/authentication/fetchData";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
 
@@ -36,14 +36,17 @@ export function Login() {
     e.preventDefault();
     setErrors([]);
     try {
-      const response = await axios.post('http://localhost:5000/myg/auth/login', formData);
-      console.log('User logged in successfully:', response.data);
-      
-      // Set environment variables for accessToken and refreshToken
-      localStorage.setItem('accessToken', response.data.results.accessToken);
-      document.cookie = `refreshToken=${response.data.results.refreshToken}; path=/;`;
+      const response = await loginUser(formData.email, formData.password);
+      if (response) {
+        console.log('User logged in successfully:', response);
+        
+        // Set accessToken in session storage
+        sessionStorage.setItem('accessToken', response.results.accessToken);
 
-      router.push('myBeautica/home');
+        router.push('myBeautica/home');
+      } else {
+        setErrors([{ instancePath: '', message: 'Login failed. Please check your credentials and try again.' }]);
+      }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.errors) {
         setErrors(error.response.data.errors);
