@@ -13,8 +13,8 @@ const ProductCartSection: React.FC<ProductCartSectionProps> = ({ products }) => 
   console.log(products);
   return (
       <section className="flex flex-col w-full">
-        <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
-          <header className="flex flex-col justify-center p-6 text-2xl bg-white border-b border-solid border-zinc-300 max-md:px-5 max-md:max-w-full">
+        <div className="flex flex-col grow max-md:mt-2 max-md:max-w-full">
+          <header className="flex flex-col justify-center px-6 -mt-2 text-2xl bg-white border-b border-solid border-zinc-300 max-md:px-5 max-md:max-w-full">
             <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
               <div className="flex gap-2 justify-center my-auto leading-[133%] text-zinc-700">
                 {/* <input type="checkbox" className="shrink-0 my-auto w-5 h-5 bg-white rounded-md border border-rose-400 border-solid" />
