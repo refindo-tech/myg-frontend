@@ -12,31 +12,30 @@ interface HeroData {
 
 interface HeroProps {
     heroData: HeroData;
-    showcaseProduct: Product;
+    showcaseProduct?: Product;
 }
 
 const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
     const router = useRouter();
     const pathname = usePathname();
+
     function redirectToProductDetail() {
-        router.push(`/mya/product/${showcaseProduct.productId}`);
+        if (showcaseProduct) {
+            router.push(`/mya/product/${showcaseProduct.productId}`);
+        }
     }
+
     function redirectToHome() {
-        //to #produk id, smooth scroll
-        //check if on home page
         const produkElement = document.getElementById("produk");
         if (produkElement) {
             produkElement.scrollIntoView({ behavior: "smooth" });
         } else {
             router.push("/mya#produk");
         }
-
     }
+
     return (
-        <section
-            className="items-center bg-mya-50 pt-12 px-4"
-            id="hero"
-        >
+        <section className="items-center bg-mya-50 pt-12 px-4" id="hero">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center xl:px-16 h-full md:h-[600px] xl:h-[500px]">
                 <div className="flex-1 flex flex-col md:basis-2/5 justify-center items-start text-left">
                     <h1 className="text-red-300 text-4xl md:text-5xl font-medium font-playfair leading-tight">
@@ -55,32 +54,32 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
                         src={heroData.imageUrl}
                         alt="Model Image"
                     />
-                    <Card className="md:absolute bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">
-                        <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                            {/* <h4 className="text-black text-md font-medium font-playfair leading-tight"> {showcaseProduct.name} </h4> */}
-                            <Link
-                                href={`/mya/product/${showcaseProduct.productId}`}
-                                className="text-black py-2 text-md font-medium font-playfair leading-tight hover:text-mya-600"
-                            >
-                                {showcaseProduct.name}
-                            </Link>
-                            <p className="text-tiny font-normal">{cutDescription(showcaseProduct.description, 125)}</p>
-                            {/* <small className="text-default-500">12 Tracks</small> */}
-                        </CardHeader>
-                        <CardBody className="overflow-visible py-2">
-                            <Image
-                                alt="Card background"
-                                className="object-cover rounded-xl h-28 w-full hover:scale-105 transition-transform duration-300"
-                                src={imageUrl(showcaseProduct.productImages)}
-                                width={270}
-                            />
-                        </CardBody>
-                        <CardFooter className="flex justify-end items-center px-4">
-                            <Button className="bg-rose-400 text-white font-semibold rounded-xl px-6 py-2" onClick={redirectToProductDetail}>
-                                Beli Sekarang
-                            </Button>
-                        </CardFooter>
-                    </Card>
+                    {showcaseProduct && (
+                        <Card className="md:absolute bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">
+                            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                                <Link
+                                    href={`/mya/product/${showcaseProduct.productId}`}
+                                    className="text-black py-2 text-md font-medium font-playfair leading-tight hover:text-mya-600"
+                                >
+                                    {showcaseProduct.name}
+                                </Link>
+                                <p className="text-tiny font-normal">{cutDescription(showcaseProduct.description, 125)}</p>
+                            </CardHeader>
+                            <CardBody className="overflow-visible py-2">
+                                <Image
+                                    alt="Card background"
+                                    className="object-cover rounded-xl h-28 w-full hover:scale-105 transition-transform duration-300"
+                                    src={imageUrl(showcaseProduct.productImages)}
+                                    width={270}
+                                />
+                            </CardBody>
+                            <CardFooter className="flex justify-end items-center px-4">
+                                <Button className="bg-rose-400 text-white font-semibold rounded-xl px-6 py-2" onClick={redirectToProductDetail}>
+                                    Beli Sekarang
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    )}
                 </div>
             </div>
         </section>

@@ -71,62 +71,6 @@ export const logoutUser = async () => {
 };
 
 
-
-export const fetchServices = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/myg/api/layanan');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching services:', error);
-    return null;
-  }
-};
-
-export const fetchServiceById = async (id: string | string[]) => {
-  try {
-    const response = await axios.get(`http://localhost:5000/myg/api/layanan/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching service by id:', error);
-    return null;
-  }
-};
-
-export const updateServiceById = async (id: string | string[], data: any) => {
-  try {
-    const response = await axios.put(`http://localhost:5000/myg/api/layanan/${id}`, data);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating service by id:', error);
-    return null;
-  }
-}
-
-export const updateServiceViews = async (id: number, viewCount: number) => {
-  try {
-    const response = await axios.put(`http://localhost:5000/myg/api/layanan/${id}`, {
-      viewCount
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error updating service views:', error);
-    throw error;
-  }
-};
-
-
-export const fetchTestimonials = async () => {
-  try {
-    const response = await axios.get('http://localhost:5000/myg/api/testimonials');
-    console.log('Testimonials response:', response.data); 
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching testimonials:', error);
-    return null;
-  }
-};
-
-
 export const login = async (email: string, password: string) => {
   try {
     const response = await axios.post('http://localhost:5000/myg/api/login', { email, password });

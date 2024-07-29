@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = (
                 </div>
             </CardBody>
             <CardFooter className="flex justify-between items-center px-4">
-                <span className="text-default-700 text-lg md:text-sm xl:text-lg font-normal font-openSans">{rupiah(product.priceId)}</span>
+                <span className="text-default-700 text-lg md:text-sm xl:text-lg font-normal font-openSans">{rupiah(product.price)}</span>
                 <Button className="bg-mya-600 text-mya-100 font-semibold rounded-xl">+ Keranjang</Button>
             </CardFooter>
         </Card>
