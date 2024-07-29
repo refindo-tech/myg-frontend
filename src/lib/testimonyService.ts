@@ -4,7 +4,7 @@ import axios from 'axios';
 // Gunanya untuk mengambil data produk dari API
 
 
-const API_URL = 'http://localhost:5000/myg/api/testimonials/';
+const API_URL =  process.env.NEXT_PUBLIC_BASE_API + '/myg/api/testimonials/';
 
 class TestimonyService {
   static async fetchTestimonies({ limit = 10 }) {

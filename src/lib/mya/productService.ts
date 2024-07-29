@@ -1,10 +1,11 @@
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '@/axios/axiosConfig';
 
 //path: src/lib/mya/productService.ts
 // Gunanya untuk mengambil data produk dari API
 
 
-const API_URL = 'http://localhost:5000/myg/api/mya/produk/';
+const API_URL = process.env.NEXT_PUBLIC_BASE_API + '/myg/api/mya/produk/';
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -13,7 +14,7 @@ const config = {
 };
 
 class ProductService {
-  static async fetchProducts({ limit = 10 }) {
+  static async fetchProducts({ limit = 10, category }: { limit: number, category?: string }) {
     try {
       const response = await axios.get(API_URL, {
         params: { limit },
