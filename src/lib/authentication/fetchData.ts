@@ -1,5 +1,4 @@
-// fetchData.ts
-import axios from 'axios';
+import api from '@/axios/axiosConfig';
 
 interface UserProfile {
   fullName: string;
@@ -23,7 +22,7 @@ interface ValidationError {
 
 export const registerUser = async (data: RegisterData) => {
   try {
-    const response = await axios.post(`http://localhost:5000/myg/auth/register`, data);
+    const response = await api.post('/myg/auth/register', data);
     return response.data;
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.errors) {
@@ -33,10 +32,9 @@ export const registerUser = async (data: RegisterData) => {
   }
 };
 
-
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await axios.post('http://localhost:5000/myg/auth/login', { email, password });
+    const response = await api.post('/myg/auth/login', { email, password });
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error);
@@ -44,13 +42,9 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-export const refreshToken = async (refreshToken: string) => {
+export const refreshToken = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/myg/auth/refresh-token', {
-      headers: {
-        'Authorization': `Bearer ${refreshToken}`
-      }
-    });
+    const response = await api.get('/myg/auth/refresh-token');
     return response.data;
   } catch (error) {
     console.error('Error refreshing token:', error);
@@ -60,23 +54,10 @@ export const refreshToken = async (refreshToken: string) => {
 
 export const logoutUser = async () => {
   try {
-    const response = await axios.delete('http://localhost:5000/myg/auth/logout', {
-      withCredentials: true
-    });
+    const response = await api.delete('/myg/auth/logout');
     return response.data;
   } catch (error) {
     console.error('Error logging out:', error);
-    return null;
-  }
-};
-
-
-export const login = async (email: string, password: string) => {
-  try {
-    const response = await axios.post('http://localhost:5000/myg/api/login', { email, password });
-    return response.data;
-  } catch (error) {
-    console.error('Error logging in:', error);
     return null;
   }
 };
