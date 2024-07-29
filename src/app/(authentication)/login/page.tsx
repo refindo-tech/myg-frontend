@@ -42,6 +42,7 @@ export function Login() {
         
         // Set accessToken in session storage
         sessionStorage.setItem('accessToken', response.results.accessToken);
+        // Set refreshToken in cookie
 
         router.push('myBeautica/home');
       } else {
