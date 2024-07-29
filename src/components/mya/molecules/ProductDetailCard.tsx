@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { useRouter } from 'next/navigation';
 import { EyeIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
 import Product from '@/types/mya/product';
+import OrderService from '@/lib/mya/orderService';
 
 import CartService from '@/lib/mya/cartService';
 
@@ -19,7 +21,9 @@ interface ProductDetailCardProps {
 type Quantity = number;
 
 const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
+    const router = useRouter();
     const { addToCart } = CartService;
+    const { orderProduct } = OrderService;
     //order reactive variable
     const [quantity, setQuantity] = useState<Quantity>(1);
 
@@ -31,6 +35,31 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
             setQuantity(quantity - 1);
         }
     }
+
+    //handle order product
+    const handleOrderProduct = async (productId: number, quantity: number) => {
+        try {
+            const response = await orderProduct(productId, { quantity });
+            if (response.isError) {
+                console.log("Error ordering product", response.isError);
+                return;
+            }
+            swal.fire({
+                title: 'Berhasil memesan produk!',
+                text: 'Silahkan cek pesanan anda',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            //redirect to order page
+            router.push('/mya/checkout/' + response.orderId);
+
+        } catch (error) {
+            console.log("Error ordering product", error);
+        }
+    }
+    
 
     const handleAddToCart = async (productId: number, quantity: number) => {
         try {
@@ -49,11 +78,6 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
         } catch (error) {
             console.log("Error adding to cart", error);
         }
-    }
-
-    const orderProduct = (id: Number, order: Number) => {
-        console.log('id', id);
-        console.log('quantity', order);
     }
 
     return (
@@ -88,7 +112,7 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
                             </Button>
                         </div>
                     </div>
-                    <Button className="bg-mya-600 w-full text-mya-100 font-semibold rounded-xl" onClick={() => orderProduct(product.productId, quantity)}>
+                    <Button className="bg-mya-600 w-full text-mya-100 font-semibold rounded-xl" onClick={() => handleOrderProduct(product.productId, quantity)}>
                         Beli Sekarang
                     </Button>
                     <Button className="bg-white border border-mya-600 w-full text-mya-600 font-semibold rounded-xl" onClick={() => handleAddToCart(product.productId, quantity)}>

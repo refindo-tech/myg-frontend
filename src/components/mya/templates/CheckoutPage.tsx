@@ -34,7 +34,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ orders }) => {
       </main>
       <hr className="w-full lg:w-[70%] lg:hidden mx-auto border-t border-gray-300 my-8" />
       <aside className="w-full lg:w-[30%] mx-auto">
-        <VirtualAccount virtualAccount='1234567890' title='Nomor Rekening BCA' />
+        <VirtualAccount virtualAccount='5420326969' title='Nomor Rekening BCA' />
         <hr className="w-full border-t border-gray-300 my-6" />
         <CheckoutSummary totalProducts={totalQuantity} subtotal={44} totalPayment={orders.totalAmount} status={orders.status} code={orders.code} />
         <hr className="w-full border-t border-gray-300 my-6" />

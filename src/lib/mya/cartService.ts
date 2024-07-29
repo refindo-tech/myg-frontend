@@ -2,6 +2,13 @@
 import axios from '@/axios/axiosConfig';
 const API_URL = process.env.NEXT_PUBLIC_BASE_API + '/myg/api/mya/keranjang/';
 
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+};
+
 // Helper function to filter out unnecessary properties
 const filterCartItems = (cartItems: { productId: number, quantity: number }[]) => {
     return cartItems.map(item => ({
@@ -14,7 +21,7 @@ const filterCartItems = (cartItems: { productId: number, quantity: number }[]) =
 class CartService {
     static async fetchCart() {
         try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(API_URL, config);
         return response.data.meta.message;
         } catch (error) {
         console.error("Error fetching carts", error);
@@ -26,7 +33,7 @@ class CartService {
     // url: /myg/api/mya/keranjang/item/[productId]
     static async addToCart(productId: number, quantity: number) {
         try {
-            const response = await axios.post(API_URL + 'item/' + productId, { quantity });
+            const response = await axios.post(API_URL + 'item/' + productId, { quantity }, config);
             return response.data.meta.message;
         }
         catch (error) {

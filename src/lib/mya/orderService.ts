@@ -1,11 +1,17 @@
 // import axios from 'axios';
 import axios from '@/axios/axiosConfig';
 const API_URL = process.env.NEXT_PUBLIC_BASE_API + '/myg/api/mya/order/';
+const config = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    withCredentials: true,
+};
 
 class OrderService {
     static async fetchOrder() {
         try {
-            const response = await axios.get(API_URL);
+            const response = await axios.get(API_URL, config);
             return response.data.meta.message;
         }
         catch (error) {
@@ -17,7 +23,7 @@ class OrderService {
     //fetch order by id
     static async fetchOrderById(orderId: number) {
         try {
-            const response = await axios.get(API_URL + orderId + '/');
+            const response = await axios.get(API_URL + orderId + '/', config);
             return response.data.meta.message;
         }
         catch (error) {
@@ -31,7 +37,7 @@ class OrderService {
         try {
             const response = await axios.post(API_URL + productId + '/', {
                 params: { quantity },
-            });
+            }, config);
             return response.data.meta.message;
         }
         catch (error) {
@@ -43,7 +49,7 @@ class OrderService {
     //kalo beli banyak produk dari keranjang
     static async orderProducts() {
         try {
-            const response = await axios.post(API_URL);
+            const response = await axios.post(API_URL, config);
             return response.data.meta.message;
         }
         catch (error) {
