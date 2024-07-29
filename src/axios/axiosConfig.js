@@ -8,7 +8,8 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = getCookie('accessToken');
+    // const token = getCookie('accessToken');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -30,7 +31,7 @@ api.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry && refreshToken) {
       originalRequest._retry = true;
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/refresh-token`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/myg/auth/refresh-token`, {
           headers: { 'Authorization': `Bearer ${refreshToken}` }
         });
 
