@@ -6,7 +6,7 @@ interface HeaderProps {
     logo?: string; // The URL of the logo
 }
 
-const defaultLogo = "/assets/images/logo/myBeautica.png"
+const defaultLogo = "/assets/images/logo/myg.png"
 const Header: React.FC<HeaderProps> = ({ logo = defaultLogo }) => {
     const navItems = [
         { label: "Home", isActive: true, href: "/" },
