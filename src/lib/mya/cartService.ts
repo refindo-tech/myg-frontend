@@ -22,10 +22,22 @@ class CartService {
         }
     }
 
+    //add to cart, accept productId and quantity
+    // url: /myg/api/mya/keranjang/item/[productId]
+    static async addToCart(productId: number, quantity: number) {
+        try {
+            const response = await axios.post(API_URL + 'item/' + productId, { quantity });
+            return response.data.meta.message;
+        }
+        catch (error) {
+            console.error("Error adding to cart", error);
+            return null;
+        }
+    }
+
     //bulk update cart
     //accept array of object cartItems, but only need cartItemId, productId, and quantity
     static async updateCart(cartItems: { cartItemId:number, productId: number, quantity: number }[]) {
-
         const filteredCartItems = filterCartItems(cartItems);
         try {
             const response = await axios.put(API_URL + 'item/bulk/', filteredCartItems);

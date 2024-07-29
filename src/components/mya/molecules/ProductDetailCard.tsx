@@ -3,18 +3,23 @@ import { EyeIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
 import Product from '@/types/mya/product';
 
+import CartService from '@/lib/mya/cartService';
+
+//sweeetalert
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { rupiah, category } from '@/lib/mya/helpers';
 
 interface ProductDetailCardProps {
     product: Product;
 }
 
+//sweeetalert modal
+
 type Quantity = number;
 
 const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
-    // Implement your component logic here
-    // Add and Minus Button
-
+    const { addToCart } = CartService;
     //order reactive variable
     const [quantity, setQuantity] = useState<Quantity>(1);
 
@@ -27,9 +32,23 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
         }
     }
 
-    const addTocart = (id: Number, order: Number) => {
-        console.log('id', id);
-        console.log('quantity', order);
+    const handleAddToCart = async (productId: number, quantity: number) => {
+        try {
+            const response = await addToCart(productId, quantity);
+            if (response.isError) {
+                console.log("Error adding to cart", response.isError);
+                return;
+            }
+            swal.fire({
+                title: 'Berhasil menambahkan ke keranjang!',
+                text: 'Silahkan cek keranjang anda',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        } catch (error) {
+            console.log("Error adding to cart", error);
+        }
     }
 
     const orderProduct = (id: Number, order: Number) => {
@@ -72,7 +91,7 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
                     <Button className="bg-mya-600 w-full text-mya-100 font-semibold rounded-xl" onClick={() => orderProduct(product.productId, quantity)}>
                         Beli Sekarang
                     </Button>
-                    <Button className="bg-white border border-mya-600 w-full text-mya-600 font-semibold rounded-xl" onClick={() => addTocart(product.productId, quantity)}>
+                    <Button className="bg-white border border-mya-600 w-full text-mya-600 font-semibold rounded-xl" onClick={() => handleAddToCart(product.productId, quantity)}>
                         + Keranjang
                         </Button>
                 </div>

@@ -22,7 +22,7 @@ const DetailSection: React.FC<DetailSectionProps> = ({ product }) => {
                 <div className="flex flex-none flex-col w-full md:basis-1/2 justify-center items-start text-left">
                     <img
                         className="sm:rounded-2xl object-cover aspect-square w-full"
-                        src={imageUrl(product.productImages)}
+                        src={imageUrl(product.productImages[0])}
                         alt={product.name}
                     />
                 </div>
