@@ -41,7 +41,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, totalProducts, s
       }
 
       //redirect to order page
-      router.push('/mya/checkout');
+      router.push('/mya/checkout/' + orderResponse.orderId);
     } catch (error) {
       console.log("Error checkout", error);
     }
@@ -79,13 +79,17 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, totalProducts, s
       {/* <button className="justify-center items-center px-4 py-3 mt-6 text-base font-semibold leading-6 text-red-50 bg-rose-400 rounded-xl max-md:px-5">
         Beli sekarang
       </button> */}
-      {isCheckout ? (
-        <Button className="mt-6 bg-rose-400 text-white font-semibold rounded-xl px-6 py-3">Cek status pembayaran</Button>
-      ) : (
+      {/* If cart is not empty, show the checkout button, otherwise show button that redirect to home */}
+      {cartItems.length > 0 ? (
         <Button className="mt-6 bg-rose-400 text-white font-semibold rounded-xl px-6 py-3" onClick={handleCheckout}>
-          Beli sekarang
+          Checkout
+        </Button>
+      ) : (
+        <Button className="mt-6 bg-rose-400 text-white font-semibold rounded-xl px-6 py-3" onClick={() => router.push('/mya')}>
+          Belanja Sekarang
         </Button>
       )}
+      
       <p className="mt-6 text-sm tracking-tight leading-5 text-rose-400">
         {message(subtotal)}
       </p>
