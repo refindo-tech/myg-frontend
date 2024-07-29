@@ -6,6 +6,10 @@ import OrderService from '@/lib/mya/orderService';
 import cartService from '@/lib/mya/cartService';
 import CartItem from '@/types/mya/cartItem';
 
+//sweeetalert
+import swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 interface OrderSummaryProps {
   cartItems: CartItem[];
   totalProducts: number;
@@ -27,6 +31,16 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, totalProducts, s
   const handleCheckout = async  () => {
     try {
       //update cart
+      swal.fire({
+        title: 'Mohon tunggu!',
+        text: 'Sedang memproses checkout',
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        allowOutsideClick: false
+      });
+
       const updateCartResponse = await updateCart(cartItems);
       if (updateCartResponse.isError) {
         console.log("Error updating cart", updateCartResponse.isError);
@@ -40,10 +54,20 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, totalProducts, s
         return;
       }
 
+      //close loading
+      swal.close();
+
       //redirect to order page
       router.push('/mya/checkout/' + orderResponse.orderId);
     } catch (error) {
       console.log("Error checkout", error);
+      swal.fire({
+        title: 'Gagal checkout!',
+        text: 'Silahkan coba lagi',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   }
 

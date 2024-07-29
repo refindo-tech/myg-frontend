@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
                     {/* logo */}
                     <div className="flex-1 inline-flex items-center h-24 justify-center md:justify-start">
                         <Image
-                            src="/assets/images/logo/placeholder.png"
+                            src="/assets/images/logo/myg.png"
                             alt="logo"
                             className='h-24 w-auto'
                         />

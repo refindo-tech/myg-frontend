@@ -41,7 +41,7 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
             }
             swal.fire({
                 title: 'Berhasil menambahkan ke keranjang!',
-                text: 'Silahkan cek keranjang anda',
+                // text: 'Silahkan cek keranjang anda',
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 1500

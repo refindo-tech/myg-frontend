@@ -35,6 +35,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ logo, navItems, service =
                             alt="Company logo"
                             width={76}
                             height={76}
+                            className="object-cover"
                         />
                     </NavbarBrand>
                 </NavbarContent>

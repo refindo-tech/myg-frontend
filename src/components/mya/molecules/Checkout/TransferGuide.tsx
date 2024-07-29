@@ -14,17 +14,19 @@ const TransferGuide: React.FC<Props> = () => {
             <AccordionItem key="1" title="Petunjuk transfer ATM">
                 {/* ordered list */}
                 <ol className="list-decimal list-inside pl-4">
-                    <li className="text-zinc">Transfer ke rekening bank yang tertera di halaman pembayaran</li>
-                    <li className="text-zinc">Transfer sesuai dengan jumlah yang tertera</li>
-                    <li className="text-zinc">Simpan bukti transfer sebagai referensi</li>
+                    <li className="text-zinc">Pilih 'Transaksi' &gt 'Transfer' &gt Ke Rekening 'BCA'</li>
+                    <li className="text-zinc">Masukkan nomor rekening yang tertera</li>
+                    <li className="text-zinc">Foto atau Screenshoot bukti transfer</li>
+                    <li className="text-zinc">Konfirmasi sudah transfer dengan mengirim bukti transfer ke WA +6281314485552</li>
                 </ol>
             </AccordionItem>
-            <AccordionItem key="2" title="Petunjuk transfer mobile banking">
+            <AccordionItem key="2" title="Petunjuk transfer mBanking">
                 {/* ordered list */}
                 <ol className="list-decimal list-inside pl-4">
-                    <li className="text-zinc">Transfer ke rekening bank yang tertera di halaman pembayaran</li>
-                    <li className="text-zinc">Transfer sesuai dengan jumlah yang tertera</li>
-                    <li className="text-zinc">Simpan bukti transfer sebagai referensi</li>
+                    <li className="text-zinc">Pilih 'Transfer &gt Ke rekening 'BCA'</li>
+                    <li className="text-zinc">Masukkan nomor rekening yang tertera</li>
+                    <li className="text-zinc">Foto atau Screenshoot bukti transfer</li>
+                    <li className="text-zinc">Konfirmasi sudah transfer dengan mengirim bukti transfer ke WA +6281314485552</li>
                 </ol>
 
             </AccordionItem>

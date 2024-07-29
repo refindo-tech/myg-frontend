@@ -41,10 +41,10 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                 </DropdownSection>
 
                 <DropdownSection>
-                <DropdownItem key="profile" className="h-14 gap-2">
+                {/* <DropdownItem key="profile" className="h-14 gap-2">
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">mybeautica@gmail.com</p>
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem key="logout" color="danger">
                     Log Out
                 </DropdownItem>

@@ -11,9 +11,9 @@ const heroData = {
 
 
 const slides = [
-  "/assets/images/banners/banner1.jpg",
-  "/assets/images/banners/banner2.jpg",
-  "/assets/images/banners/banner3.jpg",
+  "/assets/images/banners/Ultimate Brightening Serum.jpg",
+  "/assets/images/banners/Milky Infused Nutrition.jpg",
+  "/assets/images/banners/Brightening Body Serum Night.jpg",
 ];
 
 const services = [

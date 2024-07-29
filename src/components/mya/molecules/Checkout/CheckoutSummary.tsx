@@ -32,7 +32,7 @@ const CheckoutSummary: React.FC<CheckoutSummaryProps> = ({subtotal, totalProduct
 
   //Handle Konfirmasi Pembayaran, open whatsapp with the important data
     const handleConfirmPayment = () => {
-        const phone = '62895620930010';
+        const phone = '6281314485552';
         const message = `Halo, saya ingin konfirmasi pembayaran dengan kode pesanan ${code} sebesar ${rupiah(totalPayment)}`;
         const url = `https://wa.me/${phone}?text=${message}`;
         // router.push(url);

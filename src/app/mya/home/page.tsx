@@ -9,40 +9,32 @@ import useTestimonies from '@/hooks/useTestimonies';
 const heroData = {
   title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
   description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
-  imageUrl: "/assets/images/hero/menhera.png",
+  imageUrl: "/assets/images/hero/hero.png",
 };
 
 
 const slides = [
-  "/assets/images/banners/banner1.jpg",
-  "/assets/images/banners/banner2.jpg",
-  "/assets/images/banners/banner3.jpg",
+  "/assets/images/banners/Ultimate Brightening Serum.jpg",
+  "/assets/images/banners/Milky Infused Nutrition.jpg",
+  "/assets/images/banners/Brightening Body Serum Night.jpg",
 ];
 
 const faqs = [
   {
-    question: "Apa itu MYA Beauty?",
-    answer: "MYA Beauty adalah brand lokal yang memproduksi produk perawatan kulit dan wajah alami dengan kualitas terbaik."
+    question: "Apa saja manfaat menjadi Reseller atau Distributor?",
+    answer: "Selain mendapatkan harga yang lebih murah, Reseller atau Distributor juga dapat poin-poin yang bisa ditukar dengan berbagai hadiah menarik seperti bimbingan marketing, produk knowledge dan bisa berkembang memiliki salon kecantikan sendiri."
   },
   {
-    question: "Apakah produk MYA Beauty aman digunakan?",
-    answer: "Ya, produk MYA Beauty telah terdaftar di BPOM dan aman digunakan untuk semua jenis kulit."
+    question: "Apa ketentuan menjadi Reseller atau Distributor?",
+    answer: "Aktif di sosial media. Sudah menggunakan produk MYA. Wajib jualan. Belanja produk 3 juta untuk menjadi Reseller, atau 10 juta untuk menjadi Distributor. Menaati peraturan MYA"
   },
   {
-    question: "Apakah MYA Beauty menerima pembelian grosir?",
-    answer: "Ya, MYA Beauty menerima pembelian grosir dengan harga khusus."
+    question: "Bagaimana cara membeli produk kami?",
+    answer: "Anda perlu melakukan pendaftaran akun terlebih dahulu dengan mengisi data yang diperlukan, dan membaca syarat dan ketentuan yang berlaku. Setelah itu memilih produk dengan memasukkannya ke dalam keranjang, lalu dilanjutkan dengan melukakan pembayaran."
   },
   {
-    question: "Bagaimana cara memesan produk MYA Beauty?",
-    answer: "Anda bisa memesan produk MYA Beauty melalui website ini atau menghubungi kontak kami."
-  },
-  {
-    question: "Apakah One Piece itu nyata?",
-    answer: "Ya, One Piece itu nyata."
-  },
-  {
-    question: "One Piece bosenin, kebanyakan episodenya.",
-    answer: "Ya, bener juga sih."
+    question: "Bagaimana cara melakukan pembayaran?",
+    answer: "Setelah memilih produk yang ingin dibeli. Maka lanjutkan proses pembayaran dengan melakukan transfer ke nomor rekening yang tertera, kemudian mengirim bukti transfer."
   },
 ];
 
