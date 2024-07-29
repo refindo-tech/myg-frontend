@@ -33,9 +33,13 @@ const products = [
 
 const Checkout: React.FC = () => {
   return (
-    <CheckoutPage
-      products={products}
-    />
+    <div className="flex flex-col h-full bg-white w-screen">
+      <div className="flex flex-grow flex-col lg:flex-row px-8 lg:px-32 py-8">
+        <main className="flex lg:w-[70%] mx-auto flex-grow">
+          <div>Empty</div>
+        </main>
+      </div>
+    </div>
   );
 };
 

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Input, Textarea } from '@nextui-org/react';
 
-const BuyerInfo: React.FC = () => {
+import UserProfile from '@/types/mya/userprofile';
+
+interface BuyerInfoProps {
+  userProfile: UserProfile;
+}
+
+const BuyerInfo: React.FC<BuyerInfoProps> = ({ userProfile }) => {
   return (
     <section className="flex flex-col w-full">
       <h2 className="self-start text-lg font-bold tracking-tight leading-7 text-neutral-600">
@@ -18,7 +24,7 @@ const BuyerInfo: React.FC = () => {
         <Input
           label="Nama"
           placeholder="Masukkan nama lengkap"
-          value="John Doe"
+          value= {userProfile.fullName}
           className = "max-md:pr-5"
           readOnly
         />
@@ -29,7 +35,7 @@ const BuyerInfo: React.FC = () => {
         <Input
           label="Nomor telepon"
           placeholder="Masukkan nomor telepon"
-          value="082373647728"
+          value= {userProfile.phoneNumber}
           className="max-md:pr-5"
           readOnly
         />
@@ -41,6 +47,7 @@ const BuyerInfo: React.FC = () => {
     <Textarea
       label="Alamat"
       placeholder="Masukkan alamat lengkap"
+      value= {userProfile.address}
       classNames = {{
         base: "mt-5",
         label: "text-lg text-rose-400",
