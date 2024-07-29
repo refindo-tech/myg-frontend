@@ -35,6 +35,8 @@
     "react-scroll": "^1.9.0",
     "react-social-icons": "^6.16.0",
     "rimraf": "^5.0.7",
+    "sweetalert2": "^11.12.3",
+    "sweetalert2-react-content": "^5.0.7",
     "swr": "^2.2.5"
   },
   "devDependencies": {
