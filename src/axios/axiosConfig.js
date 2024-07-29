@@ -1,14 +1,14 @@
-// src/axios/axiosConfig.js
 import axios from 'axios';
-import { getCookie, setCookie, removeCookie } from './cookieUtils'; // Utility functions for handling cookies
+import { getCookie } from './cookieUtils';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_API,
+  withCredentials: true, // Mengizinkan pengiriman cookie dengan permintaan
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = getCookie('accessToken');
+    const token = sessionStorage.getItem('accessToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -30,20 +30,19 @@ api.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry && refreshToken) {
       originalRequest._retry = true;
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/refresh-token`, {
-          headers: { 'Authorization': `Bearer ${refreshToken}` }
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/myg/auth/refresh-token`, {
+          withCredentials: true
         });
 
         const { accessToken } = response.data.results;
-        setCookie('accessToken', accessToken); // Save new access token to cookies
+        sessionStorage.setItem('accessToken', accessToken);
         api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
 
         return api(originalRequest);
       } catch (err) {
         console.error('Refresh token expired or invalid. Logging out...', err);
-        removeCookie('accessToken');
-        removeCookie('refreshToken');
+        sessionStorage.removeItem('accessToken');
         // Redirect to login page or show login modal
       }
     }
