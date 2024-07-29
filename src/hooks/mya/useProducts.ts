@@ -5,7 +5,7 @@ import Product from '../../types/mya/product';
 import ProductService from '@/lib/mya/productService';
 
 class useProducts {
-  static all(params: { limit: number }) {
+  static all(params: { limit: number, category?: string }) {
     const { data, error } = useSWR<Product[], Error>(['products', params], () => ProductService.fetchProducts(params));
     return {
       data: data || [],

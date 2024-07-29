@@ -20,3 +20,14 @@ export const cutDescription = (description: string, length = 85) => {
 export const imageUrl = (image: string) => {
   return '/assets/images/product/' + image;
 };
+
+export const category = (category: string) => {
+  switch (category) {
+    case 'FACE_CARE':
+      return 'Perawatan Wajah';
+    case 'SKIN_CARE':
+      return 'Perawatan Kulit';
+    default:
+      return 'Lainnya';
+  }
+}
