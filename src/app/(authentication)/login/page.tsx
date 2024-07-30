@@ -42,7 +42,7 @@ export function Login() {
         sessionStorage.setItem('accessToken', response.results.accessToken);
         // Set refreshToken in cookie
 
-        router.push('myBeautica/home');
+        router.push('dashboard/');
       } else {
         setErrors([{ instancePath: '', message: 'Login failed. Please check your credentials and try again.' }]);
       }
@@ -68,7 +68,7 @@ export function Login() {
       </div>
 
       {/* Bagian 2 */}
-      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 md:px-28 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full">
+      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full">
         <div className="flex flex-col gap-6 w-full">
           <div className="w-full text-left flex justify-center">
             <Image
@@ -182,7 +182,7 @@ export function Login() {
                   variant="light"
                   className="font-sans text-kuning"
                   aria-label="Daftar"
-                  onClick={() => router.push("/register")}
+                  onClick={() => router.push("/regist")}
                 >
                   {" "}
                   Daftar{" "}

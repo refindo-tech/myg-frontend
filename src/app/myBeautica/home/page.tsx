@@ -150,7 +150,7 @@ const Home = () => {
       : null;
 
   const handleOrderClick = (service: Service) => {
-    const whatsappNumber = "62895620930010";
+    const whatsappNumber = "6281314485552";
     const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatToRupiah(
       service.price
     )}`;
@@ -161,7 +161,7 @@ const Home = () => {
   };
 
   const handleConsultationClick = () => {
-    const whatsappNumber = "62895620930010";
+    const whatsappNumber = "6281314485552";
     const message =
       "Halo, saya ingin berkonsultasi mengenai layanan My Beautica.";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
