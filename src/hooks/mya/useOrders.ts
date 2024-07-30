@@ -2,8 +2,8 @@ import useSWR from 'swr';
 import OrderService from '@/lib/mya/orderService';
 
 class useOrders {
-    static all() {
-        const { data, error } = useSWR<any, Error>('orders', () => OrderService.fetchOrder());
+    static all( { limit, offset }: { limit: number, offset: number }) {
+        const { data, error } = useSWR<any, Error>(['orders', limit, offset], () => OrderService.fetchOrder({limit, offset}));
         return {
             data: data || [],
             isLoading: !error && !data,
@@ -12,7 +12,7 @@ class useOrders {
     }
 
     static byId(orderId: number) {
-        const { data, error } = useSWR<any, Error>('orders', () => OrderService.fetchOrderById(orderId));
+        const { data, error } = useSWR<any, Error>(`order/${orderId}`, () => OrderService.fetchOrderById(orderId));
         return {
             data: data || [],
             isLoading: !error && !data,

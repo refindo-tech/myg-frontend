@@ -9,9 +9,14 @@ const config = {
 };
 
 class OrderService {
-    static async fetchOrder() {
+    static async fetchOrder( {limit, offset}: {limit: number, offset: number} ) {
         try {
-            const response = await axios.get(API_URL, config);
+            const response = await axios.get(API_URL, {
+                params: {
+                    limit: limit,
+                    offset: offset
+                }
+            });
             return response.data.meta.message;
         }
         catch (error) {
