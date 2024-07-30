@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     question: "Apa ketentuan menjadi Reseller atau Distributor?",
-    answer: "Aktif di sosial media. Sudah menggunakan produk MYA. Wajib jualan. Belanja produk 3 juta untuk menjadi Reseller, atau 10 juta untuk menjadi Distributor. Menaati peraturan MYA"
+    answer: "<p>Berikut merupakan syarat-syarat untuk menjadi Reseller atau Distributor.</p><p><br></p><ol><li>Aktif di sosial media</li><li>Sudah menggunakan produk MYA</li><li>Wajib jualan</li><li>Belanja produk 3 juta untuk menjadi Reseller, atau 10 juta untuk menjadi Distributor </li><li>Menaati peraturan MYA</li></ol><p><br></p>"
   },
   {
     question: "Bagaimana cara membeli produk kami?",

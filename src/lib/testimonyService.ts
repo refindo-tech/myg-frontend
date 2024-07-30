@@ -27,6 +27,17 @@ class TestimonyService {
       return null;
     }
   }
+
+  // postTestimony
+  static async postTestimony(comment: string) {
+    try {
+      const response = await axios.post(API_URL, { comment });
+      return response.data.meta.message;
+    } catch (error) {
+      console.error("Error posting testimony", error);
+      return null;
+    }
+  }
 }
 
 export default TestimonyService;

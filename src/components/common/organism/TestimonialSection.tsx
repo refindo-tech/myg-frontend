@@ -77,7 +77,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ service = "mya"
             <div className="w-full items-center flex flex-col lg:flex-row gap-8">
                 <div className="h-full relative flex md:basis-2/5 justify-center items-center flex-col pr-0 md:pr-8 overflow-visible">
                     {/* <div className="absolute -top-30 right-0 text-mya-600 text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl">?</div> */}
-                    <div className={`absolute -top-30 right-0 ${mainColor(service)} text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl`}>?</div>
+                    <div className={`absolute -top-30 right-0 ${mainColor(service)} text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl pointer-events-none`}>?</div>
                     <div className="w-full text-right text-zinc-700 text-6xl md:text-6xl xl:text-7xl font-bold font-playfair leading-shallow z-10">Apa Kata Pembeli Sebelumnya?</div>
                 </div>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4 md:basis-3/5">

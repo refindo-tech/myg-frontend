@@ -40,7 +40,7 @@ const services = [
 const faqs = [
   {
     question: "Apa itu MYG?",
-    answer: "MYG merupakan sebuah icon perusahaan dan yayasan pendidikan. MYG adalah sebuah singakatan dari MULTI YASYKUR GLOBAL. Secara Harfiah yaitu: MULTI = Manfaat Yasykur = Bersyukur Global = Menyeluruh Kami berharap dapat terus memberikan manfaat dan senantiasa selalu bersyukur."
+    answer: "<p>MYG merupakan sebuah icon perusahaan dan yayasan pendidikan. MYG adalah sebuah singkatan dari MULTI YASYKUR GLOBAL. </p><p className='text-red'>Secara Harfiah yaitu:</p><ul><li>MULTI = Manfaat</li><li>Yasykur = Bersyukur</li><li>Global = Menyeluruh</li></ul><p>Kami berharap dapat terus memberikan manfaat dan senantiasa selalu bersyukur.</p><p><br></p>"
   },
   {
     question: "Kenapa harus kami?",
