@@ -54,7 +54,7 @@ const OrderListCard: React.FC<OrderListCardProps> = ({ order }) => {
                             </div>
 
                             <span className="mt-1 block text-sm font-semibold text-rose-500">
-                                {formatDate('2024-07-29 23:52:22.866')}
+                                {formatDate(order.createdAt)}
                             </span>
                         </div>
 

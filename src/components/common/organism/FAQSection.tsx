@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Accordion, AccordionItem, Spacer } from "@nextui-org/react";
 
+import parse from 'html-react-parser';
+
 interface FAQ {
   question: string;
   answer: string;
@@ -64,9 +66,12 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, service="mya" }) => {
                   </span>
                 }
                 onPress={() => handleExpansion(faq.question)}
-                className=""
+                className="z-10"
               >
-                <p className='text-base font-normal text-zinc-700'>{faq.answer}</p>
+                <p className='text-base font-normal text-zinc-700'>
+                  {/* {faq.answer} */}
+                  {parse(faq.answer)}
+                  </p>
               </AccordionItem>
             ))}
           </Accordion>
@@ -86,7 +91,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, service="mya" }) => {
                   </span>
                 }
                 onPress={() => handleExpansion(faq.question)}
-                className=""
+                className="z-10"
               >
                 <p className='text-base font-normal text-zinc-700'>{faq.answer}</p>
               </AccordionItem>
