@@ -1,14 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    async redirects() {
-        return [
-            {
-                source: '/mya',
-                destination: '/mya/home',
-                permanent: true,
-            },
-        ];
-    },
-};
+const nextConfig = {};
+import nextPWA from 'next-pwa'
+const withPWA = nextPWA({
+    dest: 'public'
+})
 
-export default nextConfig;
+export default withPWA(nextConfig)
