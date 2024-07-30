@@ -26,21 +26,22 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    const refreshToken = getCookie('refreshToken');
+    console.log('Session expired. Refreshing token...');
+    console.log('Error status:', error.response.status);
 
-    if (error.response.status === 401 && !originalRequest._retry && refreshToken) {
+    //if error status is 401 or 403, it means the token is expired
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/myg/auth/refresh-token`, {
-          withCredentials: true
-        });
-
-        const { accessToken } = response.data.results;
-        sessionStorage.setItem('accessToken', accessToken);
-        api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-
-        return api(originalRequest);
+        const response = await refreshToken();
+        
+        if (response.status === 200) {
+          const { accessToken } = response.data.results;
+          sessionStorage.setItem('accessToken', accessToken);
+          api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+          return api(originalRequest);
+        }
       } catch (err) {
         console.error('Refresh token expired or invalid. Logging out...', err);
         sessionStorage.removeItem('accessToken');
@@ -50,5 +51,11 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+async function refreshToken() {
+  return axios.get(`${process.env.NEXT_PUBLIC_BASE_API}/myg/auth/refresh-token`, {
+    withCredentials: true
+  });
+}
 
 export default api;

@@ -42,6 +42,19 @@ class CartService {
         }
     }
 
+    //delete cart item, accept productId
+    // url: /myg/api/mya/keranjang/item/[productId]
+    static async deleteCartItem(productId: number) {
+        try {
+            const response = await axios.delete(API_URL + 'item/' + productId, config);
+            return response.data.meta.message;
+        }
+        catch (error) {
+            console.error("Error deleting cart item", error);
+            return null;
+        }
+    }
+
     //bulk update cart
     //accept array of object cartItems, but only need cartItemId, productId, and quantity
     static async updateCart(cartItems: { cartItemId:number, productId: number, quantity: number }[]) {

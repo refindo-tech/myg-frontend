@@ -27,12 +27,21 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
 
-                <DropdownSection showDivider title={'Menu'} className='sm:hidden'>
+                <DropdownSection showDivider title={'Navigasi'} className='sm:hidden'>
                     {NavItems.map((item, index) => (
                         <DropdownItem key={index} textValue='text'>
                             <span>{item.label}</span>
                         </DropdownItem>
                     ))}
+                </DropdownSection>
+
+                <DropdownSection showDivider title={'Pesanan'}>
+                <DropdownItem key="cart" href='/mya/cart'>
+                Keranjang Belanja
+                </DropdownItem>
+                <DropdownItem key="order" href='/mya/order'>
+                    Daftar Pesanan
+                </DropdownItem>
                 </DropdownSection>
 
                 <DropdownSection showDivider title={'Settings'}>

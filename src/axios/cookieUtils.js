@@ -18,9 +18,7 @@ export function getCookie(name) {
   return null;
 }
 
-
-  
-  export function removeCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
-  }
+export function removeCookie(name) {
+  document.cookie = name + '=; Max-Age=-99999999;';
+}
   
