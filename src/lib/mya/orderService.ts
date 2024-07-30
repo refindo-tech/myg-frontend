@@ -35,12 +35,13 @@ class OrderService {
     //kalo beli satu produk
     static async orderProduct(productId: number, { quantity }: { quantity: number }) {
         try {
-            const response = await axios.post(API_URL + productId + '/', {
-                params: { quantity },
-            }, config);
+            const payload = { 
+                quantity : quantity
+            };
+            console.log(payload);
+            const response = await axios.post(`${API_URL}${productId}/`, payload, config);
             return response.data.meta.message;
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Error ordering product", error);
             return null;
         }

@@ -39,8 +39,6 @@ export function Login() {
       const response = await loginUser(formData.email, formData.password);
       if (response) {
         console.log('User logged in successfully:', response);
-        
-        // Set accessToken in session storage
         sessionStorage.setItem('accessToken', response.results.accessToken);
         // Set refreshToken in cookie
 
