@@ -4,6 +4,12 @@ import icons from "@/components/icons/icon"
 import Link from "next/link"
 const FooterMyAcademy = () => {
     const { InstagramIcon, YoutubeIcon, ArrowUp } = icons
+    const scrollToTop = () => {
+        window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+        });
+    };
     return (
         <>
             <footer className="min-h-[507px] bg-footer flex py-[8px] justify-center">
@@ -77,7 +83,7 @@ const FooterMyAcademy = () => {
                         </div>
                         <div></div>
                         <div className="flex justify-end">
-                            <button className="hidden lg:flex items-center justify-center h-12 w-12 rounded-full bg-white">
+                            <button className="hidden lg:flex items-center justify-center h-12 w-12 rounded-full bg-white" onClick={scrollToTop}>
                                 <ArrowUp />
                             </button>
                         </div>
