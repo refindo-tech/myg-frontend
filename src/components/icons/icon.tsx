@@ -15,14 +15,9 @@ import CloudIcon from './CloudIcons';
 import CollectionIcon from './CollectionIcon';
 import HamburgerIcon from './HamburgerIcon';
 import ArrowUp from './ArrowUp'
-<<<<<<< HEAD
-import AddCommentIcon from "./CommentIcon";
-
-=======
 import ChevronUp from "./ChevronUp";
 import ChevronDown from "./ChevronDown";
 import BubbleChat from "./BubbleChat";
->>>>>>> origin/myacademy
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -41,12 +36,8 @@ const icons = {
     CollectionIcon,
     HamburgerIcon,
     ArrowUp,
-<<<<<<< HEAD
-    AddCommentIcon,
-=======
     ChevronUp,
     ChevronDown,
     BubbleChat
->>>>>>> origin/myacademy
 };
 export default icons;
