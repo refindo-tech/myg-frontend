@@ -26,7 +26,7 @@ export default function App() {
         <Link
           isExternal
           showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
+          href="/MyacademyTes"
         >
           Visit source code on GitHub.
         </Link>

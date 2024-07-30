@@ -5,6 +5,8 @@ import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import { getDetailTraining } from '@/helpers/fetchAPI'
+import { formatRupiah } from '@/helpers/formatRupiah'
+import { formattedDateAndDay } from '@/helpers/formattedDate'
 import icons from "@/components/icons/icon"
 const Payment = () => {
     const pathname = usePathname()
@@ -33,7 +35,7 @@ const Payment = () => {
                     <div className="min-h-[90%] w-[90%] mx-auto rounded-xl bg-birumuda flex flex-col gap-6 py-5">
                         <div className="flex flex-col gap-3 text-center w-[90%] mx-auto">
                             <h3 className="font-sans text-xl font-semibold text-black">Pendaftaran Sedang Diproses</h3>
-                            <p className="text-base">Saturday, July 14, 2024 at 10:00 WIB</p>
+                            <p className="text-base">{`${formattedDateAndDay(detailTraining.dateStart)}`}</p>
                             <p className="text-base">
                                 Selanjutnya Anda dapat melakukan <span className="font-bold">{`Book Seat ${detailTraining.trainingName}`}</span> melalui pembayaran berikut
                             </p>
@@ -57,19 +59,19 @@ const Payment = () => {
                                 <div className="flex flex-col gap-3">
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
                                         <p className="truncate pr-3">{`Harga Workshop ${detailTraining.trainingName}`}</p>
-                                        <p className="font-bold min-w-[90px] ">Rp. 1.900.000</p>
+                                        <p className="font-bold min-w-[90px] ">{`${formatRupiah(detailTraining.price)}`}</p>
                                     </div>
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
                                         <p>Book Seat</p>
-                                        <p className="font-bold">Rp. 1.000.000</p>
+                                        <p className="font-bold">{`Rp. 1.000.000,00`}</p>
                                     </div>
                                     <div className="border-t-1 border-zinc"></div>
                                 </div>
                                 <div className="flex flex-row justify-between text-sm lg:text-lg font-bold text-zinc">
                                     <p>Sisa Pembayaran</p>
-                                    <p>Rp. 900.000</p>
+                                    <p>{`${formatRupiah(detailTraining.price - 1000000)}`}</p>
                                 </div>
-                                <Button type="solid" color='primary' className='h-12 px-3 w-full'>Cek status pembayaran</Button>
+                                <Button as={Link} href={'https://wa.me/6289654260065'} type="solid" color='primary' className='h-12 px-3 w-full'>Kirim bukti pembayaran</Button>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-row justify-between text-base text-zinc">
                                         <p className="text-zinc font-semibold">Petunjuk transfer ATM</p>

@@ -9,13 +9,16 @@ import { getRecommendationTraining } from '@/helpers/fetchAPI'
 const RecommendationEvent = () => {
     const { PlaceIcon, CalendarIcon } = icons
     const [dataRecommendation, setDataRecommendation] = useState({})
+    const [material, setMaterial] = useState({})
     useEffect(() => {
         const fetchData = async () => {
             const data = await getRecommendationTraining(1)
+            console.log(data)
             if (data) {
-                console.log(data)
+                console.log('ini success', data)
                 const [trainingData] = data.results
                 setDataRecommendation(trainingData)
+                setMaterial(trainingData.materials[0])
             }
         }
         fetchData()
@@ -23,23 +26,25 @@ const RecommendationEvent = () => {
     useEffect(() => {
         console.log('ini data recommendation', dataRecommendation)
     }, [dataRecommendation])
+    console.log('ini materials', material)
     // const formattedDate = (date)=>{
     //     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     //     return new Date(date).toLocaleDateString('id-ID', options);
     // }
     return (
         <div className=" min-h-[480px] lg:min-h-[648px] lg:bg-birumuda flex items-center justify-center">
-            <div className="w-[90%] lg:container flex flex-col gap-y-5 lg:gap-y-8">
+            <div className="w-[90%] lg:container flex flex-col gap-y-5 lg:gap-y-8 py-5">
                 <h3 className="font-playfair text-biru lg:text-black lg:font-bold text-xl lg:text-5xl">Acara Pilihan Bulan Ini</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[440px] gap-y-5 lg:gap-y-8 gap-x-[20px] items-center">
-                    <Image
+                    {material.brosur&&<Image
                         alt="Recommendation Event"
-                        // width={700}
-                        // height={440}
-                        src="/images/recommendation_event.png"
-                        className=""
-                    />
-                    <div className="flex flex-col gap-y-[12px] h-64 lg:h-[356px]">
+                        width={'100%'}
+                        height={440}
+                        // src="/images/recommendation_event.png"
+                        src={`${material.brosur}`}
+                        className='rounded-xl h-[440px]'
+                    />}
+                    <div className="flex flex-col gap-y-[12px] h-fit lg:h-[356px]">
                         <h3 className="font-playfair text-biru lg:text-black font-semibold text-xl lg:text-4xl text-wrap">{dataRecommendation.trainingName}</h3>
                         <p className="text-zinc text-xs lg:text-xl font-sans">
                             {dataRecommendation.description}
@@ -51,7 +56,7 @@ const RecommendationEvent = () => {
                                     <h4 className="font-playfair font-semibold text-xs lg:text-2xl text-zinc">Where</h4>
                                 </div>
                                 <p className="font-sans font-normal lg:font-semibold text-xs lg:text-xl text-zinc text-wrap">
-                                    Gedung Kesenian Kemayoran, Kemayoran, Jakarta Pusat.
+                                    {dataRecommendation.address}
                                 </p>
                             </div>
                             <div className="flex flex-col gap-y-2 lg:gap-y-3">
@@ -60,9 +65,9 @@ const RecommendationEvent = () => {
                                     <h4 className="font-playfair font-semibold text-xs lg:text-2xl text-zinc">When</h4>
                                 </div>
                                 <div className="text-xs lg:text-xl">
-                                    {dataRecommendation.dateTraining&&<p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
+                                    {dataRecommendation.dateStart&&<p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
                                         {/* 10-21 Juni 2024 */}
-                                        {formattedDate(dataRecommendation.dateTraining)}
+                                        {formattedDate(dataRecommendation.dateStart)}
                                     </p>}
                                     <p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
                                         10:00 - 12:00 WIB

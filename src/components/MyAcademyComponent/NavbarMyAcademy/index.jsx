@@ -1,14 +1,28 @@
 "use client"
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { Image } from "@nextui-org/image"
 import icons from "@/components/icons/icon"
 import Link from "next/link"
-const NavbarMyAcademy = ({color}) => {
+import { getDetailProfile } from '@/helpers/fetchAPI'
+const NavbarMyAcademy = ({ color }) => {
     const { AvatarIcon, SearchIcon, HamburgerIcon } = icons
     const [isHamburgerActive, setHamburgerActive] = useState(false)
-    const handleHamburgerIcon = () =>{
+    const [dataProfile, setDataProfile] = useState({})
+    const handleHamburgerIcon = () => {
         setHamburgerActive(!isHamburgerActive)
     }
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getDetailProfile(2)
+            console.log(response)
+            if (response.meta.success) {
+                setDataProfile(response.results)
+            } else {
+                setDataProfile({})
+            }
+        }
+        fetchData()
+    }, [])
     return (
         <>
             <nav className="absolute top-0 left-0 right-0 h-[60px] lg:h-[92px] flex justify-center items-center bg-white lg:bg-transparent shadow-xl lg:shadow-none z-20">
@@ -25,15 +39,15 @@ const NavbarMyAcademy = ({color}) => {
                     <div className={`hidden lg:flex gap-x-[12px] font-playfair text-[20px] text-${color}`}>
                         <Link
                             href={"#"}
-                            className="py-4 px-5 active:text-active"
+                            className="py-4 px-5 hover:text-active"
                         >Home</Link>
                         <Link
                             href={"#"}
-                            className="py-4 px-5"
+                            className="py-4 px-5 hover:text-active"
                         >Your Material</Link>
                         <Link
                             href={"#"}
-                            className="py-4 px-5"
+                            className="py-4 px-5 hover:text-active"
                         >Discussion</Link>
                     </div>
                     <div className="hidden lg:flex flex-row items-center gap-x-[16px]">
@@ -54,19 +68,27 @@ const NavbarMyAcademy = ({color}) => {
                             {/* <SearchIcon className={"absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400"}/> */}
                         </div>
                         <div className="hidden lg:flex flex-row items-center gap-x-[8px]">
-                            <div className="h-[32px] w-[32px] rounded-full bg-primary flex items-center justify-center">
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="size-6">
+                            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="size-6">
                                     <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
                                 </svg> */}
-                                <AvatarIcon />
-                            </div>
-                            <Link href={"/"} className={`font-inter text-[16px] text-${color}`}>Login</Link>
+                            {dataProfile.email ? (
+                                <div className="h-[32px] w-[32px] rounded-full bg-primary flex items-center justify-center">
+                                    <AvatarIcon />
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            {dataProfile.email ? (
+                                <p className={`font-inter text-[16px] text-${color}`}>{dataProfile.email}</p>
+                            ) : (
+                                <Link href={"/"} className={`font-inter text-[16px] text-${color}`}>Login</Link>
+                            )}
                         </div>
                     </div>
                     {/* <img src="/myAcademyLogo.png" alt="LogoMyAcademy" /> */}
                 </div>
             </nav>
-            {isHamburgerActive&&
+            {isHamburgerActive &&
                 <div className="absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
                     <div className="flex flex-col gap-4 font-playfair font-semibold text-sm">
                         <p>Home</p>

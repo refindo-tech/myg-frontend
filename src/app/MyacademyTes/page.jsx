@@ -49,9 +49,7 @@ const MyAcademyTes = () => {
                 </div>
             </div>
             <ComingSoonEvent bgcard={'bg-birumuda'} title={'Daftar Acara'} listTraining={listTraining} />
-            <div className="lg:min-h-screen">
-                <RecommendationEvent />
-            </div>
+            <RecommendationEvent />
             <ContainerExam bgcard={'bg-birumuda'} title={'Daftar Ujian'} listExam={listExam} />
             <div className="hidden lg:block mb-[60px]">
                 <Promotion />

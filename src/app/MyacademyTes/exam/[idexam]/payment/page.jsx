@@ -6,6 +6,8 @@ import { Link } from "@nextui-org/link"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import { getDetailExam } from '@/helpers/fetchAPI'
 import icons from "@/components/icons/icon"
+import { formattedDateAndDay } from '@/helpers/formattedDate'
+import { formatRupiah } from '@/helpers/formatRupiah'
 const Payment = () => {
     const pathname = usePathname()
     const idExam = pathname.split('/')
@@ -22,7 +24,7 @@ const Payment = () => {
     console.log(detailExam)
     const { ChevronDown } = icons
     return (
-        <div className="w-full bg-birumuda min-h-screen flex items-center justify-center px-[10px] mt-[60px] lg:mt-[92px]">
+        <div className="w-full bg-birumuda min-h-screen flex items-center justify-center lg:px-[10px] mt-[60px] lg:mt-[92px]">
             <NavbarMyAcademy className='shadow-xl'/>
             <div className="w-full lg:w-[50%] flex flex-col items-center gap-9 pt-24 lg:pt-32 transition-all duration-500">
                 <div className="text-abumuda font-playfair text-center font-semibold">
@@ -33,7 +35,7 @@ const Payment = () => {
                     <div className="min-h-[90%] w-[90%] mx-auto rounded-xl bg-birumuda flex flex-col gap-6 py-5">
                         <div className="flex flex-col gap-3 text-center w-[90%] mx-auto">
                             <h3 className="font-sans text-xl font-semibold text-black">Pendaftaran Sedang Diproses</h3>
-                            <p className="text-base">Saturday, July 14, 2024 at 10:00 WIB</p>
+                            <p className="text-base">{`${formattedDateAndDay(detailExam.dateStart)}`}</p>
                             <p className="text-base">
                                 Selanjutnya Anda dapat melakukan <span className="font-bold">{`Book Seat ${detailExam.title}`}</span> melalui pembayaran berikut
                             </p>
@@ -57,17 +59,17 @@ const Payment = () => {
                                 <div className="flex flex-col gap-3">
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
                                         <p className="truncate pr-3">{`Harga Workshop ${detailExam.title}`}</p>
-                                        <p className="font-bold min-w-[90px] ">Rp. 1.900.000</p>
+                                        <p className="font-bold min-w-[90px] ">{`${formatRupiah(detailExam.price)}`}</p>
                                     </div>
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
                                         <p>Book Seat</p>
-                                        <p className="font-bold">Rp. 1.000.000</p>
+                                        <p className="font-bold">{`${formatRupiah(1000000)}`}</p>
                                     </div>
                                     <div className="border-t-1 border-zinc"></div>
                                 </div>
                                 <div className="flex flex-row justify-between text-sm lg:text-lg font-bold text-zinc">
                                     <p>Sisa Pembayaran</p>
-                                    <p>Rp. 900.000</p>
+                                    <p>{`${formatRupiah(detailExam.price - 1000000)}`}</p>
                                 </div>
                                 <Button type="solid" color='primary' className='h-12 px-3 w-full'>Cek status pembayaran</Button>
                                 <div className="flex flex-col gap-4">

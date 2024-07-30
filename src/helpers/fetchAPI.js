@@ -134,3 +134,25 @@ export const getDetailExam = async(id)=>{
         }
     }
 }
+export const getDetailProfile = async(id)=>{
+    try {
+        const token = process.env.NEXT_PUBLIC_TOKEN
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/myg/api/users/${id}`,{
+            method:'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        if(response){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            status:false,
+            message:'Internal Server Error',
+        }
+    }
+}

@@ -17,6 +17,7 @@ import HamburgerIcon from './HamburgerIcon';
 import ArrowUp from './ArrowUp'
 import ChevronUp from "./ChevronUp";
 import ChevronDown from "./ChevronDown";
+import BubbleChat from "./BubbleChat";
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -36,6 +37,7 @@ const icons = {
     HamburgerIcon,
     ArrowUp,
     ChevronUp,
-    ChevronDown
+    ChevronDown,
+    BubbleChat
 };
 export default icons;

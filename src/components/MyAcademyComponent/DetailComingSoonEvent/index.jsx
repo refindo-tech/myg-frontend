@@ -11,6 +11,8 @@ import icons from '@/components/icons/icon'
 import { useState, useEffect } from 'react'
 import { usePathname } from "next/navigation"
 import { formattedDate, formattedDateAndDay, formattedTime } from "@/helpers/formattedDate"
+import { formatRupiah } from '@/helpers/formatRupiah'
+import MateriAndBenefit from '@/components/MyAcademyComponent/MateriAndBenefit'
 const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) => {
     const pathname = usePathname()
     const { CloudIcon, CollectionIcon } = icons
@@ -30,12 +32,15 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                 {/* Pelajari teknik kecantikan alami menggunakan bahan-bahan organik dan metode tradisional. */}
                                 {detailTraining.description}
                             </p>
-                            <button className=" w-fit px-3 flex flex-row gap-3 justify-center h-5 lg:h-12 items-center rounded-lg text-white bg-[#06ADFE] hover:text-opacity-75">
+                            <Button
+                                as={Link}
+                                href={`${detailTraining.linkMaps}`}
+                                className=" w-fit px-3 flex flex-row gap-3 justify-center h-5 lg:h-12 items-center rounded-lg text-white bg-[#06ADFE] hover:text-opacity-75">
                                 <div className="h-5 w-5 hidden lg:block">
                                     <CloudIcon />
                                 </div>
                                 <span className='text-xs lg:text-lg'>View in maps</span>
-                            </button>
+                            </Button>
                         </div>
                         <div className="rounded-xl bg-white w-full md:w-[60%] py-[30px] gap-6 shadow-2xl lg:shadow-none mx-auto">
                             <div className="w-[90%] mx-auto flex flex-col gap-3">
@@ -64,7 +69,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                 </div>
             </div>
             <div className="bg-white w-full">
-                <div className="container mx-auto my-10 grid sm:grid-cols-1 lg:grid-cols-2 gap-y-6">
+                <div className="container mx-auto my-[100px] lg:my-10 grid sm:grid-cols-1 lg:grid-cols-2 gap-y-6">
                     <div className="w-[90%] mx-auto flex flex-col gap-y-6">
                         <div className="flex flex-col gap-y-3">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Deskripsi Acara</h3>
@@ -72,7 +77,8 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                 {data.description}
                             </p>
                         </div>
-                        <div className="flex flex-col gap-y-3">
+                        <MateriAndBenefit data={detailTraining} />
+                        {/* <div className="flex flex-col gap-y-3">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Agenda Acara</h3>
                             <div className="pl-6 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                 <ol className="list-disc">
@@ -133,17 +139,12 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                 <p className="font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                     Waktu: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{formattedTime(data.dateStart, data.dateFinish)}</span>
                                 </p>
-                                <p className="font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                    Lokasi: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{`${data.address}`}</span>
-                                </p>
-                                {/* <div className="pl-6">
-                                    <ol className="list-disc font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                        <li>Jl. Sudirman No.45, Jakarta Pusat</li>
-                                        <li>{`${data.address}`}</li>
-                                    </ol>
-                                </div> */}
+                                <div className="font-sans text-xs lg:text-xl font-normal flex flex-row text-abumuda text-wrap">
+                                    <p>Lokasi:</p>
+                                    <p className="pl-3 font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{`${data.address}`}</p>
+                                </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col gap-y-3">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Cara Mendaftar</h3>
                             <div className="pl-6">
@@ -173,16 +174,17 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                     <div className="w-[90%] flex flex-col mx-auto gap-y-6">
                         <Image
                             alt="brosur"
-                            src="/images/brosurmyacademi.png"
+                            // src="/images/brosurmyacademi.png"
+                            src={`${detailTraining.materials[0].brosur}`}
                             width={'100%'}
                         />
                         <div className="flex flex-col gap-y-3 w-[70%]">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Biaya Pendaftaran</h3>
-                            <h3 className="font-bold font-sans text-2xl lg:text-3xl py-2 px-7 rounded-lg bg-active text-white text-center">Rp. 1.600.000</h3>
+                            <h3 className="font-bold font-sans text-2xl lg:text-3xl py-2 px-7 rounded-lg bg-active text-white text-center">{formatRupiah(data.price)}</h3>
                         </div>
                         <div className="flex flex-col gap-y-3 lg:gap-y-7">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi Acara</h3>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.068679646162!2d106.1766627!3d-6.1214586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e41f523e60126f3%3A0xc838a86a425b1d50!2sLe%20Dian%20Hotel%20%26%20Cottages!5e0!3m2!1sid!2sid!4v1722047996536!5m2!1sid!2sid" width={'100%'} height={300} style={{border:'0px'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe>
+                            <iframe src={`https://www.google.com/maps/embed?pb=${data.embedMaps}`} width={'100%'} height={300} style={{ border: '0px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe>
                             <p className="text-wrap font-sans text-xs lg:text-xl font-normal text-abumuda">
                                 {`${data.address}`}
                             </p>

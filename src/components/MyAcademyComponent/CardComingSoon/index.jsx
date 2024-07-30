@@ -3,10 +3,11 @@ import { Card } from "@nextui-org/card"
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import { useState, useEffect } from 'react'
+import { Image } from "@nextui-org/image"
 
 import {formattedDate, formattedTime} from '@/helpers/formattedDate'
 const CardComingSoon = ({ bgcard, training }) => {
-    const [detailTraining, setDetailTraining] = useState(null)
+    const [detailTraining, setDetailTraining] = useState({})
     // const [getMaterial, setGetMaterial] = useState(null)
     useEffect(() => {
         setDetailTraining(training)
@@ -33,8 +34,13 @@ const CardComingSoon = ({ bgcard, training }) => {
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col">
-                        <div className="min-h-[172px] w-4/5 bg-gray-100 mx-auto">
-                            p anj
+                        <div className="min-h-[172px] w-4/5  items-center mx-auto">
+                            <Image
+                                alt="tes"
+                                src="/images/fef.jpg"
+                                width={'100%'}
+                                height={172}
+                            />
                         </div>
                         <div className="flex flex-row items-center justify-between w-[90%] mx-auto my-[24px]">
                             <div className="text-[8px] lg:text-sm">

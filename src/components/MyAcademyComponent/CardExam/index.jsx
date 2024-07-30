@@ -2,9 +2,10 @@
 import { Card } from "@nextui-org/card"
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
+import { Image } from '@nextui-org/image'
 import { useState, useEffect } from 'react'
 
-import {formattedDate, formattedDateAndDay, formattedTime} from '@/helpers/formattedDate'
+import { formattedDate, formattedDateAndDay, formattedTime } from '@/helpers/formattedDate'
 const CardExam = ({ bgcard, exam }) => {
     const [detailExam, setDetailExam] = useState(null)
     // const [getMaterial, setGetMaterial] = useState(null)
@@ -33,8 +34,13 @@ const CardExam = ({ bgcard, exam }) => {
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col">
-                        <div className="min-h-[172px] w-4/5 bg-gray-100 mx-auto">
-                            p anj
+                        <div className="w-4/5 flex items-center mx-auto">
+                            <Image
+                                alt="tes"
+                                src={`${detailExam.banner}`}
+                                width={'100%'}
+                                height={172}
+                            />
                         </div>
                         <div className="flex flex-row items-center justify-between w-[90%] mx-auto my-[24px]">
                             <div className="text-[8px] lg:text-sm">
@@ -43,7 +49,7 @@ const CardExam = ({ bgcard, exam }) => {
                             </div>
                             {new Date(detailExam.dateFinish) <= new Date() ? (
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/exam/${detailExam.examId}`}>Lihat Ujian</Button>
-                            ):(
+                            ) : (
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/exam/${detailExam.examId}`}>Daftar Ujian</Button>
                             )}
                             {/* {detailExam.materials.map((material, index)=>(
