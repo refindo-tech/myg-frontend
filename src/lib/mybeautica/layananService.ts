@@ -1,6 +1,6 @@
 import axios from '../../axios/axiosConfig';
 
-const API_URL = 'http://localhost:5000/myg/api/layanan';
+const API_URL = `${process.env.NEXT_PUBLIC_BASE_API}/myg/api/layanan`;
 const config = {
     headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export const updateServiceById = async (id: string | string[], data: any) => {
         console.error('Error updating service by id:', error);
         return { meta: { success: false }, message: 'Gagal memperbarui layanan' };
     }
-}
+};
 
 export const updateServiceViews = async (id: number, viewCount: number) => {
     try {
