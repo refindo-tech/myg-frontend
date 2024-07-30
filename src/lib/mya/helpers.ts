@@ -39,3 +39,27 @@ export const category = (category: string) => {
       return 'Lainnya';
   }
 }
+
+export const formatDate = (date: string) => {
+  const months = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+  ];
+
+  const dateObj = new Date(date);
+  const day = dateObj.getDate();
+  const month = months[dateObj.getMonth()];
+  const year = dateObj.getFullYear();
+
+  return `${day} ${month} ${year}`;
+};

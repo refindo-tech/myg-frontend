@@ -9,7 +9,7 @@ interface HeaderProps {
 const defaultLogo = "/assets/images/logo/mya1.png"
 const Header: React.FC<HeaderProps> = ({ logo = defaultLogo }) => {
     const navItems = [
-        { label: "Home", isActive: true, href: "/mya" },
+        { label: "Home", isActive: true, href: "/" },
         { label: "Syarat dan Ketentuan", isActive: false, href: "/mya/term" },
         { label: "Konsultasi", isActive: false, href: "/consultation" },
     ];
