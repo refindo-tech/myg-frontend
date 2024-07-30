@@ -21,13 +21,13 @@ const services = [
     name: "MyAcademy",
     logo: "/assets/images/logo/myAcademy1.png",
     description: "Berjayalah di bisnis kecantikan bersama kami.",
-    image: "/assets/images/services/myAcademy.png",
+    image: "/assets/images/services/mya.png",
   },
   {
     name: "MYA",
     logo: "/assets/images/logo/mya1.png",
     description: "Kami menghadirkan produk berkualitas untuk nutrisi dan menjaga kesehatan kulit anda agar selalu sehat, bercahaya & awet muda.",
-    image: "/assets/images/services/mya.png",
+    image: "/assets/images/services/myAcademy.png",
   },
   {
     name: "MyBeautica",
