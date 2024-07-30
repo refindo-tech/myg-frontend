@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Link, Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from '@nextui-org/react';
 
+import { usePathname } from 'next/navigation';
+
 interface NavItem {
     label: string;
     isActive: boolean;
@@ -12,6 +14,13 @@ interface NavigationProps {
 }
 
 const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
+
+    //check current route
+    const pathname = usePathname()
+    const currentPath = pathname.split('/')
+
+    //check if current route containt /mya/
+    const isMya = currentPath.includes('mya')
     
     return (
         <Dropdown placement="bottom-end">
@@ -35,19 +44,22 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                     ))}
                 </DropdownSection>
 
-                <DropdownSection showDivider title={'Pesanan'}>
+                <DropdownSection showDivider title={'Pesanan'} className= {isMya ? 'block' : 'hidden'}>
                 <DropdownItem key="cart" href='/mya/cart'>
                 Keranjang Belanja
                 </DropdownItem>
-                <DropdownItem key="order" href='/mya/order'>
+                <DropdownItem key="order" href='/mya/checkout'>
                     Daftar Pesanan
                 </DropdownItem>
                 </DropdownSection>
 
                 <DropdownSection showDivider title={'Settings'}>
-                <DropdownItem key="profile">Profile</DropdownItem>
+                <DropdownItem key="profile" href='/profile'>
+                    Profile
+                </DropdownItem>
                 <DropdownItem key="settings">My Settings</DropdownItem>
                 </DropdownSection>
+                
 
                 <DropdownSection>
                 {/* <DropdownItem key="profile" className="h-14 gap-2">

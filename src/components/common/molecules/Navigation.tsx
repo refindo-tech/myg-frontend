@@ -14,7 +14,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) => {
     const handleConsultationClick = () => {
-        const whatsappNumber = "62895620930010";
+        const whatsappNumber = "6281314485552";
         const message = "Halo, saya ingin berkonsultasi mengenai layanan My MYG.";
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');

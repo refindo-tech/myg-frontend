@@ -10,6 +10,8 @@ import Navigation from "@/components/common/molecules/Navigation";
 import UserActions from "@/components/common/molecules/UserAction";
 import SearchBar from "@/components/common/molecules/SearchBar";
 
+import { useRouter } from "next/navigation";
+
 interface navItems {
     label: string;
     isActive: boolean;
@@ -23,13 +25,35 @@ interface NavigationBarProps {
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ logo, navItems, service = "mya" }) => {
+
+    const router = useRouter();
+    const handleHome = () => {
+        switch (service) {
+            case "mya":
+                router.push("/mya");
+                break;
+            case "mybeautica":
+                router.push("/mybeautica");
+                break;
+            case "myacademy":
+                router.push("/myacademy");
+                break;
+            case "myg":
+                router.push("/");
+                break;
+            default:
+                router.push("/");
+                break;
+        }
+    }
+
     return (
         <Navbar
                 isBordered
                 className="py-2 bg-white shadow inline-flex mx-auto w-full"
             >
                 <NavbarContent className="items-center gap-4 flex" justify="start">
-                    <NavbarBrand className="flex-none">
+                    <NavbarBrand className="flex-none" onClick={handleHome}>
                         <Image
                             src={logo}
                             alt="Company logo"
