@@ -33,6 +33,9 @@ const CartPage: React.FC<CartPageProps> = ({ productCart }) => {
       )
     );
   };
+  const deleteCartItem = (productId: number) => {
+    setCartItems(prevItems => prevItems.filter(item => item.productId !== productId));
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -52,7 +55,7 @@ const CartPage: React.FC<CartPageProps> = ({ productCart }) => {
       <Header />
       <div className="flex flex-grow flex-col lg:flex-row px-8 lg:px-32 py-8">
         <main className="flex lg:w-[70%] mx-auto flex-grow">
-          <ProductCartSection cartItems={cartItems} updateCartItemQuantity={updateCartItemQuantity} />
+          <ProductCartSection cartItems={cartItems} updateCartItemQuantity={updateCartItemQuantity} deleteCartItem={deleteCartItem} />
         </main>
         <hr className="w-full lg:w-[70%] lg:hidden mx-auto border-t border-gray-300 my-8" />
         <aside className="w-full lg:w-[30%] mx-auto">

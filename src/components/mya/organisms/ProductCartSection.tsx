@@ -8,9 +8,10 @@ import Cart from '@/types/mya/cart';
 interface ProductCartSectionProps {
   cartItems: CartItem[];
   updateCartItemQuantity: (productId: number, newQuantity: number) => void;
+  deleteCartItem?: (productId: number) => void;
 }
 
-const ProductCartSection: React.FC<ProductCartSectionProps> = ({ cartItems: cartItems, updateCartItemQuantity }) => {
+const ProductCartSection: React.FC<ProductCartSectionProps> = ({ cartItems: cartItems, updateCartItemQuantity, deleteCartItem }) => {
   console.log(cartItems);
   return (
       <section className="flex flex-col w-full">
@@ -20,17 +21,17 @@ const ProductCartSection: React.FC<ProductCartSectionProps> = ({ cartItems: cart
               <div className="flex gap-2 justify-center my-auto leading-[133%] text-zinc-700">
                 {/* <input type="checkbox" className="shrink-0 my-auto w-5 h-5 bg-white rounded-md border border-rose-400 border-solid" />
                 <label>Pilih produk</label> */}
-                <Checkbox color="danger" size='md' className="my-auto">
+                {/* <Checkbox color="danger" size='md' className="my-auto">
                 <span className='font-playfair text-lg pl-4'>Pilih produk</span>
-                </Checkbox>
+                </Checkbox> */}
 
               </div>
               {/* <button className="text-rose-400 leading-[150%]">Hapus</button> */}
-              <Button variant='ghost' size='lg' className="border-none font-playfair text-lg text-rose-400 leading-[150%]">Hapus</Button>
+              {/* <Button variant='ghost' size='lg' className="border-none font-playfair text-lg text-rose-400 leading-[150%]">Hapus</Button> */}
             </div>
           </header>
           {cartItems.map((product, index) => (
-            <OrderProductCard key={index} cartItem={product} isCheck={false} updateCartItemQuantity={updateCartItemQuantity} />
+            <OrderProductCard key={index} cartItem={product} isCheck={false} updateCartItemQuantity={updateCartItemQuantity} deleteCartItem={deleteCartItem} />
           ))}
         </div>
       </section>
