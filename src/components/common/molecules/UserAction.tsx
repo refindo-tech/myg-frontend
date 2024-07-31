@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button, Link, Avatar, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from '@nextui-org/react';
-
+import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+
+import useAuthCheck from '@/hooks/common/auth';
+
+import { logoutUser } from '@/lib/authentication/fetchData';
+
+import Swal from 'sweetalert2';
 
 interface NavItem {
     label: string;
@@ -16,11 +22,69 @@ interface NavigationProps {
 const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
 
     //check current route
+    const router = useRouter()
     const pathname = usePathname()
     const currentPath = pathname.split('/')
-
     //check if current route containt /mya/
     const isMya = currentPath.includes('mya')
+
+    const isLogged = useAuthCheck();
+    const services = pathname.split('/')[1].toLowerCase();
+    const mainColor = () => {
+        switch (services) {
+            case "mya":
+                return "bg-mya-500";
+            case "mybeautica":
+                return "bg-mybeautica-500";
+            case "myacademy":
+                return "bg-myacademy-500";
+            case "myg":
+                return "bg-myg-500";
+            default:
+                return "bg-myg-500";
+        }
+    };
+
+    const loadingPopup = () => {
+        Swal.fire({
+            title: 'Loading...',
+            html: 'Please wait',
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+    };
+
+    const closePopup = () => {
+        Swal.close();
+    }
+
+    //handle logout
+    const handleLogout = async () => {
+        try {
+            loadingPopup();
+            await logoutUser();
+            router.push('/login');
+            closePopup();
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
+
+    if (!isLogged) {
+        return (
+            <div>
+                <Link href="/login">
+                    <Button radius='full' size='sm' 
+                    // className='bg-mya-500 hover:bg-mya-600 text-white'
+                    className={mainColor() + ' hover:bg-gray-400 text-white'}
+                    >
+                        Login
+                    </Button>
+                </Link>
+            </div>
+        );
+    }
     
     return (
         <Dropdown placement="bottom-end">
@@ -66,7 +130,7 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">mybeautica@gmail.com</p>
                 </DropdownItem> */}
-                <DropdownItem key="logout" color="danger">
+                <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                     Log Out
                 </DropdownItem>
                 </DropdownSection>

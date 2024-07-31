@@ -55,6 +55,7 @@ export const refreshToken = async () => {
 export const logoutUser = async () => {
   try {
     const response = await api.delete('/myg/auth/logout');
+    sessionStorage.removeItem('accessToken');
     return response.data;
   } catch (error) {
     console.error('Error logging out:', error);
