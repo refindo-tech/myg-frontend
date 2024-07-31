@@ -7,10 +7,16 @@ import OrderService from '@/lib/mya/orderService';
 
 import CartService from '@/lib/mya/cartService';
 
+import withReactContent from 'sweetalert2-react-content';
+
+import EmptyCart from '../organisms/EmptyCart';
+
 //sweeetalert
 import swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { rupiah, category } from '@/lib/mya/helpers';
+
+//hooke
+import useAuthCheck from '@/hooks/common/auth';
 
 interface ProductDetailCardProps {
     product: Product;
@@ -36,8 +42,35 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
         }
     }
 
+    const isLogged = useAuthCheck();
+
+    const MySwal = withReactContent(swal);
+    const NotLoggedAlert = () => {
+        //with react content
+        MySwal.fire({
+            title: 'Anda belum login!',
+            text: 'Yuk login dulu untuk lanjut belanja',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Login',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#D77482',
+            cancelButtonColor: '#71717A',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.push('/login');
+            }
+        });
+    }
+
     //handle order product
     const handleOrderProduct = async (productId: number, quantity: number) => {
+        if (!isLogged) {
+            NotLoggedAlert();
+            // router.push('/login');
+            return;
+        }
+
         try {
             const response = await orderProduct(productId, { quantity });
             if (response.isError) {
@@ -51,7 +84,6 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
                 showConfirmButton: false,
                 timer: 1500
             });
-
             //redirect to order page
             router.push('/mya/checkout/' + response.orderId);
 
@@ -62,6 +94,11 @@ const ProductDetailCard: React.FC<ProductDetailCardProps> = ({ product }) => {
     
 
     const handleAddToCart = async (productId: number, quantity: number) => {
+        if (!isLogged) {
+            NotLoggedAlert();
+            // router.push('/login');
+            return;
+        }
         try {
             const response = await addToCart(productId, quantity);
             if (response.isError) {
