@@ -1,6 +1,8 @@
 import { Card } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
+import icons from "@/components/icons/icon"
 const CardReview = ({testimoni, user, role}) => {
+    const {AvatarIcon} = icons
     return (
         <>
             <Card className="min-h-[272px] w-full pb-6 bg-gray-200 gap-y-[20px]">
@@ -18,7 +20,9 @@ const CardReview = ({testimoni, user, role}) => {
                     </p>
                 </div>
                 <div className="flex flex-row h-[64px] items-center w-[325px] mx-auto gap-x-[16px] px-3 lg:px-0">
-                    <div className="h-[48px] w-[48px] rounded-full bg-slate-400"></div>
+                    <div className="h-[48px] w-[48px] rounded-full bg-slate-400 flex items-center justify-center">
+                        <AvatarIcon className="h-8 w-8"/>
+                    </div>
                     <div>
                         <h1 className="font-sans font-semibold text-[18px]">{`${user}`}</h1>
                         <p>{`${role}`}</p>

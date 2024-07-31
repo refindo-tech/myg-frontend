@@ -30,7 +30,7 @@ const AddTestimoni = () => {
                     </div>
                 </div>
             </Card>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal placement="center" isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <>

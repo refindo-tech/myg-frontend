@@ -9,19 +9,24 @@ const ContainerExam = ({ bgcard, title, listExam }) => {
     useEffect(() => {
         setDataExam(listExam)
     }, [listExam])
+    console.log('data examm', dataExam)
     return (
-        <div className="w-[90%] lg:container mx-auto flex flex-col py-[60px] gap-3 lg:gap-14">
-            {title&&<h3 className="font-bold font-playfair text-xl lg:text-5xl">{title}</h3>}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 lg:gap-x-5 gap-y-3 lg:gap-y-5">
-                {dataExam ? (dataExam.map((exam, index) => (
-                    <CardExam bgcard={bgcard} key={index} exam={exam} />))) :
-                    (<></>)
-                }
-                {/* <CardComingSoon bgcard={bgcard}/>
-                <CardComingSoon bgcard={bgcard}/>
-                <CardComingSoon bgcard={bgcard}/> */}
-            </div>
-        </div>
+        <>
+            {dataExam && dataExam.length !== 0 && (
+                <div className="w-[90%] lg:container mx-auto flex flex-col py-[60px] gap-3 lg:gap-14">
+                    {title && <h3 className="font-bold font-playfair text-xl lg:text-5xl">{title}</h3>}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 lg:gap-x-5 gap-y-3 lg:gap-y-5">
+                        {dataExam ? (dataExam.map((exam, index) => (
+                            <CardExam bgcard={bgcard} key={index} exam={exam} />))) :
+                            (<></>)
+                        }
+                        {/* <CardComingSoon bgcard={bgcard}/>
+                            <CardComingSoon bgcard={bgcard}/>
+                            <CardComingSoon bgcard={bgcard}/> */}
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 export default ContainerExam
