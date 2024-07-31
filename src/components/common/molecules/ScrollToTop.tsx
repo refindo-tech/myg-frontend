@@ -23,7 +23,7 @@ const ScrollToTopButton = () => {
             case "dashboard":
                 return "bg-myg-500";
             default:
-                return "bg-mya-500";
+                return "bg-myg-500";
         }
     };
 

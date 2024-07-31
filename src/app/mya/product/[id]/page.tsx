@@ -1,5 +1,5 @@
 'use client';
-import { NextPage } from 'next';
+import useAuthCheck from '@/hooks/common/auth';
 import useProducts from '@hooks/mya/useProducts';
 import DetailPage from '@components/mya/templates/DetailPage';
 import LoadingPage from '@/components/mya/templates/LoadingPage';
