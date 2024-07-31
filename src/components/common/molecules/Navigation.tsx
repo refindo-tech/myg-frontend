@@ -19,8 +19,20 @@ const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) =>
     //handle active navigation
     const pathname = usePathname();
     // NavItems.forEach((item) => {
-    //     item.isActive = pathname === item.href;
-    // });
+    //     // item.isActive = pathname === item.href;
+    //     if (pathname === item.href || (item.label === "Home" && pathname === `/${service}/home`)) {
+    //         item.isActive = true;
+    //     }
+    //     else {
+    //         item.isActive = false;
+    //     }
+    // }
+    // );
+
+    //more concise way
+    const isActive = (item: NavItem) => {
+        return pathname === item.href || (item.label === "Home" && pathname === `/${service}/home`);
+    }
 
     console.log(pathname);
 
@@ -54,7 +66,7 @@ const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) =>
                     key={index}
                     onClick={item.label === "Konsultasi" ? handleConsultationClick : undefined}
                     href={item.label === "Konsultasi" ? "#" : item.href}
-                    className={`font-semibold font-playfair leading-tight ${pathname === item.href ? mainColor(service) : "text-default-500"}`}
+                    className={`font-semibold font-playfair leading-tight ${isActive(item) ? mainColor(service) : "text-default-500"}`}
                 >
                     <span>{item.label}</span>
                 </Link>
