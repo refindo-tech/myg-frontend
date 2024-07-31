@@ -79,7 +79,7 @@ const DetailExam = ({ detailExam, listRecommendationExam }) => {
                                         {data.description}
                                     </p>
                                 </div>
-                                <div className="flex flex-col gap-y-3">
+                                {/* <div className="flex flex-col gap-y-3">
                                     <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Agenda Acara</h3>
                                     <div className="pl-6 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                         <ol className="list-disc">
@@ -130,7 +130,7 @@ const DetailExam = ({ detailExam, listRecommendationExam }) => {
                                             </li>
                                         </ol>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="flex flex-col gap-y-3">
                                     <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi dan Tanggal</h3>
                                     <div>
@@ -166,7 +166,7 @@ const DetailExam = ({ detailExam, listRecommendationExam }) => {
                                         <div className="pl-6">
                                             <ol className="list-disc font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                                 <li>Email: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">info@beautyacademy.com</span></li>
-                                                <li>Telepon: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">(021)-234-5678</span></li>
+                                                <li>Telepon: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">(081) 314-485-552</span></li>
                                             </ol>
                                         </div>
                                     </div>
