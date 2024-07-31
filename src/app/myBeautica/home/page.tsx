@@ -23,7 +23,7 @@ import NextLink from "next/link";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
 import FooterComponent from "@/components/common/organism/Footer";
 import FAQComponent from "@/components/mybeautica/organisms/FAQ";
-import TestimoniComponent from "@/components/mybeautica/organisms/Testimoni";
+import TestimonialSection from "@/components/common/organism/TestimonialSection"; // Import TestimonialSection
 
 type User = {
   id: number;
@@ -142,7 +142,7 @@ const Home = () => {
   }, []);
 
   const mostViewedService =
-    services.length > 0
+    services && services.length > 0
       ? services.reduce(
           (max, service) => (service.viewCount > max.viewCount ? service : max),
           services[0]
@@ -213,13 +213,13 @@ const Home = () => {
     onOpenChange();
   };
 
-  const filteredServices = services.filter((service) =>
+  const filteredServices = services?.filter((service) =>
     service.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) || [];
 
-  const filteredTestimonials = testimonials.filter((testimonial) =>
+  const filteredTestimonials = testimonials?.filter((testimonial) =>
     testimonial.comment.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) || [];
 
   const filteredFAQItems = faqItems.filter(
     (faq) =>
@@ -381,7 +381,8 @@ const Home = () => {
 
       <FAQComponent faqItems={filteredFAQItems} />
 
-      <TestimoniComponent testimonials={filteredTestimonials} users={users} />
+      {/* Ganti TestimoniComponent dengan TestimonialSection */}
+      <TestimonialSection service="mybeautica" />
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
