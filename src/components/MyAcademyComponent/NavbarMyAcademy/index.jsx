@@ -38,24 +38,20 @@ const NavbarMyAcademy = ({ color }) => {
                     </button>
                     <div className={`hidden lg:flex gap-x-[12px] font-playfair text-[20px] text-${color}`}>
                         <Link
-                            href={"#"}
+                            href={"/dashboard"}
                             className="py-4 px-5 hover:text-active"
                         >Home</Link>
                         <Link
-                            href={"#"}
+                            href={'https://wa.me/6281314485552'}
                             className="py-4 px-5 hover:text-active"
-                        >Your Material</Link>
-                        <Link
-                            href={"#"}
-                            className="py-4 px-5 hover:text-active"
-                        >Discussion</Link>
+                        >Konsultasi</Link>
                     </div>
                     <div className="hidden lg:flex flex-row items-center gap-x-[16px]">
                         <div className="bg-transparent rounded-full relative ">
                             <input
                                 type="text"
                                 placeholder="i'am looking for.."
-                                className={`text-[14px] text-${color} font-sans italic py-[8px] px-[16px] rounded-full bg-transparent border border-${color} focus:outline-none pr-10 placeholder:text-${color}`}
+                                className={`text-[14px] text-${color} font-sans italic py-[8px] px-[16px] rounded-full bg-transparent border border-${color} focus:outline-none pr-10 placeholder:text-white`}
                             />
                             <button className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
