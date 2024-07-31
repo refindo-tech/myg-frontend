@@ -34,7 +34,7 @@ const FAQMyAcademy = () => {
                 <div className='flex flex-col gap-y-4'>
                     <div className=" border-b-2 border-abumuda pb-4 lg:pb-8">
                         <div className={`flex flex-row justify-between items-start ${itemFAQ.item1 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Bagaimana cara mendaftar untuk acara ini? </h3>
+                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Apa yang harus saya bawa saat menghadiri pelatihan MyAcademy? </h3>
                             <button className='p-2' onClick={() => handleFAQ('item1')}>
                                 {itemFAQ.item1 ? (
                                     <MinusIcon />
@@ -44,14 +44,23 @@ const FAQMyAcademy = () => {
                             </button>
                         </div>
                         {itemFAQ.item1 && (
-                            <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
-                            </p>
+                            <div className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
+                                <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
+                                    Berkas-berkas diri seperti:
+                                </p>
+                                <div className='pl-6'>
+                                    <ol className='list-disc'>
+                                        <li>Fotocopy KTP</li>
+                                        <li>Ijazah terakhir</li>
+                                        <li>Sertif pelatihan yang pernah diikuti (jika ada)</li>
+                                    </ol>
+                                </div>
+                            </div>
                         )}
                     </div>
                     <div className="border-b-2 border-abumuda pb-4 lg:pb-8">
                         <div className={`flex flex-row justify-between items-start ${itemFAQ.item2 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Apakah ada diskon untuk pendaftaran kelompok? </h3>
+                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Bagaimana jika saya tidak bisa hadir setelah mendaftar?</h3>
                             <button className='p-2' onClick={() => handleFAQ('item2')}>
                                 {itemFAQ.item2 ? (
                                     <MinusIcon />
@@ -62,13 +71,15 @@ const FAQMyAcademy = () => {
                         </div>
                         {itemFAQ.item2 && (
                             <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
+                                Konfirmasi ketidak hadiran paling lambat H-3, lalu teman-teman bisa ikut kelas di jadwal berikutnya.
                             </p>
                         )}
                     </div>
+                </div>
+                <div className='flex flex-col gap-y-4'>
                     <div className="border-b-2 border-abumuda pb-4 lg:pb-8">
                         <div className={`flex flex-row justify-between items-start ${itemFAQ.item3 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Apa yang harus saya bawa saat menghadiri acara? </h3>
+                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Bagaimana cara mendaftar untuk acara pelatihan atau sertifikasi di My Academy?</h3>
                             <button className='p-2' onClick={() => handleFAQ('item3')}>
                                 {itemFAQ.item3 ? (
                                     <MinusIcon />
@@ -79,15 +90,13 @@ const FAQMyAcademy = () => {
                         </div>
                         {itemFAQ.item3 && (
                             <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
+                                {`Anda dapat mendaftar dengan mengklik tombol 'Daftar Acara' pada acara yang ingin dipilih, kemudian menyelesaikan pembayaran Booking Seat.`}
                             </p>
                         )}
                     </div>
-                </div>
-                <div className='flex flex-col gap-y-4'>
                     <div className="border-b-2 border-abumuda pb-4 lg:pb-8">
                         <div className={`flex flex-row justify-between items-start ${itemFAQ.item4 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Apa saja yang termasuk biaya pendaftaran? </h3>
+                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Bagaimana cara melakukan pembayaran? </h3>
                             <button className='p-2' onClick={() => handleFAQ('item4')}>
                                 {itemFAQ.item4 ? (
                                     <MinusIcon />
@@ -98,41 +107,7 @@ const FAQMyAcademy = () => {
                         </div>
                         {itemFAQ.item4 && (
                             <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
-                            </p>
-                        )}
-                    </div>
-                    <div className="border-b-2 border-abumuda pb-4 lg:pb-8">
-                        <div className={`flex flex-row justify-between items-start ${itemFAQ.item5 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Apakah persayaratn mengikuti acara ini? </h3>
-                            <button className='p-2' onClick={() => handleFAQ('item5')}>
-                                {itemFAQ.item5 ? (
-                                    <MinusIcon />
-                                ) : (
-                                    <PlusIcon />
-                                )}
-                            </button>
-                        </div>
-                        {itemFAQ.item5 && (
-                            <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
-                            </p>
-                        )}
-                    </div>
-                    <div className="border-b-2 border-abumuda pb-4 lg:pb-8">
-                        <div className={`flex flex-row justify-between items-start ${itemFAQ.item6 ? 'text-primary-500' : 'text-abugelap'}`}>
-                            <h3 className='font-sans text-xs lg:text-lg font-bold '>Bagaimana jika tidak bisa hadir setelah mendaftar?</h3>
-                            <button className='p-2' onClick={() => handleFAQ('item6')}>
-                                {itemFAQ.item6 ? (
-                                    <MinusIcon />
-                                ) : (
-                                    <PlusIcon />
-                                )}
-                            </button>
-                        </div>
-                        {itemFAQ.item6 && (
-                            <p className='font-sans font-normal text-[10px] lg:text-lg text-abugelap'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique sint ipsam asperiores debitis, velit quia laudantium fugit nam illo doloribus ullam accusantium quod magnam porro cumque placeat eius amet vero?
+                                Setelah memilih acara yang ingin diikuti. Maka lanjutkan proses pembayaran dengan melakukan transfer ke nomor rekening yang tertera, kemudian mengirim bukti transfer.
                             </p>
                         )}
                     </div>
