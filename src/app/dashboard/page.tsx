@@ -5,14 +5,15 @@ import HomePage from '@/components/dashboard/HomePage';
 
 const heroData = {
   title: "Bergabunglah dengan kami di Yayasan Multi Yasykur Global",
-  description: "Lihat layanan yang ada yaitu My Academy (MYA) dan My Beautica. Layanan kecantikan kami mencakup akademi kecantikan, produk kecantikan, hingga layanan kecantikan langsung.",
+  description: "Lihat layanan yang ada yaitu My Academy, MYA, dan My Beautica. Layanan kecantikan kami mencakup akademi kecantikan, produk kecantikan, hingga layanan kecantikan langsung.",
   imageUrl: "/assets/images/hero/myg.png",
 };
 
 
 const slides = [
-  "/assets/images/hero/myg.png",
-  "/assets/images/hero/myacademy.png",
+  "/assets/images/banners/banner5.jpg",
+  "/assets/images/banners/banner6.jpg",
+  "/assets/images/banners/banner7.jpg",
   // "/assets/images/banners/Brightening Body Serum Night.jpg",
 ];
 
