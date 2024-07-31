@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, NavbarMenuItem } from "@nextui-org/react";
 
+import { usePathname } from "next/navigation";
+
 interface NavItem {
     label: string;
     isActive: boolean;
@@ -13,12 +15,21 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) => {
+
+    //handle active navigation
+    const pathname = usePathname();
+    // NavItems.forEach((item) => {
+    //     item.isActive = pathname === item.href;
+    // });
+
+    console.log(pathname);
+
     const handleConsultationClick = () => {
         const whatsappNumber = "6281314485552";
         const message = "Halo, saya ingin berkonsultasi mengenai layanan My MYG.";
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
-      };
+    };
 
     //main color based on service
     const mainColor = (service: string) => {
@@ -43,7 +54,7 @@ const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) =>
                     key={index}
                     onClick={item.label === "Konsultasi" ? handleConsultationClick : undefined}
                     href={item.label === "Konsultasi" ? "#" : item.href}
-                    className={`font-semibold font-playfair leading-tight ${item.isActive ? mainColor(service) : "text-default-500"}`}
+                    className={`font-semibold font-playfair leading-tight ${pathname === item.href ? mainColor(service) : "text-default-500"}`}
                 >
                     <span>{item.label}</span>
                 </Link>
