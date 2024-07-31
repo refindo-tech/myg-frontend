@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { Input, Button, Checkbox, Image, Progress } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import api from '@/axios/axiosConfig';
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
 
@@ -115,7 +115,7 @@ export function Regist() {
         }
       };
 
-      const response = await axios.post('http://localhost:5000/myg/auth/register', formattedData);
+      const response = await api.post('/myg/auth/register', formattedData);
       console.log('User registered successfully:', response.data);
       router.push('/login');
     } catch (error: any) {

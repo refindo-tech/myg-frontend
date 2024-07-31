@@ -1,34 +1,44 @@
 'use client'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@nextui-org/button"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
 import CardComingSoonEvent from "@/components/MyAcademyComponent/CardComingSoon"
-import {getListMaterial} from '@/helpers/fetchAPI'
+import { getPastTraining, getRecommendationTraining } from '@/helpers/fetchAPI'
 import ComingSoonEvent from '@/components/MyAcademyComponent/ComingSoonEvent'
 import Link from "next/link"
 const Material = () => {
+    const [listTraining, setListTraining] = useState(null)
+    const [listPastTraining, setListPastTraining] = useState(null)
     const [material, setMaterial] = useState([])
-    const [openListSoonMateri, setOpenListSoonMateri] = useState(true)
-    const [openListPastMateri, setOpenListPastMateri] = useState(false)
-    const handleOpenListSoonMateri = () =>{
-        setOpenListPastMateri(false)
-        setOpenListSoonMateri(true)
+    const [openListSoonTraining, setOpenListSoonTraining] = useState(true)
+    const [openListPastTraining, setOpenListPastTraining] = useState(false)
+    const handleOpenListSoonTraining = () => {
+        setOpenListPastTraining(false)
+        setOpenListSoonTraining(true)
     }
-    const handleOpenListPastMateri = () =>{
-        setOpenListSoonMateri(false)
-        setOpenListPastMateri(true)
+    const handleOpenListPastTraining = () => {
+        setOpenListSoonTraining(false)
+        setOpenListPastTraining(true)
     }
-    useEffect(()=>{
-        const fetchData = async()=>{
-            const response = await getListMaterial()
-            if(response){
-                console.log('response list material',response)
-                setMaterial(response.results)
+    useEffect(() => {
+        const fetchData = async () => {
+            // const response = await getListMaterial()
+            // if(response){
+            //     console.log('response list material',response)
+            //     setMaterial(response.results)
+            // }
+            const responseTraining = await getRecommendationTraining(4)
+            if (responseTraining) {
+                setListTraining(responseTraining.results)
+            }
+            const responsePastTraining = await getPastTraining(4)
+            if (responsePastTraining) {
+                setListPastTraining(responsePastTraining.results)
             }
         }
         fetchData()
-    },[])
+    }, [])
     console.log('ini material', material)
     return (
         <>
@@ -38,46 +48,48 @@ const Material = () => {
                 <div className="flex flex-col gap-3 lg:gap-y-[30px]">
                     <h3 className="text-[48px] font-playfair font-bold text-active lg:text-abumuda">Daftar Acara</h3>
                     <div className="flex flex-row gap-x-[12px]">
-                        <Button 
-                        variant="solid"
-                        size="md"  
-                        onClick={()=>handleOpenListSoonMateri()}
-                        className={`font-semibold text-[16px] font-sans ${openListSoonMateri?'bg-primary-500 text-white':'bg-white text-primary-500'}`}>
+                        <Button
+                            variant="solid"
+                            size="md"
+                            onClick={() => handleOpenListSoonTraining()}
+                            className={`font-semibold text-[16px] font-sans ${openListSoonTraining ? 'bg-primary-500 text-white' : 'bg-white text-primary-500'}`}>
                             Sedang diadakan
                         </Button>
-                        <Button 
-                        variant="solid" 
-                        size="md" 
-                        onClick={()=>handleOpenListPastMateri()}
-                        className={`font-semibold text-[16px] font-sans ${openListPastMateri?'bg-primary-500 text-white':'bg-white text-primary-500'}`}>
+                        <Button
+                            variant="solid"
+                            size="md"
+                            onClick={() => handleOpenListPastTraining()}
+                            className={`font-semibold text-[16px] font-sans ${openListPastTraining ? 'bg-primary-500 text-white' : 'bg-white text-primary-500'}`}>
                             Sudah diadakan
                         </Button>
                     </div>
                 </div>
-                {openListSoonMateri&&                    
-                <ComingSoonEvent bgcard={'bg-white'} listMaterial={material}/>
-                // <div className=" container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-y-[40px] lg:gap-x-[24px]">
-                //     {/* <CardComingSoonEvent bgcard={'bg-white'} material={material}/> */}
-                //     {/* <CardComingSoonEvent />
-                //     <CardComingSoonEvent />
-                //     <CardComingSoonEvent />
-                //     <CardComingSoonEvent />
-                //     <CardComingSoonEvent />
-                //     <CardComingSoonEvent />
-                //     <CardComingSoonEvent /> */}
-                // </div>
+                {openListSoonTraining &&
+                    <ComingSoonEvent bgcard={'bg-white'} listTraining={listTraining} />
+                    // <div className=" container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-y-[40px] lg:gap-x-[24px]">
+                    //     {/* <CardComingSoonEvent bgcard={'bg-white'} material={material}/> */}
+                    //     {/* <CardComingSoonEvent />
+                    //     <CardComingSoonEvent />
+                    //     <CardComingSoonEvent />
+                    //     <CardComingSoonEvent />
+                    //     <CardComingSoonEvent />
+                    //     <CardComingSoonEvent />
+                    //     <CardComingSoonEvent /> */}
+                    // </div>
                 }
-                {openListPastMateri&&
-                <div className=" container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-y-[40px] lg:gap-x-[24px]">
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                    <CardComingSoonEvent />
-                </div>}
+                {openListPastTraining &&
+                    <ComingSoonEvent bgcard={'bg-white'} listTraining={listPastTraining} />
+                    // <div className=" container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-y-[40px] lg:gap-x-[24px]">
+                    //     <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // <CardComingSoonEvent />
+                    // </div>
+                }
             </div>
             <FooterMyAcademy />
         </>
