@@ -14,9 +14,8 @@ const heroData = {
 
 
 const slides = [
-  "/assets/images/banners/Ultimate Brightening Serum.jpg",
-  "/assets/images/banners/Milky Infused Nutrition.jpg",
-  "/assets/images/banners/Brightening Body Serum Night.jpg",
+  "/assets/images/banners/myabanner1.jpg",
+  "/assets/images/banners/myabanner2.jpg",
 ];
 
 const faqs = [
