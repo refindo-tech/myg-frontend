@@ -1,16 +1,21 @@
 "use client";
 import type { NextPage } from "next";
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { Button, Image, Input } from "@nextui-org/react";
-import { useParams } from 'next/navigation';
-import NextLink from 'next/link';
+import { Button, Image, CircularProgress, } from "@nextui-org/react";
+import { useParams } from "next/navigation";
+import NextLink from "next/link";
 import icons from "@/components/icons/icon";
 import Ornamen1 from "@/components/mybeautica/atoms/ornamen1";
 import Ornamen2 from "@/components/mybeautica/atoms/ornamen2";
-import { fetchServiceById, fetchServices, updateServiceViews } from "@/lib/mybeautica/layananService";
+import {
+  fetchServiceById,
+  fetchServices,
+  updateServiceViews,
+} from "@/lib/mybeautica/layananService";
 import Head from "next/head";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
-import FooterComponent from "@/components/mybeautica/organisms/Footer";
+import FooterComponent from "@/components/common/organism/Footer";
+import Description from "@/components/mybeautica/molecules/Description";
 
 interface Service {
   serviceId: number;
@@ -70,10 +75,12 @@ const Detail: NextPage = () => {
     const getServices = async () => {
       const data = await fetchServices();
       if (data && data.meta.success) {
-        setServices(data.meta.message.map((service: Service) => ({
-          ...service,
-          views: service.views || 0, // Ensure views is initialized
-        })));
+        setServices(
+          data.meta.message.map((service: Service) => ({
+            ...service,
+            views: service.views || 0, // Ensure views is initialized
+          }))
+        );
       } else {
         setError("Failed to load services");
       }
@@ -105,9 +112,9 @@ const Detail: NextPage = () => {
 
   const handleOrderClick = (service: Service) => {
     const whatsappNumber = "6281314485552";
-    const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatToRupiah(
-      service.price
-    )}`;
+    const message = `Halo, saya ingin memesan layanan ${
+      service.title
+    } dengan harga ${formatToRupiah(service.price)}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       message
     )}`;
@@ -133,7 +140,11 @@ const Detail: NextPage = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center h-screen w-screen">
+        <CircularProgress size="lg" aria-label="Loading..." />
+      </div>
+    );
   }
 
   if (error) {
@@ -158,46 +169,71 @@ const Detail: NextPage = () => {
 
       <main>
         {/* Content 1 Menampilkan detail deskripsi layanan */}
-        <section className="relative container mx-auto flex flex-col md:flex-row justify-between items-center py-4 mt-4 w-full xl:px-10 xl:mt-8 h-full">
-          <Ornamen1 className="absolute top-0 left-0 xl:w-[200px] xl:h-[300px]" />
-          <div className="flex flex-none flex-col w-full md:basis-1/2 justify-center items-center text-left">
+        <section className="container flex flex-col gap-8 h-full w-full">
+
+          <div className="relative flex flex-col md:basis-1/2 justify-center items-center text-left mt-8 mx-6 md:flex-row">
             <Image
-              src={service.imageUrl || ""}
-              alt="Image"
-              className="flex rounded-lg w-96 xl:pr-2 xl:w-[826px] xl:h-[731px]"
-            />
-          </div>
-          <Ornamen2 className="absolute bottom-0 right-0 xl:w-[155px] xl:h-[170px] xl:hidden" />
-          <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full">
-            <div className="hidden flex-col  mx-2 my-2 px-2 gap-3 xl:flex bg-white rounded-lg">
-              <div className="text-2xl font-playfair xl:text-4xl">
-                <h2>{service.title}</h2>
-              </div>
-              <div className="text-xl font-openSans">
-                <p>{formatToRupiah(service.price)}</p>
-              </div>
-              <div className="text-zinc text-sm font-openSans">
-                Dilihat: {service.views} kali
-              </div>
-              <div className="text-xl font-openSans text-justify text-zinc">
-                <p>{service.description}</p>
-              </div>
-              <div className="mb-4">
-                <Button
-                  className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2 w-full"
-                  onClick={() => handleOrderClick(service)}
-                >
-                  Pesan Layanan
-                </Button>
+                src={service.imageUrl || ""}
+                alt="Image"
+                className="flex rounded-lg w-86 xl:pr-2 xl:w-[826px] xl:h-[731px] z-20"
+              />
+
+            <div className="hidden flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full z-20 md:flex">
+              <div className="flex-col mx-2 my-2 px-2 gap-3 xl:flex bg-white rounded-lg">
+                <div className="text-2xl font-playfair xl:text-4xl">
+                  <h2>{service.title}</h2>
+                </div>
+                <div className="text-xl font-openSans mt-6">
+                  <p>{formatToRupiah(service.price)}</p>
+                </div>
+                <div className="text-xl mt-6 font-openSans text-justify text-zinc">
+                  <p> <Description description={service.description}/></p>
+                </div>
+                <div className="mb-4 mt-8">
+                  <Button
+                    className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-6 w-full"
+                    onClick={() => handleOrderClick(service)}
+                  >
+                    Pesan Layanan
+                  </Button>
+                </div>
               </div>
             </div>
+          
+            <Ornamen1 className="absolute -left-4 -top-4 z-10 xl:w-[200px] xl:h-[300px]"/>
+
+            <Ornamen2 className="absolute -right-4 -bottom-4 z-10 xl:w-[155px] xl:h-[170px]"/>
           </div>
-          <Ornamen2 className="hidden absolute bottom-0 right-0 xl:w-[155px] xl:h-[170px] xl:block" />
+
+            <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full z-20">
+              <div className="flex-col mx-2 my-2 px-2 gap-8 xl:flex bg-white rounded-lg">
+                <div className="text-2xl font-playfair xl:text-4xl">
+                  <h2>{service.title}</h2>
+                </div>
+                <div className="text-xl font-openSans mt-6">
+                  <p>{formatToRupiah(service.price)}</p>
+                </div>
+                <div className="text-xl mt-6 font-openSans text-justify text-zinc">
+                  <p> <Description description={service.description}/></p>
+                </div>
+                <div className="mb-4 mt-8">
+                  <Button
+                    className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-6 w-full"
+                    onClick={() => handleOrderClick(service)}
+                  >
+                    Pesan Layanan
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+
         </section>
 
         {/* Content 2 Menampilkan Cara Reservasi Layanan dan Lokasi */}
         <section className="flex flex-col py-4 px-4 xl:px-40 xl:py-10 gap-3">
           <div className="flex flex-col gap-3 w-full xl:flex-row xl:px-20">
+
             <div className="flex flex-col xl:w-2/3 xl:gap-10">
               <div className="flex flex-col gap-2 mt-4">
                 <h2 className="text-2xl font-playfair mb-4 xl:text-4xl">
@@ -209,7 +245,8 @@ const Detail: NextPage = () => {
                     Mulai diskusi dengan Admin untuk menentukan waktu reservasi.
                   </li>
                   <li>
-                    Lanjutkan pendaftaran dengan mengisi form konsultasi dan waktu.
+                    Lanjutkan pendaftaran dengan mengisi form konsultasi dan
+                    waktu.
                   </li>
                   <li>Reservasi layanan berhasil</li>
                 </ol>
@@ -221,17 +258,12 @@ const Detail: NextPage = () => {
                 </h2>
                 <div className="font-openSans pt-2 text-sm text-zinc xl:text-xl">
                   <p>
-                    Untuk pertanyaan lebih lanjut, Anda dapat menghubungi kami di:
+                    Untuk pertanyaan lebih lanjut, Anda dapat menghubungi kami
+                    di:
                   </p>
                   <ul className="list-none">
                     <li>
-                      Email:{" "}
-                      <a href="mailto:info@mybeauticawellness.com" className="font-semibold">
-                        info@mybeauticawellness.com
-                      </a>
-                    </li>
-                    <li>
-                      Telepon: <a className="font-semibold">(021) 123-4567</a>
+                      Telepon: <a className="font-semibold"> +6281314485552</a>
                     </li>
                   </ul>
                 </div>
@@ -240,7 +272,10 @@ const Detail: NextPage = () => {
 
             <div className="flex flex-col xl:w-1/3">
               <div className="flex flex-col mt-6">
-                <h2 id="map" className="text-2xl font-playfair mb-4 xl:text-4xl">
+                <h2
+                  id="map"
+                  className="text-2xl font-playfair mb-4 xl:text-4xl"
+                >
                   Lokasi Layanan
                 </h2>
                 <iframe
@@ -259,9 +294,9 @@ const Detail: NextPage = () => {
                   My Beautica Wellness
                 </h2>
                 <address className="not-italic font-openSans pt-2 text-sm text-zinc xl:text-xl">
-                  RT.13/RW.6, Kb. Kosong, Kec. Kemayoran,
+                  Griya Baladika Asri, Jl. Perintis No.11 Rt. 001 Rw. 015, 
                   <br />
-                  Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10630
+                  Taman Kopassus, Kelurahan Drangong, Kecamatan Taktakan, Kota Serang, Provinsi Banten.
                 </address>
               </div>
             </div>
@@ -283,7 +318,9 @@ const Detail: NextPage = () => {
                 >
                   <div
                     className="flex flex-col bg-transparent rounded-md shadow-none p-4 mb-6 gap-2 cursor-pointer"
-                    onClick={() => incrementViews(service.serviceId, service.views)}
+                    onClick={() =>
+                      incrementViews(service.serviceId, service.views)
+                    }
                   >
                     <div className="overflow-visible flex justify-center items-center w-full rounded-t-md">
                       <Image

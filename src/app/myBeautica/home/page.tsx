@@ -3,14 +3,8 @@ import React, { useEffect, useState, ChangeEvent, useRef } from "react";
 import {
   Button,
   Image,
-  Textarea,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   useDisclosure,
-  Input,
+  CircularProgress,
 } from "@nextui-org/react";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
@@ -23,7 +17,8 @@ import NextLink from "next/link";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
 import FooterComponent from "@/components/common/organism/Footer";
 import FAQComponent from "@/components/mybeautica/organisms/FAQ";
-import TestimonialSection from "@/components/common/organism/TestimonialSection"; // Import TestimonialSection
+import TestimonialSection from "@/components/common/organism/TestimonialSection";
+import Description from "@/components/mybeautica/molecules/Description";
 
 type User = {
   id: number;
@@ -174,14 +169,6 @@ const Home = () => {
     serviceSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const toggleFAQ = (index: number) => {
-    if (openFAQIndices.includes(index)) {
-      setOpenFAQIndices(openFAQIndices.filter((i) => i !== index));
-    } else {
-      setOpenFAQIndices([...openFAQIndices, index]);
-    }
-  };
-
   const incrementViews = async (id: number, currentViews: number) => {
     try {
       const updatedService = await updateServiceViews(id, currentViews + 1);
@@ -208,17 +195,9 @@ const Home = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSubmit = () => {
-    console.log("Testimoni dikirim:", newTestimonial);
-    onOpenChange();
-  };
 
   const filteredServices = services?.filter((service) =>
     service.title.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
-
-  const filteredTestimonials = testimonials?.filter((testimonial) =>
-    testimonial.comment.toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
 
   const filteredFAQItems = faqItems.filter(
@@ -228,7 +207,11 @@ const Home = () => {
   );
 
   if (loading) {
-    return <div>Memuat...</div>;
+    return (
+      <div className="flex justify-center h-screen w-screen">
+        <CircularProgress size="lg" aria-label="Loading..." />
+      </div>
+    );
   }
 
   if (error) {
@@ -247,19 +230,19 @@ const Home = () => {
         <div className="flex flex-col w-full h-full md:flex-row">
           <div className="flex w-full h-full mt-8 rounded-tr-xl bg-pink1 md:h-auto md:w-3/5">
             <div className="flex  w-full mt-4 mr-4 rounded-tr-xl bg-pink2 md:mt-8 md:mr-8">
-              <div className="flex flex-col justify-center py-3 px-3 md:ml-36 md:mr-10 md:gap-6">
-                <h1 className="text-2xl font-bold text-ungu font-playfair text-left md:tracking-wide pr-3 xl:text-7xl">
+              <div className="flex flex-col justify-center py-3 px-3 md:ml-36 md:mr-10 md:gap-3">
+                <h1 className="text-2xl font-bold text-ungu font-playfair text-left md:tracking-wide pr-3 xl:text-5xl">
                   My Beautica: Solusi Kecantikan Premium untuk Kulit yang
                   Memukau
                 </h1>
-                <p className="mt-4 text-sm text-justify text-zinc font-openSans pr-3 text-pretty xl:text-2xl xl:pr-16">
+                <p className="mt-4 text-sm text-justify text-zinc font-openSans pr-3 text-pretty xl:text-xl xl:pr-16">
                   My Beautica menawarkan pelayanan kecantikan eksklusif dengan
                   menggunakan produk-produk inovatif yang dirancang khusus untuk
                   mempercantik dan meremajakan kulit Anda.
                 </p>
                 <div className="flex items-start mt-4 w-2/5">
                   <Button
-                    className="bg-ungu text-white font-semibold font-openSans rounded-lg shadow-xl shadow-ungu  text-xs md:text-xl"
+                    className="bg-ungu text-white font-semibold font-openSans rounded-lg shadow-xl shadow-ungu  text-xs"
                     onClick={handleExploreProductsClick}
                   >
                     Jelajahi Produk kami
@@ -287,7 +270,7 @@ const Home = () => {
 
       {/* content 2 */}
       {services.length > 0 && (
-        <section ref={serviceSectionRef} className="py-8 xl:px-64">
+        <section ref={serviceSectionRef} className="py-8">
           <div className="container mx-auto px-4 md:px-8">
             <h2 className="text-2xl font-semibold font-playfair mb-4 text-ungu2 xl:text-5xl">
               Daftar layanan
@@ -350,11 +333,11 @@ const Home = () => {
               Rekomendasi Layanan
             </h2>
             <div className="flex flex-col items-center gap-6 xl:flex-row">
-              <div className="w-full xl:w-3/5">
+              <div className="flex justify-centerw-full xl:w-3/5">
                 <Image
                   src={mostViewedService.imageUrl}
                   alt="Service Image"
-                  className="w-[179px] h-[165px] rounded-lg xl:w-[826px] xl:h-[759px]"
+                  className="w-[370px] h-[370px] rounded-lg xl:w-[826px] xl:h-[759px]"
                 />
               </div>
               <div className="flex flex-col justify-center gap-4 w-full xl:w-2/5">
@@ -364,8 +347,8 @@ const Home = () => {
                 <p className="font-semibold font-openSans text-lg xl:text-2xl">
                   {formatToRupiah(mostViewedService.price)}
                 </p>
-                <p className="text-zinc text-sm font-normal font-openSans xl:text-lg line-clamp-10">
-                  {mostViewedService.description}
+                <p className="text-zinc text-sm font-normal text-justify font-openSans xl:text-lg line-clamp-10">
+                  <Description description={mostViewedService.description} />
                 </p>
                 <Button
                   className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2"
@@ -383,56 +366,6 @@ const Home = () => {
 
       {/* Ganti TestimoniComponent dengan TestimonialSection */}
       <TestimonialSection service="mybeautica" />
-
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-white font-openSans text-center border-b-medium bg-ungu">
-                Tambah Testimonial
-              </ModalHeader>
-              <ModalBody>
-                <Input
-                  isReadOnly
-                  fullWidth
-                  label="Nama"
-                  value={newTestimonial.fullName}
-                />
-                <Input
-                  isReadOnly
-                  fullWidth
-                  label="Peran"
-                  value={newTestimonial.role}
-                />
-                <Textarea
-                  fullWidth
-                  label="Testimonial"
-                  name="comment"
-                  value={newTestimonial.comment}
-                  onChange={handleInputChange}
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  color="default"
-                  variant="solid"
-                  className="font-openSans font-semibold"
-                  onPress={onClose}
-                >
-                  Batal
-                </Button>
-                <Button
-                  variant="light"
-                  className="bg-ungu text-white font-openSans font-semibold"
-                  onPress={handleSubmit}
-                >
-                  Kirim
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
 
       <FooterComponent />
     </div>
