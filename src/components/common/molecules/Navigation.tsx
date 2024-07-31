@@ -18,23 +18,9 @@ const Navigation: React.FC<NavigationProps> = ({ NavItems, service = "mya" }) =>
 
     //handle active navigation
     const pathname = usePathname();
-    // NavItems.forEach((item) => {
-    //     // item.isActive = pathname === item.href;
-    //     if (pathname === item.href || (item.label === "Home" && pathname === `/${service}/home`)) {
-    //         item.isActive = true;
-    //     }
-    //     else {
-    //         item.isActive = false;
-    //     }
-    // }
-    // );
-
-    //more concise way
     const isActive = (item: NavItem) => {
         return pathname === item.href || (item.label === "Home" && pathname === `/${service}/home`);
     }
-
-    console.log(pathname);
 
     const handleConsultationClick = () => {
         const whatsappNumber = "6281314485552";

@@ -69,7 +69,7 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
                                 <Image
                                     alt="Card background"
                                     className="object-cover rounded-xl h-28 w-full hover:scale-105 transition-transform duration-300"
-                                    src={imageUrl(showcaseProduct.productImages)}
+                                    src={imageUrl(showcaseProduct.productImages[0])}
                                     width={270}
                                 />
                             </CardBody>

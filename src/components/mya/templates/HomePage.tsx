@@ -9,7 +9,6 @@ import RecommendationSection from '@components/mya/organisms/RecommendationSecti
 import FAQSection from '@/components/common/organism/FAQSection';
 import TestimonialSection from '@/components/common/organism/TestimonialSection';
 import Footer from '@components/mya/organisms/Footer';
-
 interface HomePageProps {
   faceProducts: any[];
   skinProducts: any[];
@@ -24,6 +23,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ faceProducts, skinProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
+      
       <Header/>
       <main className="flex flex-col w-full">
         <Hero heroData={heroData} showcaseProduct={heroProduct} />
