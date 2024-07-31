@@ -73,7 +73,7 @@ export function Login() {
             <Image
               src={images.myg_logo.src}
               alt="Logo"
-              className="object-cover w-32 xl:w-56"
+              className="object-cover w-56"
             />
           </div>
 
@@ -150,43 +150,6 @@ export function Login() {
               >
                 Login
               </Button>
-            </div>
-
-            <div className="flex flex-col gap-5 justify-center items-center w-full mt-5">
-              <span className="font-normal text-gray-600"> atau </span>
-
-              <Button
-                startContent={<icons.GoogleIcon />}
-                variant="bordered"
-                className="w-full font-sans"
-                aria-label="Sign in with Google"
-              >
-                Sign in with Google
-              </Button>
-
-              <Button
-                startContent={<icons.FacebookIcon />}
-                color="primary"
-                className="w-full font-sans"
-                aria-label="Sign in with Facebook"
-              >
-                Sign in with Facebook
-              </Button>
-
-              <div className="flex items-center w-full gap-6 mt-5">
-                <span className="font-inter font-normal text-gray-400">
-                  Belum punya akun?{" "}
-                </span>
-                <Button
-                  variant="light"
-                  className="font-sans text-kuning"
-                  aria-label="Daftar"
-                  onClick={() => router.push("/regist")}
-                >
-                  {" "}
-                  Daftar{" "}
-                </Button>
-              </div>
             </div>
           </form>
         </div>

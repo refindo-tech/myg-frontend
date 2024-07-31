@@ -248,12 +248,6 @@ export function Regist() {
             </div>
 
             <div className="flex flex-col gap-5 justify-center items-center w-full">
-              <span className="font-normal text-gray-600"> atau </span>
-
-              <Button startContent={<icons.GoogleIcon />} variant="bordered" className="w-full font-sans" aria-label="Sign in with Google">Sign in with Google</Button>
-
-              <Button startContent={<icons.FacebookIcon />} color="primary" className="w-full font-sans" aria-label="Sign in with Facebook">Sign in with Facebook</Button>
-
               <div className="flex items-center w-full gap-6">
                 <span className="font-inter font-normal text-gray-400">Sudah mempunyai akun? </span>
                 <Button variant="light" className="font-sans text-kuning" aria-label="Masuk"> Masuk </Button>
