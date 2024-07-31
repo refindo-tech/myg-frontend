@@ -2,7 +2,28 @@ import React from 'react';
 import { Image, Button, Link } from '@nextui-org/react';
 import { YoutubeIcon, InstagramIcon } from '@/components/mya/icons';
 
+import { useRouter } from 'next/navigation';
+
 const Footer: React.FC = () => {
+
+    const router = useRouter();
+
+    const handleDownload = () => {
+        router.push('/download');
+    }
+
+    const handleContact = () => {
+        router.push('/contact');
+    }
+
+    const instagram = () => {
+        router.push('https://www.instagram.com/myacademy_official/');
+    }
+
+    const youtube = () => {
+        router.push('https://www.youtube.com/@MultiYasykurGlobal');
+    }
+
     return (
         <footer className="w-full flex mx-auto bg-stone-800">
             <div className="w-full flex flex-col px-16 xl:px-32 py-2 divide-y divide-stone-700">
@@ -50,11 +71,11 @@ const Footer: React.FC = () => {
                         </div>
 
                         <div className="flex flex-row gap-4 justify-end">
-                            <Button isIconOnly className='bg-myg-500' variant='solid' size='sm' radius='full'>
+                            <Button isIconOnly className='bg-myg-500' variant='solid' size='sm' radius='full' onClick={instagram}>
                                 <InstagramIcon size={48} fill="currentColor" />
                             </Button>
-                            <Button isIconOnly className='bg-myg-500' variant='solid' size='sm' radius='full'>
-                                <InstagramIcon size={48} fill="currentColor" />
+                            <Button isIconOnly className='bg-myg-500' variant='solid' size='sm' radius='full' onClick={youtube}>
+                                <YoutubeIcon size={24} fill="currentColor" />
                             </Button>
                         </div>
 
