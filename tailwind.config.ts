@@ -44,6 +44,12 @@ const config: Config = {
           500: '#FFC300',
           700: '#B78300',
         },
+        mybeautica: {
+          500: '#B680A2',
+        },
+        myacademy: {
+          500: '#06ADFE',
+        },
       },
       fontSize: {
         '10px': '10px',
