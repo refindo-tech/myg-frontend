@@ -165,7 +165,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                                 <div className="pl-6">
                                     <ol className="list-disc font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
                                         <li>Email: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">info@beautyacademy.com</span></li>
-                                        <li>Telepon: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">(021)-234-5678</span></li>
+                                        <li>Telepon: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">(081) 314-485-552</span></li>
                                     </ol>
                                 </div>
                             </div>
