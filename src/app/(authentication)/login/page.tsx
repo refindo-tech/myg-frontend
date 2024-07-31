@@ -41,7 +41,6 @@ export function Login() {
         console.log('User logged in successfully:', response);
         sessionStorage.setItem('accessToken', response.results.accessToken);
         // Set refreshToken in cookie
-
         router.push('dashboard/');
       } else {
         setErrors([{ instancePath: '', message: 'Login failed. Please check your credentials and try again.' }]);

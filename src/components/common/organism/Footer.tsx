@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
                         <div className="flex flex-1 flex-col gap-2">
                             <h2 className="text-lg font-semibold text-white py-1">Contact Us</h2>
                             <p className="text-white">+62 813 14485552</p>
-                            <p className="text-white">help@gmail.com</p>
+                            {/* <p className="text-white">help@gmail.com</p> */}
                         </div>
 
                         <div className="flex flex-row gap-4 justify-end">
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
 
                 {/* Copyright */}
                 <div className="w-full flex justify-start items-center py-4">
-                    <p className="text-foreground font-normal font-openSans leading-normal">© 2024 My Beautyca. All rights reserved.</p>
+                    <p className="text-foreground font-normal font-openSans leading-normal">© 2024 MYG.</p>
                 </div>
 
 
