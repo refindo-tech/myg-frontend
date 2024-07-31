@@ -40,7 +40,6 @@ const HomePage: React.FC<HomePageProps> = ({ faceProducts, skinProducts, recomme
         <TestimonialSection />
       </main>
       <Footer />
-      
     </div>
   );
 };
