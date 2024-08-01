@@ -22,7 +22,7 @@ class ProductService {
       });
       return response.data.meta.message;
     } catch (error) {
-      console.error("Error fetching products", error);
+      // console.error("Error fetching products", error);
       return null;
     }
   }
@@ -32,7 +32,8 @@ class ProductService {
       const response = await axios.get(`${API_URL}${id}/`, config);
       return response.data.meta.message;
     } catch (error) {
-      console.error("Error fetching product by id", error);
+      // console.error("Error fetching product by id", error);
+      throw error;
       return null;
     }
   }

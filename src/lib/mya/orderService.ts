@@ -33,6 +33,7 @@ class OrderService {
         }
         catch (error) {
             console.error("Error fetching order by id", error);
+            throw error;
             return null;
         }
     }

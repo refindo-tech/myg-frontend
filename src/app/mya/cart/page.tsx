@@ -8,17 +8,26 @@ import { useRouter } from 'next/navigation';
 import useAuthCheck from '@/hooks/common/auth';
 
 const Cart: React.FC = () => {
+  const { data: products, isLoading: isLoadingCart, isError: isErrorCart } = useCarts.all();
   const router = useRouter();
-  if (!useAuthCheck()) {
-    router.push('/login');
+  const isAuth = useAuthCheck();
+  
+  React.useEffect(() => {
+    if (isAuth === false) {
+      router.push('/login');
+    }
+  }, [isAuth, router]);
+
+  if (isAuth === null || isLoadingCart) {
+    return <LoadingPage />;
   }
 
-  const { data:products, isLoading:isLoadingCart, isError:isErrorCart } = useCarts.all();
-  if (isLoadingCart) return <LoadingPage />;
+  if (isErrorCart) {
+    return <div>Error loading cart</div>;
+  }
+
   return (
-    <CartPage
-      productCart={products}
-    />
+    <CartPage productCart={products} />
   );
 };
 

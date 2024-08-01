@@ -13,6 +13,7 @@ class useOrders {
 
     static byId(orderId: number) {
         const { data, error } = useSWR<any, Error>(`order/${orderId}`, () => OrderService.fetchOrderById(orderId));
+        console.log('Error', error);
         return {
             data: data || [],
             isLoading: !error && !data,

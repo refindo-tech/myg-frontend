@@ -1,26 +1,20 @@
 import { useEffect, useState } from 'react';
 
-
 export const isAuthenticated = () => {
-    const token = sessionStorage.getItem('accessToken') || null;
-    return token ? true : false;
+    const token = sessionStorage.getItem('accessToken');
+    return !!token;
 };
 
 const useAuthCheck = () => {
   const [isLogged, setIsLogged] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const loggedIn = isAuthenticated();
-      if (!loggedIn) {
-        setIsLogged(false);
-      } else {
-        setIsLogged(true);
-      }
-    };
-    checkAuth();
+    const loggedIn = isAuthenticated();
+    // console.log('User is authenticated', loggedIn);
+    setIsLogged(loggedIn);
   }, []);
 
+  // console.log('isLogged', isLogged);
   return isLogged;
 };
 

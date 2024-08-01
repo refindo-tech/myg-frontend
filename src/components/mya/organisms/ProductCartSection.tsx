@@ -12,7 +12,7 @@ interface ProductCartSectionProps {
 }
 
 const ProductCartSection: React.FC<ProductCartSectionProps> = ({ cartItems: cartItems, updateCartItemQuantity, deleteCartItem }) => {
-  console.log(cartItems);
+  // console.log(cartItems);
   return (
       <section className="flex flex-col w-full">
         <div className="flex flex-col grow max-md:mt-2 max-md:max-w-full">
