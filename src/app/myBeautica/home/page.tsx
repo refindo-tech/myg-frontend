@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, ChangeEvent, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   Button,
   Image,
@@ -19,6 +20,8 @@ import FooterComponent from "@/components/common/organism/Footer";
 import FAQComponent from "@/components/mybeautica/organisms/FAQ";
 import TestimonialSection from "@/components/common/organism/TestimonialSection";
 import Description from "@/components/mybeautica/molecules/Description";
+import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
+import useAuthCheck from "@/hooks/common/auth";
 
 type User = {
   id: number;
@@ -92,14 +95,36 @@ export const formatToRupiah = (number: number): string => {
 };
 
 const Home = () => {
+  const router = useRouter();
   const [services, setServices] = useState<Service[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [openFAQIndices, setOpenFAQIndices] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const serviceSectionRef = useRef<HTMLDivElement>(null);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [userData, setUserData] = useState<{ email: string; profilePicture: string | null; fullName: string; } | null>(null);
+
+
+  const isLogged = useAuthCheck();
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (isLogged) {
+        const profile = await getUserProfile();
+        setUserData(profile);
+      }
+    };
+
+    fetchUserProfile();
+  }, [isLogged]);
+
+
+  const handleLogout = async () => {
+    await logoutUser();
+    sessionStorage.removeItem('accessToken');
+    router.push('/login'); // Redirect to login page after logout
+  };
+
   const [newTestimonial, setNewTestimonial] = useState<Testimonial>({
     reviewId: 0,
     fullName: users[0].fullName,
@@ -225,6 +250,8 @@ const Home = () => {
           handleConsultationClick={handleConsultationClick}
           searchTerm={searchTerm}
           onSearchChange={handleSearchChange}
+          userData={userData}
+          onLogout={handleLogout}
         />
 
         <div className="flex flex-col w-full h-full md:flex-row">

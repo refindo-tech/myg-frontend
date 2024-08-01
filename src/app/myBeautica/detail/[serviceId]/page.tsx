@@ -1,6 +1,7 @@
 "use client";
 import type { NextPage } from "next";
 import React, { useState, useEffect, ChangeEvent } from "react";
+import { useRouter } from "next/router";
 import { Button, Image, CircularProgress, } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import NextLink from "next/link";
@@ -16,6 +17,8 @@ import Head from "next/head";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
 import FooterComponent from "@/components/common/organism/Footer";
 import Description from "@/components/mybeautica/molecules/Description";
+import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
+import useAuthCheck from "@/hooks/common/auth";
 
 interface Service {
   serviceId: number;
@@ -38,12 +41,33 @@ export const formatToRupiah = (number: number): string => {
 
 const Detail: NextPage = () => {
   const { serviceId } = useParams();
-
+  const router = useRouter();
   const [service, setService] = useState<Service | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [userData, setUserData] = useState<{ email: string; profilePicture: string | null; fullName: string; } | null>(null);
+
+
+  const isLogged = useAuthCheck();
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (isLogged) {
+        const profile = await getUserProfile();
+        setUserData(profile);
+      }
+    };
+
+    fetchUserProfile();
+  }, [isLogged]);
+
+  const handleLogout = async () => {
+    await logoutUser();
+    sessionStorage.removeItem('accessToken');
+    router.push('/login'); // Redirect to login page after logout
+  };
 
   useEffect(() => {
     const getService = async () => {
@@ -165,6 +189,8 @@ const Detail: NextPage = () => {
         handleConsultationClick={handleConsultationClick}
         searchTerm={searchTerm}
         onSearchChange={handleSearchChange}
+        userData={userData}
+        onLogout={handleLogout}
       />
 
       <main>
