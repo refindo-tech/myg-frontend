@@ -43,7 +43,7 @@ const Testimonial: React.FC<Testimony> = (testimony) => {
                 />
                 <div className="justify-start items-start inline-flex h-full">
                     <div className="flex-col justify-start items-center md:items-start flex">
-                        <div className="text-black text-lg font-semibold font-['Open Sans']">{testimony.fullName}</div>
+                        <div className="text-black text-lg font-semibold font-['Open Sans']">{testimony.name}</div>
                         <div className="text-center text-black text-sm font-normal font-['Open Sans']">{testimony.role}</div>
                     </div>
                 </div>
