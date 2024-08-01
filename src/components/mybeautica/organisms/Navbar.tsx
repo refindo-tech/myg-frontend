@@ -14,20 +14,37 @@ import {
   Button,
   Image,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
+import useAuthCheck from "@/hooks/common/auth";  // Pastikan path ini benar
 
 type NavbarProps = {
   handleConsultationClick: () => void;
   searchTerm: string;
   onSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  userData: {
+    email: string;
+    profilePicture: string | null;
+    fullName: string;
+  } | null;
+  onLogout: () => void;
 };
 
 const NavbarComponent: React.FC<NavbarProps> = ({
   handleConsultationClick,
   searchTerm,
   onSearchChange,
+  userData,
+  onLogout,
 }) => {
+  const isLogged = useAuthCheck(); // Menggunakan hook useAuthCheck untuk mengecek status login
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
+
   return (
     <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
       <NavbarContent justify="start" className="flex-none ">
@@ -38,10 +55,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
         />
       </NavbarContent>
 
-      <NavbarContent
-        className="items-center gap-4 flex "
-        justify="start"
-      >
+      <NavbarContent className="items-center gap-4 flex" justify="start">
         <NavbarContent className="hidden xl:flex gap-16 font-playfair font-semibold">
           <NavbarItem>
             <Link color="foreground" href="#" className="text-ungu px-5 text-[20px]">
@@ -61,11 +75,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
         </NavbarContent>
       </NavbarContent>
 
-      <NavbarContent
-        as="div"
-        className="items-center"
-        justify="end"
-      >
+      <NavbarContent as="div" className="items-center" justify="end">
         <Input
           classNames={{
             base: "max-w-full sm:max-w-[10rem]",
@@ -83,30 +93,35 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           value={searchTerm}
           onChange={onSearchChange}
         />
+
         <Dropdown
           placement="bottom-end"
           className="hidden xl:flex items-center gap-2 font-openSans text-zinc"
         >
           <DropdownTrigger>
-            <div className="xl:flex items-center hidden">
+            <div className="xl:flex items-center hidden gap-2">
               <Avatar
                 showFallback
-                name="Jane Doe"
-                src="https://images.unsplash.com/broken"
+                name={userData?.fullName || "Jane Doe"}
+                src={userData?.profilePicture || "https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"}
                 className="bg-ungu2 text-white font-inter"
               />
-              <Button isIconOnly variant="light">
-                Login
-              </Button>
+              {!isLogged ? ( // Jika pengguna belum login, tampilkan tombol login
+                <Button isIconOnly variant="light" onClick={handleLogin}>
+                  Login
+                </Button>
+              ) : (
+                <p className="font-semibold hidden">{userData?.email || "zoey@example.com"}</p>
+              )}
             </div>
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
             </DropdownItem>
             <DropdownItem key="settings">My Profile</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={onLogout}>
               Log Out
             </DropdownItem>
           </DropdownMenu>
@@ -121,10 +136,10 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
+              <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
             </DropdownItem>
             <DropdownItem key="settings">My Profile</DropdownItem>
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={onLogout}>
               Log Out
             </DropdownItem>
           </DropdownMenu>

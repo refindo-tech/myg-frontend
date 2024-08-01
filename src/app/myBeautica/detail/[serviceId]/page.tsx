@@ -1,7 +1,8 @@
 "use client";
 import type { NextPage } from "next";
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { Button, Image, CircularProgress, } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import { Button, Image, CircularProgress } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import NextLink from "next/link";
 import icons from "@/components/icons/icon";
@@ -16,6 +17,8 @@ import Head from "next/head";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
 import FooterComponent from "@/components/common/organism/Footer";
 import Description from "@/components/mybeautica/molecules/Description";
+import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
+import useAuthCheck from "@/hooks/common/auth";
 
 interface Service {
   serviceId: number;
@@ -38,12 +41,36 @@ export const formatToRupiah = (number: number): string => {
 
 const Detail: NextPage = () => {
   const { serviceId } = useParams();
-
+  const router = useRouter();
   const [service, setService] = useState<Service | null>(null);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [userData, setUserData] = useState<{
+    email: string;
+    profilePicture: string | null;
+    fullName: string;
+  } | null>(null);
+
+  const isLogged = useAuthCheck();
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (isLogged) {
+        const profile = await getUserProfile();
+        setUserData(profile);
+      }
+    };
+
+    fetchUserProfile();
+  }, [isLogged]);
+
+  const handleLogout = async () => {
+    await logoutUser();
+    sessionStorage.removeItem("accessToken");
+    router.push("/login"); // Redirect to login page after logout
+  };
 
   useEffect(() => {
     const getService = async () => {
@@ -165,18 +192,19 @@ const Detail: NextPage = () => {
         handleConsultationClick={handleConsultationClick}
         searchTerm={searchTerm}
         onSearchChange={handleSearchChange}
+        userData={userData}
+        onLogout={handleLogout}
       />
 
       <main>
         {/* Content 1 Menampilkan detail deskripsi layanan */}
         <section className="container flex flex-col gap-8 h-full w-full">
-
           <div className="relative flex flex-col md:basis-1/2 justify-center items-center text-left mt-8 mx-6 md:flex-row">
             <Image
-                src={service.imageUrl || ""}
-                alt="Image"
-                className="flex rounded-lg w-86 xl:pr-2 xl:w-[826px] xl:h-[731px] z-20"
-              />
+              src={service.imageUrl || ""}
+              alt="Image"
+              className="flex rounded-lg w-86 xl:pr-2 xl:w-[826px] xl:h-[731px] z-20"
+            />
 
             <div className="hidden flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full z-20 md:flex">
               <div className="flex-col mx-2 my-2 px-2 gap-3 xl:flex bg-white rounded-lg">
@@ -187,7 +215,10 @@ const Detail: NextPage = () => {
                   <p>{formatToRupiah(service.price)}</p>
                 </div>
                 <div className="text-xl mt-6 font-openSans text-justify text-zinc">
-                  <p> <Description description={service.description}/></p>
+                  <p>
+                    {" "}
+                    <Description description={service.description} />
+                  </p>
                 </div>
                 <div className="mb-4 mt-8">
                   <Button
@@ -199,41 +230,41 @@ const Detail: NextPage = () => {
                 </div>
               </div>
             </div>
-          
-            <Ornamen1 className="absolute -left-4 -top-4 z-10 xl:w-[200px] xl:h-[300px]"/>
 
-            <Ornamen2 className="absolute -right-4 -bottom-4 z-10 xl:w-[155px] xl:h-[170px]"/>
+            <Ornamen1 className="absolute -left-4 -top-4 z-10 xl:w-[200px] xl:h-[300px]" />
+
+            <Ornamen2 className="absolute -right-4 -bottom-4 z-10 xl:w-[155px] xl:h-[170px]" />
           </div>
 
-            <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full z-20">
-              <div className="flex-col mx-2 my-2 px-2 gap-8 xl:flex bg-white rounded-lg">
-                <div className="text-2xl font-playfair xl:text-4xl">
-                  <h2>{service.title}</h2>
-                </div>
-                <div className="text-xl font-openSans mt-6">
-                  <p>{formatToRupiah(service.price)}</p>
-                </div>
-                <div className="text-xl mt-6 font-openSans text-justify text-zinc">
-                  <p> <Description description={service.description}/></p>
-                </div>
-                <div className="mb-4 mt-8">
-                  <Button
-                    className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-6 w-full"
-                    onClick={() => handleOrderClick(service)}
-                  >
-                    Pesan Layanan
-                  </Button>
-                </div>
+          <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full z-20 md:hidden">
+            <div className="flex-col mx-2 my-2 px-2 gap-8 xl:flex bg-white rounded-lg">
+              <div className="text-2xl font-playfair xl:text-4xl">
+                <h2>{service.title}</h2>
+              </div>
+              <div className="text-xl font-openSans mt-6">
+                <p>{formatToRupiah(service.price)}</p>
+              </div>
+              <div className="text-xl mt-6 font-openSans text-justify text-zinc">
+                <p>
+                  {" "}
+                  <Description description={service.description} />
+                </p>
+              </div>
+              <div className="mb-4 mt-8">
+                <Button
+                  className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-6 w-full"
+                  onClick={() => handleOrderClick(service)}
+                >
+                  Pesan Layanan
+                </Button>
               </div>
             </div>
-
-
+          </div>
         </section>
 
         {/* Content 2 Menampilkan Cara Reservasi Layanan dan Lokasi */}
         <section className="flex flex-col py-4 px-4 xl:px-40 xl:py-10 gap-3">
           <div className="flex flex-col gap-3 w-full xl:flex-row xl:px-20">
-
             <div className="flex flex-col xl:w-2/3 xl:gap-10">
               <div className="flex flex-col gap-2 mt-4">
                 <h2 className="text-2xl font-playfair mb-4 xl:text-4xl">
@@ -294,9 +325,10 @@ const Detail: NextPage = () => {
                   My Beautica Wellness
                 </h2>
                 <address className="not-italic font-openSans pt-2 text-sm text-zinc xl:text-xl">
-                  Griya Baladika Asri, Jl. Perintis No.11 Rt. 001 Rw. 015, 
+                  Griya Baladika Asri, Jl. Perintis No.11 Rt. 001 Rw. 015,
                   <br />
-                  Taman Kopassus, Kelurahan Drangong, Kecamatan Taktakan, Kota Serang, Provinsi Banten.
+                  Taman Kopassus, Kelurahan Drangong, Kecamatan Taktakan, Kota
+                  Serang, Provinsi Banten.
                 </address>
               </div>
             </div>
