@@ -7,6 +7,7 @@ import RecommendationEvent from "@/components/MyAcademyComponent/RecommendationE
 import ComingSoonEvent from "@/components/MyAcademyComponent/ComingSoonEvent"
 import ContainerExam from '@/components/MyAcademyComponent/ContainerExam'
 import Link from "next/link"
+import Footer from "@/components/MyAcademyComponent/Footer"
 import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy'
 import { Image } from "@nextui-org/image"
 import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI"
@@ -56,7 +57,8 @@ const MyAcademyTes = () => {
                 <Review />
             </div>
             <FAQMyAcademy />
-            <FooterMyAcademy />
+            {/* <FooterMyAcademy /> */}
+            <Footer/>
         </>
     )
 }

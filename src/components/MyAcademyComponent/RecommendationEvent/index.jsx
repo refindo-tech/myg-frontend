@@ -4,7 +4,7 @@ import { Image } from "@nextui-org/image"
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import icons from "@/components/icons/icon"
-import {formattedDate} from '@/helpers/formattedDate'
+import {formattedDate, formattedTime} from '@/helpers/formattedDate'
 import { getRecommendationTraining } from '@/helpers/fetchAPI'
 const RecommendationEvent = () => {
     const { PlaceIcon, CalendarIcon } = icons
@@ -70,7 +70,7 @@ const RecommendationEvent = () => {
                                         {formattedDate(dataRecommendation.dateStart)}
                                     </p>}
                                     <p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
-                                        10:00 - 12:00 WIB
+                                        {formattedTime(dataRecommendation.dateStart, dataRecommendation.dateFinish)}
                                     </p>
                                 </div>
                             </div>
