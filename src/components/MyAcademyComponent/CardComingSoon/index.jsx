@@ -5,15 +5,20 @@ import { Link } from "@nextui-org/link"
 import { useState, useEffect } from 'react'
 import { Image } from "@nextui-org/image"
 
-import {formattedDate, formattedTime} from '@/helpers/formattedDate'
+import { formattedDate, formattedTime } from '@/helpers/formattedDate'
 const CardComingSoon = ({ bgcard, training }) => {
     const [detailTraining, setDetailTraining] = useState({})
+    const [materials, setMaterials] = useState([])
     // const [getMaterial, setGetMaterial] = useState(null)
     useEffect(() => {
         setDetailTraining(training)
+        setMaterials(training.materials || [])
         // setGetMaterial(training.materials)
         console.log('ini training', training)
     }, [training])
+    // useEffect(() => {
+
+    // }, [detailTraining])
     // useEffect(() => {
     //     console.log('ini materi', getMaterial)
     // }, [getMaterial])
@@ -37,7 +42,8 @@ const CardComingSoon = ({ bgcard, training }) => {
                         <div className="min-h-[172px] w-4/5  items-center mx-auto">
                             <Image
                                 alt="tes"
-                                src="/images/fef.jpg"
+                                // src="/images/fef.jpg"
+                                src={materials.length > 0 ? materials[0].banner : '/images/fef.jpg'}
                                 width={'100%'}
                                 height={172}
                             />
