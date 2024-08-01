@@ -50,12 +50,12 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
                 </div>
                 <div className="flex-1 flex flex-col md:basis-3/5 justify-center items-center mt-12 md:mt-0 relative h-full">
                     <img
-                        className="w-full h-auto md:w-auto md:h-full rounded-md"
+                        className="w-full h-auto md:w-auto md:h-full rounded-md md:object-cover"
                         src={heroData.imageUrl}
                         alt="Model Image"
                     />
                     {showcaseProduct && (
-                        <Card className="md:absolute bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">
+                        <Card className="md:absolute -mb-28 md:mb-0 bottom-28 md:bottom-5 right-0 w-72 md:w-64 h-full md:h-auto shadow-md p-1">
                             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                                 <Link
                                     href={`/mya/product/${showcaseProduct.productId}`}
@@ -68,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
                             <CardBody className="overflow-visible py-2">
                                 <Image
                                     alt="Card background"
-                                    className="object-cover rounded-xl h-28 w-full hover:scale-105 transition-transform duration-300"
+                                    className="object-cover rounded-xl h-36 w-full hover:scale-105 transition-transform duration-300"
                                     src={imageUrl(showcaseProduct.productImages[0])}
                                     width={270}
                                 />

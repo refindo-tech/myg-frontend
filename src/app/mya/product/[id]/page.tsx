@@ -16,7 +16,7 @@ export default function Product({ params }: { params: { id: string } }) {
 
   const router = useRouter();
 
-  const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1 });
+  const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1, isRecommended: true });
   const { data: relatedProducts, isLoading: relatedLoading } = useProducts.all({ limit: 4 }); 
   const { data: product, isLoading: productLoading, isError: productError } = useProducts.byId(Number(params.id));
   const isHeroLoading = heroLoading || relatedLoading || productLoading;
