@@ -1,6 +1,7 @@
 'use client'
 import { Image } from "@nextui-org/image"
 import ComingSoonEvent from '@/components/MyAcademyComponent/ComingSoonEvent'
+import Footer from "@/components/MyAcademyComponent/Footer"
 import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import Review from '@/components/MyAcademyComponent/Review'
@@ -196,7 +197,8 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                 </div>
                 <Review />
                 <FAQAcademy />
-                <FooterMyAcademy />
+                <Footer/>
+                {/* <FooterMyAcademy /> */}
             </div>
             {/*  */}
         </>
