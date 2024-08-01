@@ -67,6 +67,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, service="mya" }) => {
                 }
                 onPress={() => handleExpansion(faq.question)}
                 className="z-10"
+                textValue={faq.answer}
               >
                 <p className='text-base font-normal text-zinc-700'>
                   {/* {faq.answer} */}
@@ -92,6 +93,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, service="mya" }) => {
                 }
                 onPress={() => handleExpansion(faq.question)}
                 className="z-10"
+                textValue={faq.answer}
               >
                 <p className='text-base font-normal text-zinc-700'>{faq.answer}</p>
               </AccordionItem>

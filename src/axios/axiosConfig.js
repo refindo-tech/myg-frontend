@@ -26,9 +26,6 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    console.log('Session expired. Refreshing token...');
-    console.log('Error status:', error.response.status);
-
     //if error status is 401 or 403, it means the token is expired
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -43,7 +40,7 @@ api.interceptors.response.use(
           return api(originalRequest);
         }
       } catch (err) {
-        console.error('Refresh token expired or invalid. Logging out...', err);
+        // console.error('Refresh token expired or invalid. Logging out...', err);
         sessionStorage.removeItem('accessToken');
         // Redirect to login page or show login modal
       }

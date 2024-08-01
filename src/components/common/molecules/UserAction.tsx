@@ -31,7 +31,6 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
 
     const isLogged = useAuthCheck();
     const { data } = useProfile();
-    console.log('data', data);
     const services = pathname.split('/')[1].toLowerCase();
 
     const mainColor = () => {

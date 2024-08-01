@@ -65,10 +65,15 @@ export const logoutUser = async () => {
 
 export const getUserProfile = async () => {
   try {
-    const response = await api.get('/myg/auth/profile');
+    const token = sessionStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('No access token found');
+    }
+    const response = await api.get('/myg/auth/profile', {
+    });
     return response.data.results;
   } catch (error) {
-    console.error('Error getting user profile:', error);
+    // console.error('Error getting user profile:', error);
     return null;
   }
 }
