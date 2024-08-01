@@ -121,7 +121,7 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                 <DropdownItem key="profile" href='/profile'>
                     Profile
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
+                {/* <DropdownItem key="settings">My Settings</DropdownItem> */}
                 </DropdownSection>
                 
 
