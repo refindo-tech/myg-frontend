@@ -64,8 +64,8 @@ const Footer: React.FC = () => {
                         <h2 className="text-lg font-semibold text-white py-1">Layanan</h2>
                         <Link href="/" className='text-white'>MYG</Link>
                         <Link href="/mya" className='text-white'>MYA</Link>
-                        <Link href="/myacademy" className='text-white'>My Academy</Link>
-                        <Link href="/mybeautyca" className='text-white'>My Beautyca</Link>
+                        <Link href="/myAcademy" className='text-white'>My Academy</Link>
+                        <Link href="/myBeautica" className='text-white'>My Beautyca</Link>
                         <Link className='text-white' onClick={handleConsultationClick}>
                         Konsultasi
                         </Link>
