@@ -16,6 +16,13 @@ const Footer: React.FC = () => {
         router.push('/contact');
     }
 
+    const handleConsultationClick = () => {
+        const whatsappNumber = "6281314485552";
+        const message = "Halo, saya ingin berkonsultasi mengenai layanan My MYG.";
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    };
+
     const instagram = () => {
         router.push('https://www.instagram.com/myacademy_official/');
     }
@@ -55,12 +62,14 @@ const Footer: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <h2 className="text-lg font-semibold text-white py-1">Layanan</h2>
-                        <Link href="/myg" className='text-white'>MYG</Link>
+                        <Link href="/" className='text-white'>MYG</Link>
                         <Link href="/mya" className='text-white'>MYA</Link>
                         <Link href="/myacademy" className='text-white'>My Academy</Link>
                         <Link href="/mybeautyca" className='text-white'>My Beautyca</Link>
-                        <Link href="/konsultasi" className='text-white'>Konsultasi</Link>
-                        <Link href="/sertifikasi" className='text-white'>Sertifikasi</Link>
+                        <Link className='text-white' onClick={handleConsultationClick}>
+                        Konsultasi
+                        </Link>
+                        {/* <Link href="/sertifikasi" className='text-white'>Sertifikasi</Link> */}
 
                     </div>
                     <div className="flex flex-row gap-4">
