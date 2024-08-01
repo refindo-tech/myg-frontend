@@ -9,9 +9,9 @@ const Promotion = () => {
                     Segera daftar dan pastikan Anda mendapatkan tempat di acara yang paling Anda minati. Nikmati pengalaman belajar yang menyenangkan dan bermanfaat.
                 </p>
                 <div className="flex flex-row gap-3">
-                    <Button color="primary" variant="bordered" size="lg" as={Link} href="/MyacademyTes/material"
+                    <Button color="primary" variant="bordered" size="lg" as={Link} href="/Myacademy/material"
                         className="font-sans font-semibold border-[2px] text-[14px] py-[12px]">Lihat Semua Acara</Button>
-                    <Button color="primary" variant="solid" size="lg" as={Link} href="/MyacademyTes/exam"
+                    <Button color="primary" variant="solid" size="lg" as={Link} href="/Myacademy/exam"
                         className="font-sans font-semibold border-[2px] text-[14px] py-[12px]">Lihat Semua Ujian</Button>
                 </div>
             </div>
