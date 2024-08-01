@@ -122,7 +122,7 @@ const Home = () => {
   const handleLogout = async () => {
     await logoutUser();
     sessionStorage.removeItem('accessToken');
-    router.push('/login'); // Redirect to login page after logout
+    router.push('/login');
   };
 
   const [newTestimonial, setNewTestimonial] = useState<Testimonial>({

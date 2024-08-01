@@ -14,6 +14,7 @@ import {
   Button,
   Image,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
 import useAuthCheck from "@/hooks/common/auth";  // Pastikan path ini benar
@@ -38,6 +39,11 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   onLogout,
 }) => {
   const isLogged = useAuthCheck(); // Menggunakan hook useAuthCheck untuk mengecek status login
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/login');
+  };
 
   return (
     <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
@@ -101,7 +107,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                 className="bg-ungu2 text-white font-inter"
               />
               {!isLogged ? ( // Jika pengguna belum login, tampilkan tombol login
-                <Button isIconOnly variant="light">
+                <Button isIconOnly variant="light" onClick={handleLogin}>
                   Login
                 </Button>
               ) : (
