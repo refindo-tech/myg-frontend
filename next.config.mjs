@@ -1,3 +1,5 @@
+import nextPWA from 'next-pwa';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async redirects() {
@@ -24,9 +26,21 @@ const nextConfig = {
             }
         ];
     },
+    async headers() {
+        return [
+            {
+                // Menambahkan header ke semua rute
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'Content-Security-Policy',
+                        value: "upgrade-insecure-requests",
+                    },
+                ],
+            },
+        ];
+    },
 };
-
-import nextPWA from 'next-pwa';
 
 // const prod = process.env.NODE_ENV === 'production';
 const withPWA = nextPWA({
