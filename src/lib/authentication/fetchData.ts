@@ -62,3 +62,13 @@ export const logoutUser = async () => {
     return null;
   }
 };
+
+export const getUserProfile = async () => {
+  try {
+    const response = await api.get('/myg/auth/profile');
+    return response.data.results;
+  } catch (error) {
+    console.error('Error getting user profile:', error);
+    return null;
+  }
+}

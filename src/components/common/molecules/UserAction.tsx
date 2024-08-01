@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 import useAuthCheck from '@/hooks/common/auth';
+import useProfile from '@/hooks/mya/useProfile';
 
 import { logoutUser } from '@/lib/authentication/fetchData';
 
@@ -29,7 +30,10 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
     const isMya = currentPath.includes('mya')
 
     const isLogged = useAuthCheck();
+    const { data } = useProfile();
+    console.log('data', data);
     const services = pathname.split('/')[1].toLowerCase();
+
     const mainColor = () => {
         switch (services) {
             case "mya":
@@ -42,6 +46,30 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                 return "bg-myg-500";
             default:
                 return "bg-myg-500";
+        }
+    };
+
+    //show message based on current time
+    const today = new Date();
+    const curHr = today.getHours();
+    const greeting = () => {
+        if (curHr < 12) {
+            return 'Selamat Pagi';
+        } else if (curHr < 18) {
+            return 'Selamat Siang';
+        } else {
+            return 'Selamat Malam';
+        }
+    };
+
+    //emoji based on current time
+    const emoji = () => {
+        if (curHr < 12) {
+            return '🌞';
+        } else if (curHr < 18) {
+            return '🌤️';
+        } else {
+            return '🌙';
         }
     };
 
@@ -100,6 +128,13 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
 
+            <DropdownSection showDivider>
+                <DropdownItem key="profile" className="h-14 gap-2">
+                    <p className="font-normal">{greeting()},</p>
+                    <p className="font-bold">{data?.fullName} {emoji()}</p>
+                </DropdownItem>
+                </DropdownSection>
+
                 <DropdownSection showDivider title={'Navigasi'} className='sm:hidden'>
                     {NavItems.map((item, index) => (
                         <DropdownItem key={index} textValue='text'>
@@ -107,6 +142,8 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                         </DropdownItem>
                     ))}
                 </DropdownSection>
+
+
 
                 <DropdownSection showDivider title={'Pesanan'} className= {isMya ? 'block' : 'hidden'}>
                 <DropdownItem key="cart" href='/mya/cart'>
@@ -123,13 +160,8 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                 </DropdownItem>
                 {/* <DropdownItem key="settings">My Settings</DropdownItem> */}
                 </DropdownSection>
-                
 
                 <DropdownSection>
-                {/* <DropdownItem key="profile" className="h-14 gap-2">
-                    <p className="font-semibold">Signed in as</p>
-                    <p className="font-semibold">mybeautica@gmail.com</p>
-                </DropdownItem> */}
                 <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                     Log Out
                 </DropdownItem>
