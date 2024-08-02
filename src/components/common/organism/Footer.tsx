@@ -13,9 +13,12 @@ const Footer: React.FC = () => {
             e.preventDefault();
             setDeferredPrompt(e);
         };
+
+        console.log('Adding beforeinstallprompt event listener');
         window.addEventListener('beforeinstallprompt', handler);
 
         return () => {
+            console.log('Removing beforeinstallprompt event listener');
             window.removeEventListener('beforeinstallprompt', handler);
         };
     }, []);
