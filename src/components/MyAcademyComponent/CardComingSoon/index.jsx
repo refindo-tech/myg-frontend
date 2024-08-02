@@ -9,10 +9,12 @@ import { formattedDate, formattedTime } from '@/helpers/formattedDate'
 const CardComingSoon = ({ bgcard, training }) => {
     const [detailTraining, setDetailTraining] = useState({})
     const [materials, setMaterials] = useState([])
+    const [detailExam, setDetailExam] = useState({})
     // const [getMaterial, setGetMaterial] = useState(null)
     useEffect(() => {
         setDetailTraining(training)
         setMaterials(training.materials || [])
+        setDetailExam(training.exam || {})
         // setGetMaterial(training.materials)
         console.log('ini training', training)
     }, [training])

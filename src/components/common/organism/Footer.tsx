@@ -31,6 +31,17 @@ const Footer: React.FC = () => {
         router.push('https://www.youtube.com/@MultiYasykurGlobal');
     }
 
+    // //handle downloadable pwa button
+    // const handleDownloadPWA = () => {
+    //     window.addEventListener('beforeinstallprompt', (e) => {
+    //         // Prevent Chrome 67 and earlier from automatically showing the prompt
+    //         e.preventDefault();
+    //         // Stash the event so it can be triggered later.
+    //         let deferredPrompt = e;
+    //     });
+    // }
+
+
     return (
         <footer className="w-full flex mx-auto bg-stone-800">
             <div className="w-full flex flex-col px-16 xl:px-32 py-2 divide-y divide-stone-700">
