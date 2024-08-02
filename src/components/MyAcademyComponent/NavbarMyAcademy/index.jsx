@@ -4,6 +4,9 @@ import { Image } from "@nextui-org/image"
 import icons from "@/components/icons/icon"
 import Link from "next/link"
 import { getDetailProfile } from '@/helpers/fetchAPI'
+
+import useAuthCheck from '@/hooks/common/auth'
+
 const NavbarMyAcademy = ({ color }) => {
     const { AvatarIcon, SearchIcon, HamburgerIcon } = icons
     const [isHamburgerActive, setHamburgerActive] = useState(false)
@@ -11,6 +14,9 @@ const NavbarMyAcademy = ({ color }) => {
     const handleHamburgerIcon = () => {
         setHamburgerActive(!isHamburgerActive)
     }
+
+    const isLogin = useAuthCheck()
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await getDetailProfile(2)
@@ -74,7 +80,7 @@ const NavbarMyAcademy = ({ color }) => {
                             ) : (
                                 <></>
                             )}
-                            {dataProfile.email ? (
+                            {isLogin ? (
                                 <p className={`font-inter text-[16px] text-${color}`}>{dataProfile.email}</p>
                             ) : (
                                 <Link href={"/"} className={`font-inter text-[16px] text-${color}`}>Login</Link>

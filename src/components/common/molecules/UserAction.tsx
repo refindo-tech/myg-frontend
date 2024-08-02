@@ -153,12 +153,12 @@ const UserActions: React.FC<NavigationProps> = ({ NavItems }) => {
                 </DropdownItem>
                 </DropdownSection>
 
-                <DropdownSection showDivider title={'Settings'}>
+                {/* <DropdownSection showDivider title={'Settings'}>
                 <DropdownItem key="profile" href='/profile'>
                     Profile
                 </DropdownItem>
-                {/* <DropdownItem key="settings">My Settings</DropdownItem> */}
-                </DropdownSection>
+
+                </DropdownSection> */}
 
                 <DropdownSection>
                 <DropdownItem key="logout" color="danger" onClick={handleLogout}>

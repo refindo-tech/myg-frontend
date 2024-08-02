@@ -374,9 +374,9 @@ const Home = () => {
                 <p className="font-semibold font-openSans text-lg xl:text-2xl">
                   {formatToRupiah(mostViewedService.price)}
                 </p>
-                <p className="text-zinc text-sm font-normal text-justify font-openSans xl:text-lg line-clamp-10">
+                {/* <p className="text-zinc text-sm font-normal text-justify font-openSans xl:text-lg line-clamp-10"> */}
                   <Description description={mostViewedService.description} />
-                </p>
+                {/* </p> */}
                 <Button
                   className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2"
                   onClick={() => handleOrderClick(mostViewedService)}
