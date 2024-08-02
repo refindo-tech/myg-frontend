@@ -42,6 +42,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   const router = useRouter();
 
   const handleLogin = () => {
+    // console.log("Login clicked");
     router.push('/login');
   };
 
@@ -115,35 +116,41 @@ const NavbarComponent: React.FC<NavbarProps> = ({
               )}
             </div>
           </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
+          {isLogged && (
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
             </DropdownItem>
-            <DropdownItem key="settings">My Profile</DropdownItem>
+            {/* <DropdownItem key="settings">My Profile</DropdownItem> */}
             <DropdownItem key="logout" color="danger" onClick={onLogout}>
               Log Out
             </DropdownItem>
           </DropdownMenu>
+          )}
         </Dropdown>
 
-        <Dropdown className="xl:hidden">
-          <DropdownTrigger>
-            <Button isIconOnly variant="light" className="xl:hidden">
-              <icons.MenuIcon />
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Profile</DropdownItem>
-            <DropdownItem key="logout" color="danger" onClick={onLogout}>
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        {isLogged && (
+            <Dropdown className="md:hidden">
+            <DropdownTrigger>
+              <Button isIconOnly variant="light" className="md:hidden">
+                <icons.MenuIcon />
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
+              </DropdownItem>
+              <DropdownItem key="settings">My Profile</DropdownItem>
+              <DropdownItem key="logout" color="danger" onClick={onLogout}>
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          )}
+
+        
       </NavbarContent>
     </Navbar>
   );
