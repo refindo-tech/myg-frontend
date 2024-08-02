@@ -11,20 +11,23 @@ const Footer: React.FC = () => {
     useEffect(() => {
         const handleBeforeInstallPrompt = (e: any) => {
             e.preventDefault();
+            console.log('beforeinstallprompt event captured');
             setDeferredPrompt(e);
         };
 
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+        console.log('Event listener added for beforeinstallprompt');
 
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker
                 .register("/sw.js")
                 .then((reg) => console.log("Service Worker registered", reg))
-                .catch(() => console.log("Service Worker registration failed"));
+                .catch((err) => console.log("Service Worker registration failed", err));
         }
 
         return () => {
             window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+            console.log('Event listener removed for beforeinstallprompt');
         };
     }, []);
 
@@ -38,14 +41,16 @@ const Footer: React.FC = () => {
             setShowIosInstall(true);
         } else {
             if (deferredPrompt) {
+                console.log('Prompting install');
                 deferredPrompt.prompt();
-                const choiceResult = await deferredPrompt.userChoice;
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                setDeferredPrompt(null);
+                deferredPrompt.userChoice.then((choiceResult: any) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    setDeferredPrompt(null);
+                });
             } else {
                 console.log("Install prompt is not available at the moment.");
             }
