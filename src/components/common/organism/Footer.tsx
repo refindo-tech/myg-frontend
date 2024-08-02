@@ -1,20 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Button, Link } from '@nextui-org/react';
 import { YoutubeIcon, InstagramIcon } from '@/components/mya/icons';
-
 import { useRouter } from 'next/navigation';
 
-const Footer: React.FC = () => {
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => void;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
+const Footer: React.FC = () => {
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+    const [showInstallButton, setShowInstallButton] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        const handleBeforeInstallPrompt = (e: Event) => {
+            e.preventDefault();
+            console.log('beforeinstallprompt event captured');
+            setDeferredPrompt(e as BeforeInstallPromptEvent);
+            setShowInstallButton(true);
+        };
+
+        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+        return () => {
+            window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        };
+    }, []);
+
+    const handleInstallClick = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                setDeferredPrompt(null);
+                setShowInstallButton(false);
+            });
+        }
+    };
 
     const handleDownload = () => {
         router.push('/download');
-    }
+    };
 
     const handleContact = () => {
         router.push('/contact');
-    }
+    };
 
     const handleConsultationClick = () => {
         const whatsappNumber = "6281314485552";
@@ -25,22 +60,11 @@ const Footer: React.FC = () => {
 
     const instagram = () => {
         router.push('https://www.instagram.com/myacademy_official/');
-    }
+    };
 
     const youtube = () => {
         router.push('https://www.youtube.com/@MultiYasykurGlobal');
-    }
-
-    // //handle downloadable pwa button
-    // const handleDownloadPWA = () => {
-    //     window.addEventListener('beforeinstallprompt', (e) => {
-    //         // Prevent Chrome 67 and earlier from automatically showing the prompt
-    //         e.preventDefault();
-    //         // Stash the event so it can be triggered later.
-    //         let deferredPrompt = e;
-    //     });
-    // }
-
+    };
 
     return (
         <footer className="w-full flex mx-auto bg-stone-800">
@@ -57,14 +81,15 @@ const Footer: React.FC = () => {
 
                     {/* Button */}
                     <div className="items-center h-24 hidden md:flex">
-                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full'>
-                            <span className="text-black">Unduh Aplikasi</span>
-                        </Button>
+                        
+                            <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={handleInstallClick}>
+                                <span className="text-black">Unduh Aplikasi</span>
+                            </Button>
+                        
                     </div>
                 </div>
 
                 {/* Detail alamat, kontak, dan sosial media */}
-
                 <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 py-8">
                     <div className="flex flex-col gap-4">
                         <h2 className="text-lg font-semibold text-white py-1">Alamat</h2>
@@ -80,14 +105,11 @@ const Footer: React.FC = () => {
                         <Link className='text-white' onClick={handleConsultationClick}>
                         Konsultasi
                         </Link>
-                        {/* <Link href="/sertifikasi" className='text-white'>Sertifikasi</Link> */}
-
                     </div>
                     <div className="flex flex-row gap-4">
                         <div className="flex flex-1 flex-col gap-2">
                             <h2 className="text-lg font-semibold text-white py-1">Contact Us</h2>
                             <p className="text-white">+62 813 14485552</p>
-                            {/* <p className="text-white">help@gmail.com</p> */}
                         </div>
 
                         <div className="flex flex-row gap-4 justify-end">
@@ -98,12 +120,13 @@ const Footer: React.FC = () => {
                                 <YoutubeIcon size={24} fill="currentColor" />
                             </Button>
                         </div>
-
                     </div>
                     <div className="items-center flex md:hidden">
-                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full'>
-                            <span className="text-black">Unduh Aplikasi</span>
-                        </Button>
+                        
+                            <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={handleInstallClick}>
+                                <span className="text-black">Unduh Aplikasi</span>
+                            </Button>
+                        
                     </div>
                 </div>
 
@@ -111,10 +134,7 @@ const Footer: React.FC = () => {
                 <div className="w-full flex justify-start items-center py-4">
                     <p className="text-foreground font-normal font-openSans leading-normal">© 2024 MYG.</p>
                 </div>
-
-
             </div>
-
         </footer>
     );
 };
