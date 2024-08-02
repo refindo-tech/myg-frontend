@@ -17,11 +17,11 @@ const nextConfig = {
                 destination: '/myBeautica/home',
                 permanent: true,
             },
-            {
-                source: '/Myacademy',
-                destination: '/MyacademyTes',
-                permanent: true,
-            }
+            // {
+            //     source: '/Myacademy',
+            //     destination: '/Myacademy/',
+            //     permanent: true,
+            // }
         ];
     },
 };

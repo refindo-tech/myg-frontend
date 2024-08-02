@@ -10,7 +10,7 @@ const defaultLogo = "/assets/images/logo/myg.png"
 const Header: React.FC<HeaderProps> = ({ logo = defaultLogo }) => {
     const navItems = [
         { label: "Home", isActive: true, href: "/" },
-        { label: "MyAcademy", isActive: false, href: "/myAcademy/" },
+        { label: "MyAcademy", isActive: false, href: "/Myacademy" },
         { label: "MYA", isActive: false, href: "/mya" },
         { label: "My Beautica", isActive: false, href: "/myBeautica" },
     ];
