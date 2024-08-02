@@ -156,3 +156,28 @@ export const getDetailProfile = async(id)=>{
         }
     }
 }
+export const addTestimoni = async(name, comment)=>{
+    try {
+        const bodydata = {
+            name:name,
+            comment:comment
+        }
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/myg/api/academy/add/testimoni`,{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(bodydata)
+        })
+        if(response){
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            status:false,
+            message:'Internal Server Error',
+        }
+    }
+}

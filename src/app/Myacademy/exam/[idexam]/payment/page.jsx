@@ -1,39 +1,38 @@
 'use client'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
-import { getDetailTraining } from '@/helpers/fetchAPI'
-import { formatRupiah } from '@/helpers/formatRupiah'
-import { formattedDateAndDay } from '@/helpers/formattedDate'
+import { getDetailExam } from '@/helpers/fetchAPI'
 import icons from "@/components/icons/icon"
-import Image from 'next/image'
+import { formattedDateAndDay } from '@/helpers/formattedDate'
+import { formatRupiah } from '@/helpers/formatRupiah'
 const Payment = () => {
     const pathname = usePathname()
-    const idTraining = pathname.split('/')
-    const [detailTraining, setDetailTraining] = useState({})
+    const idExam = pathname.split('/')
+    const [detailExam, setDetailExam] = useState({})
     const [petunjukATM, setPetunjukATM] = useState(false)
     const [petunjukmBanking, setPetunjukmBanking] = useState(false)
     useEffect(() => {
         const fetchInit = async () => {
-            const data = await getDetailTraining(idTraining[3])
+            const data = await getDetailExam(idExam[3])
             if (data) {
-                setDetailTraining(data.results)
+                setDetailExam(data.results)
             }
         }
         fetchInit()
-    }, [idTraining])
-    console.log(detailTraining)
-    const { ChevronDown, ChevronUp } = icons
+    }, [idExam])
     const handlePetunjukATM = () => {
         setPetunjukATM(!petunjukATM)
     }
     const handlePetunjukmBanking = () => {
         setPetunjukmBanking(!petunjukmBanking)
     }
+    const { ChevronDown, ChevronUp } = icons
     return (
-        <div className="w-full bg-birumuda min-h-screen flex items-center justify-center px-[10px] mt-[60px] lg:mt-[92px]">
+        <div className="w-full bg-birumuda min-h-screen flex items-center justify-center lg:px-[10px] mt-[60px] lg:mt-[92px]">
             <NavbarMyAcademy className='shadow-xl' />
             <div className="w-full lg:w-[50%] flex flex-col items-center gap-9 pt-24 lg:pt-32 transition-all duration-500">
                 <div className="text-abumuda font-playfair text-center font-semibold">
@@ -44,9 +43,9 @@ const Payment = () => {
                     <div className="min-h-[90%] w-[90%] mx-auto rounded-xl bg-birumuda flex flex-col gap-6 py-5">
                         <div className="flex flex-col gap-3 text-center w-[90%] mx-auto">
                             <h3 className="font-sans text-xl font-semibold text-black">Pendaftaran Sedang Diproses</h3>
-                            <p className="text-base">{`${formattedDateAndDay(detailTraining.dateStart)}`}</p>
+                            <p className="text-base">{`${formattedDateAndDay(detailExam.dateStart)}`}</p>
                             <p className="text-base">
-                                Selanjutnya Anda dapat melakukan <span className="font-bold">{`Book Seat ${detailTraining.trainingName}`}</span> melalui pembayaran berikut
+                                Selanjutnya Anda dapat melakukan <span className="font-bold">{`Book Seat ${detailExam.title}`}</span> melalui pembayaran berikut
                             </p>
                             <div className="flex flex-col gap-1">
                                 <p className="text-start text-base font-semibold indent-3">Rekening Tujuan</p>
@@ -73,18 +72,18 @@ const Payment = () => {
                                 <p className="text-sm">Sisa pembayaran akan diinformasikan via WhatsApp</p>
                                 <div className="flex flex-col gap-3">
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
-                                        <p className="truncate pr-3">{`Harga Workshop ${detailTraining.trainingName}`}</p>
-                                        <p className="font-bold min-w-[90px] ">{`${formatRupiah(detailTraining.price)}`}</p>
+                                        <p className="truncate pr-3">{`Harga Workshop ${detailExam.title}`}</p>
+                                        <p className="font-bold min-w-[90px] ">{`${formatRupiah(detailExam.price)}`}</p>
                                     </div>
                                     <div className="flex flex-row justify-between items-center text-zinc text-sm">
                                         <p>Book Seat</p>
-                                        <p className="font-bold">{`Rp. 1.000.000,00`}</p>
+                                        <p className="font-bold">{`${formatRupiah(1000000)}`}</p>
                                     </div>
                                     <div className="border-t-1 border-zinc"></div>
                                 </div>
                                 <div className="flex flex-row justify-between text-sm lg:text-lg font-bold text-zinc">
                                     <p>Sisa Pembayaran</p>
-                                    <p>{`${formatRupiah(detailTraining.price - 1000000)}`}</p>
+                                    <p>{`${formatRupiah(detailExam.price - 1000000)}`}</p>
                                 </div>
                                 <Button as={Link} href={'https://wa.me/6281314485552'} type="solid" color='primary' className='h-12 px-3 w-full'>Kirim bukti pembayaran</Button>
                                 <div className="flex flex-col gap-4">
@@ -137,8 +136,7 @@ const Payment = () => {
                         </div>
                         <div className="flex flex-col justify-center gap-6">
                             {/* <Button variant="bordered" color='primary' className='h-12 px-3 w-[50%] mx-auto'>Detail Pendaftaran</Button> */}
-                            <Button as={Link} href='/' variant="bordered" color='primary' className='h-12 px-3 w-[50%] mx-auto'>Kembali ke Beranda</Button>
-                        </div>
+                            <Button as={Link} href='/Myacademy' variant="bordered" color='primary' className='h-12 px-3 w-[50%] mx-auto'>Kembali ke Beranda</Button>                        </div>
                     </div>
                 </div>
             </div>

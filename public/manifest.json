@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "MYGCOBA",
-    "short_name": "MYGCOBA",
+    "name": "MYG",
+    "short_name": "MYG",
     "icons": [
         {
             "src": "./icon-256x256.png",

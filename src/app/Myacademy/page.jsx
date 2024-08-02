@@ -7,6 +7,7 @@ import RecommendationEvent from "@/components/MyAcademyComponent/RecommendationE
 import ComingSoonEvent from "@/components/MyAcademyComponent/ComingSoonEvent"
 import ContainerExam from '@/components/MyAcademyComponent/ContainerExam'
 import Link from "next/link"
+import Footer from "@/components/MyAcademyComponent/Footer"
 import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy'
 import { Image } from "@nextui-org/image"
 import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI"
@@ -38,7 +39,7 @@ const MyAcademyTes = () => {
                     <div className="w-[90%] md:w-[60%] mx-auto flex flex-col gap-3 lg:gap-12 pt-9">
                         <h3 className="font-playfair text-xl lg:text-5xl font-bold text-active lg:text-black">Raih Kecantikan Sejati Bersama My Academy, My Beauty Wellness</h3>
                         <p className="font-sans text-xs lg:text-lg font-normal">Temukan rahasia kecantikan dan kesehatan melalui program pelatihan eksklusif kami. Bergabunglah dengan komunitas kami dan mulai perjalanan Anda menuju kesejahteraan yang lebih baik.</p>
-                        <Link href={'/MyacademyTes/material'} className="h-4 lg:h-12 bg-primary-500 lg:bg-active text-white flex items-center justify-center lg:px-3 font-semibold rounded-lg w-20 lg:w-36 text-[8px] lg:text-sm">Lihat acara kami</Link>
+                        <Link href={'/Myacademy/material'} className="h-4 lg:h-12 bg-primary-500 lg:bg-active text-white flex items-center justify-center lg:px-3 font-semibold rounded-lg w-20 lg:w-36 text-[8px] lg:text-sm">Lihat acara kami</Link>
                     </div>
                     <div className="w-full flex justify-end md:w-full lg:hidden">
                         <Image
@@ -56,7 +57,8 @@ const MyAcademyTes = () => {
                 <Review />
             </div>
             <FAQMyAcademy />
-            <FooterMyAcademy />
+            {/* <FooterMyAcademy /> */}
+            <Footer/>
         </>
     )
 }

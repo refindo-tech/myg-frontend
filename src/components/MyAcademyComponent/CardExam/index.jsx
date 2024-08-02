@@ -48,9 +48,9 @@ const CardExam = ({ bgcard, exam }) => {
                                 <p>{formattedTime(detailExam.dateStart, detailExam.dateFinish)}</p>
                             </div>
                             {new Date(detailExam.dateFinish) <= new Date() ? (
-                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/exam/${detailExam.examId}`}>Lihat Ujian</Button>
+                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/exam/${detailExam.examId}`}>Lihat Ujian</Button>
                             ) : (
-                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/exam/${detailExam.examId}`}>Daftar Ujian</Button>
+                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/exam/${detailExam.examId}`}>Daftar Ujian</Button>
                             )}
                             {/* {detailExam.materials.map((material, index)=>(
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/material/${material.materialId}`} key={index}>Daftar Acara</Button>

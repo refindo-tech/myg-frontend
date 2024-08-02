@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@nextui-org/button"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
+import Footer from "@/components/MyAcademyComponent/Footer"
 import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
 import CardComingSoonEvent from "@/components/MyAcademyComponent/CardComingSoon"
 import { getPastTraining, getRecommendationTraining, getRecommendationExam, getPastExam} from '@/helpers/fetchAPI'
@@ -93,7 +94,8 @@ const ExamPage = () => {
                     // </div>
                 }
             </div>
-            <FooterMyAcademy />
+            {/* <FooterMyAcademy /> */}
+            <Footer/>
         </>
     )
 }
