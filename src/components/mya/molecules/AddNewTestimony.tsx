@@ -98,9 +98,10 @@ const AddNewTestimony: React.FC<NewTestimonyProps> = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <Input
-                            label="Jabatan"
+                            label="Peran"
                             placeholder="Masukkan jabatan Anda"
                             type='text'
+                            isRequired
                             isInvalid={!role}
                             errorMessage='Harap masukan peran anda.'
                             value={role}
