@@ -6,38 +6,49 @@ import { useRouter } from 'next/navigation';
 const Footer: React.FC = () => {
     const router = useRouter();
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [showIosInstall, setShowIosInstall] = useState(false);
 
     useEffect(() => {
-        const handler = (e: any) => {
-            console.log('beforeinstallprompt event captured');
+        const handleBeforeInstallPrompt = (e: any) => {
             e.preventDefault();
             setDeferredPrompt(e);
         };
 
-        console.log('Adding beforeinstallprompt event listener');
-        window.addEventListener('beforeinstallprompt', handler);
+        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("/sw.js")
+                .then((reg) => console.log("Service Worker registered", reg))
+                .catch(() => console.log("Service Worker registration failed"));
+        }
 
         return () => {
-            console.log('Removing beforeinstallprompt event listener');
-            window.removeEventListener('beforeinstallprompt', handler);
+            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
         };
     }, []);
 
-    const handleDownloadPWA = () => {
-        console.log('Download button clicked');
-        if (deferredPrompt) {
-            console.log('Prompting installation');
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult: any) => {
+    const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    const promptAppInstall = async () => {
+        if (isIos()) {
+            setShowIosInstall(true);
+        } else {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const choiceResult = await deferredPrompt.userChoice;
                 if (choiceResult.outcome === 'accepted') {
                     console.log('User accepted the install prompt');
                 } else {
                     console.log('User dismissed the install prompt');
                 }
                 setDeferredPrompt(null);
-            });
-        } else {
-            console.log('No deferredPrompt available');
+            } else {
+                console.log("Install prompt is not available at the moment.");
+            }
         }
     };
 
@@ -50,17 +61,16 @@ const Footer: React.FC = () => {
 
     const instagram = () => {
         window.location.href = 'https://www.instagram.com/myacademy_official/';
-    }
+    };
 
     const youtube = () => {
         window.location.href = 'https://www.youtube.com/@MultiYasykurGlobal';
-    }
+    };
 
     return (
         <footer className="w-full flex mx-auto bg-stone-800">
             <div className="w-full flex flex-col px-16 xl:px-32 py-2 divide-y divide-stone-700">
                 <div className="w-full flex py-2">
-                    {/* logo */}
                     <div className="flex-1 inline-flex items-center h-24 justify-center md:justify-start">
                         <Image
                             src="/assets/images/logo/myg.png"
@@ -68,16 +78,12 @@ const Footer: React.FC = () => {
                             className='h-24 w-auto'
                         />
                     </div>
-
-                    {/* Button */}
                     <div className="items-center h-24 hidden md:flex">
-                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={handleDownloadPWA}>
+                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={promptAppInstall}>
                             <span className="text-black">Unduh Aplikasi</span>
                         </Button>
                     </div>
                 </div>
-
-                {/* Detail alamat, kontak, dan sosial media */}
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 py-8">
                     <div className="flex flex-col gap-4">
@@ -111,17 +117,22 @@ const Footer: React.FC = () => {
                         </div>
                     </div>
                     <div className="items-center flex md:hidden">
-                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={handleDownloadPWA}>
+                        <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full' onClick={promptAppInstall}>
                             <span className="text-black">Unduh Aplikasi</span>
                         </Button>
                     </div>
                 </div>
 
-                {/* Copyright */}
                 <div className="w-full flex justify-start items-center py-4">
                     <p className="text-foreground font-normal font-openSans leading-normal">© 2024 MYG.</p>
                 </div>
             </div>
+            {showIosInstall && (
+                <div className="fixed bottom-4 left-4 right-4 bg-white p-4 rounded shadow-lg">
+                    <p>Klik dan tab Tambahkan ke Layar Beranda untuk Menginstal aplikasi ini</p>
+                    <Button onClick={() => setShowIosInstall(false)}>Close</Button>
+                </div>
+            )}
         </footer>
     );
 };
