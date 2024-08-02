@@ -1,9 +1,29 @@
+'use client'
 import { Card } from "@nextui-org/card"
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea } from "@nextui-org/react";
 import { Image } from "@nextui-org/image"
+import { addTestimoni } from "@/helpers/fetchAPI";
 import icons from "@/components/icons/icon"
+import { useState } from "react";
 const AddTestimoni = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [name, setName] = useState('')
+    const [comment, setComment] = useState('')
+    const handleName = (value)=>{
+        setName(value)
+    }
+    const handlecomment = (value)=>{
+        setComment(value)
+    }
+    const handleSubmit=()=>{
+        const postData = async()=>{
+            const response = await addTestimoni(name, comment)
+            if(response){
+                return true
+            }
+        }
+        postData()
+    }
     const { BubbleChat } = icons
     return (
         <>
@@ -42,19 +62,28 @@ const AddTestimoni = () => {
                                     label="Name"
                                     placeholder="Masukkan Nama"
                                     variant="bordered"
+                                    value={name}
+                                    onChange={(e)=>{handleName(e.target.value)}}
                                 />
                                 <Textarea
                                     label="Testimoni"
                                     variant="bordered"
                                     placeholder="Tulis Testimoni"
                                     height={300}
+                                    value={comment}
+                                    onChange={(e)=>{handlecomment(e.target.value)}}
                                 />
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="flat" onPress={onClose}>
                                     Cancel
                                 </Button>
-                                <Button color="primary" onPress={onClose}>
+                                <Button color="primary" onPress={(e)=>{
+                                    const post = handleSubmit()
+                                    if(post){
+                                        onClose
+                                    }
+                                    }}>
                                     Save Testimoni
                                 </Button>
                             </ModalFooter>

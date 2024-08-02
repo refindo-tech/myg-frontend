@@ -4,7 +4,7 @@ import { Image } from "@nextui-org/image"
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import icons from "@/components/icons/icon"
-import {formattedDate} from '@/helpers/formattedDate'
+import {formattedDate, formattedTime} from '@/helpers/formattedDate'
 import { getRecommendationTraining } from '@/helpers/fetchAPI'
 const RecommendationEvent = () => {
     const { PlaceIcon, CalendarIcon } = icons
@@ -36,12 +36,12 @@ const RecommendationEvent = () => {
             <div className="w-[90%] lg:container flex flex-col gap-y-5 lg:gap-y-8 py-5">
                 <h3 className="font-playfair text-biru lg:text-black lg:font-bold text-xl lg:text-5xl">Acara Pilihan Bulan Ini</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[440px] gap-y-5 lg:gap-y-8 gap-x-[20px] items-center">
-                    {material.brosur&&<Image
+                    {material.banner&&<Image
                         alt="Recommendation Event"
                         width={'100%'}
                         height={440}
                         // src="/images/recommendation_event.png"
-                        src={`${material.brosur}`}
+                        src={`${material.banner}`}
                         className='rounded-xl h-[440px]'
                     />}
                     <div className="flex flex-col gap-y-[12px] h-fit lg:h-[356px]">
@@ -70,12 +70,12 @@ const RecommendationEvent = () => {
                                         {formattedDate(dataRecommendation.dateStart)}
                                     </p>}
                                     <p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
-                                        10:00 - 12:00 WIB
+                                        {formattedTime(dataRecommendation.dateStart, dataRecommendation.dateFinish)}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <Button color="primary" variant="solid" size="md" as={Link} href={`/MyacademyTes/material/${dataRecommendation.trainingId}`}
+                        <Button color="primary" variant="solid" size="md" as={Link} href={`/Myacademy/material/${dataRecommendation.trainingId}`}
                             className="font-sans font-semibold border-[2px] text-[8px] lg:text-sm py-[12px] w-16 h-6 lg:w-[148px] lg:h-[48px]">
                             <span className="block lg:hidden">Daftar Acara</span>
                             <span className="hidden lg:block">Gabung Acara Ini</span>

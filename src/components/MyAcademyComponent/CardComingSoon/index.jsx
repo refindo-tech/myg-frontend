@@ -53,7 +53,12 @@ const CardComingSoon = ({ bgcard, training }) => {
                                 <p>{formattedDate(detailTraining.dateStart)}</p>
                                 <p>{formattedTime(detailTraining.dateStart, detailTraining.dateFinish)}</p>
                             </div>
-                            <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/material/${detailTraining.trainingId}`}>Daftar Acara</Button>
+                            {new Date(detailExam.dateFinish) <= new Date() ? (
+                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/material/${detailTraining.trainingId}`}>Lihat Acara</Button>
+                            ) : (
+                                <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/material/${detailTraining.trainingId}`}>Daftar Acara</Button>
+                            )}
+                            {/* <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/material/${detailTraining.trainingId}`}>Daftar Acara</Button> */}
                             {/* {detailTraining.materials.map((material, index)=>(
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/MyacademyTes/material/${material.materialId}`} key={index}>Daftar Acara</Button>
                             ))} */}

@@ -1,6 +1,7 @@
 'use client'
 import { Image } from "@nextui-org/image"
 import ContainerExam from "@/components/MyAcademyComponent//ContainerExam"
+import Footer from "@/components/MyAcademyComponent/Footer"
 import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
 import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
 import Review from '@/components/MyAcademyComponent/Review'
@@ -196,7 +197,8 @@ const DetailExam = ({ detailExam, listRecommendationExam }) => {
                         </div>
                         <Review />
                         <FAQAcademy />
-                        <FooterMyAcademy />
+                        <Footer/>
+                        {/* <FooterMyAcademy /> */}
                     </div>
                 </div>}
         </>
