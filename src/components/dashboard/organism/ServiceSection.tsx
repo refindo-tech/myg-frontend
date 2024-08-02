@@ -6,6 +6,7 @@ interface Service {
     logo: string;
     description: string;
     image: string;
+    url: string;
 }
 
 interface ServiceSectionProps {

@@ -7,6 +7,7 @@ interface Service {
     logo: string;
     description: string;
     image: string;
+    url: string;
 }
 
 interface ServiceCardProps {
@@ -17,7 +18,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
     // Implement your component logic here
     const router = useRouter();
     function handleServiceClick() {
-        router.push(`/${service.name}`);
+        router.push(`/${service.url}`);
     }
     return (
         <Card className={`w-full rounded-2xl shadow-md p-1 flex flex-col justify-between 'bg-white'`}>
