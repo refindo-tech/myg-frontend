@@ -250,7 +250,15 @@ export function Regist() {
             <div className="flex flex-col gap-5 justify-center items-center w-full">
               <div className="flex items-center w-full gap-6">
                 <span className="font-inter font-normal text-gray-400">Sudah mempunyai akun? </span>
-                <Button variant="light" className="font-sans text-kuning" aria-label="Masuk"> Masuk </Button>
+                <Button
+                  variant="light"
+                  className="font-sans text-kuning"
+                  aria-label="Masuk"
+                  onClick={() => router.push("/login")}
+                >
+                  {" "}
+                  Masuk{" "}
+                </Button>
               </div>
             </div>
 

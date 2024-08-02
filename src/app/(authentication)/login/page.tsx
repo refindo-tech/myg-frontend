@@ -73,7 +73,7 @@ export function Login() {
             <Image
               src={images.myg_logo.src}
               alt="Logo"
-              className="object-cover w-56"
+              className="object-cover w-32 xl:w-56"
             />
           </div>
 
@@ -150,6 +150,24 @@ export function Login() {
               >
                 Login
               </Button>
+            </div>
+
+            <div className="flex flex-col gap-5 justify-center items-center w-full mt-5">
+
+              <div className="flex items-center w-full gap-6 mt-5">
+                <span className="font-inter font-normal text-gray-400">
+                  Belum punya akun?{" "}
+                </span>
+                <Button
+                  variant="light"
+                  className="font-sans text-kuning"
+                  aria-label="Daftar"
+                  onClick={() => router.push("/regist")}
+                >
+                  {" "}
+                  Daftar{" "}
+                </Button>
+              </div>
             </div>
           </form>
         </div>
