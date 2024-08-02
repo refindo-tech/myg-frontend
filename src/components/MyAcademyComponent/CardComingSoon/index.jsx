@@ -47,7 +47,8 @@ const CardComingSoon = ({ bgcard, training }) => {
                                 // src="/images/fef.jpg"
                                 src={materials.length > 0 ? materials[0].banner : '/images/fef.jpg'}
                                 width={'100%'}
-                                height={172}
+                                height={480}
+                                className="rounded-[8px] object-cover"
                             />
                         </div>
                         <div className="flex flex-row items-center justify-between w-[90%] mx-auto my-[24px]">
