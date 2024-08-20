@@ -2,9 +2,11 @@
 import React, { useState, useMemo } from "react";
 import { Input, Button, Checkbox, Image, Progress } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 import api from '@/axios/axiosConfig';
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
+import { InstagramIcon } from '@/components/mya/icons';
 
 interface UserProfile {
   fullName: string;
@@ -97,12 +99,20 @@ export function Regist() {
     setErrors([]);
 
     if (isPasswordInvalid) {
-      setErrors([{ instancePath: '/password', message: 'Password harus memiliki minimal 6 karakter' }]);
+      Swal.fire({
+        icon: "error",
+        title: "Password terlalu pendek",
+        text: "Password harus memiliki minimal 6 karakter.",
+      });
       return;
     }
 
     if (isConfirmPasswordInvalid) {
-      setErrors([{ instancePath: '/confirmPassword', message: 'Password dan Confirm Password tidak sama' }]);
+      Swal.fire({
+        icon: "error",
+        title: "Password tidak cocok",
+        text: "Password dan Confirm Password tidak sama.",
+      });
       return;
     }
 
@@ -117,12 +127,34 @@ export function Regist() {
 
       const response = await api.post('/myg/auth/register', formattedData);
       console.log('User registered successfully:', response.data);
+      Swal.fire({
+        icon: "success",
+        title: "Pendaftaran Berhasil",
+        text: "Akun Anda berhasil didaftarkan. Silakan login.",
+      });
       router.push('/login');
     } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.errors) {
-        console.log(error)
-        setErrors(error.response.data.errors);
+      if (error.response && error.response.data) {
+        if (error.response.data.message === 'Email already in use') {
+          Swal.fire({
+            icon: "error",
+            title: "Email sudah digunakan",
+            text: "Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Gagal Mendaftar",
+            text: "Terjadi kesalahan saat mendaftar. Silakan coba lagi nanti.",
+          });
+        }
+        setErrors(error.response.data.errors || []);
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Gagal Mendaftar",
+          text: "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi nanti.",
+        });
         console.error('Error registering user:', error.message);
       }
     }
@@ -141,7 +173,7 @@ export function Regist() {
       </div>
 
       {/* Bagian 2 */}
-      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 md:px-28 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full ">
+      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 md:px-0 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full">
         <div className="flex flex-col gap-6 w-full">
           <div className="w-full text-left">
             <h1 className="text-2xl font-bold font-playfair tracking-wider md:text-4xl xl:text-4xl">Daftar Akun</h1>
@@ -239,11 +271,6 @@ export function Regist() {
             />
             {errors.find(err => err.instancePath === '/confirmPassword') && <p>{errors.find(err => err.instancePath === '/confirmPassword')?.message}</p>}
 
-            <div className="flex justify-between items-center w-full">
-              <Checkbox className="font-inter text-gray-700" aria-label="Remember me">Remember me</Checkbox>
-              <Button variant="light" className="font-sans text-kuning" aria-label="Lupa Password">Lupa Password?</Button>
-            </div>
-
             <div className="flex flex-row justify-between items-center w-full mt-5">
               <Button onClick={handleNext} variant="light" className="w-full font-sans text-white bg-kuning2 font-semibold" aria-label="Selanjutnya">Selanjutnya</Button>
             </div>
@@ -307,12 +334,13 @@ export function Regist() {
 
             <Input
               type="text"
-              label="Sosial Media"
+              label="Sosial Media (Instagram)"
               variant="bordered"
               placeholder="Masukkan akun Anda"
               className="w-full"
               aria-label="Sosial Media"
               name="socialMedia"
+              startContent={<InstagramIcon />}
               value={formData.userProfile.socialMedia}
               onChange={handleProfileChange}
             />

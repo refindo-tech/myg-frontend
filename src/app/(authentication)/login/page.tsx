@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Input, Button, Checkbox, Image } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 import { loginUser } from "@/lib/authentication/fetchData";
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
@@ -19,10 +20,26 @@ interface ValidationError {
 export function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState<LoginData>({ email: '', password: '' });
+  const [touchedFields, setTouchedFields] = useState({ email: false, password: false });
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isEmailInvalid = useMemo(() => {
+    if (!touchedFields.email) return false;
+    return !validateEmail(formData.email);
+  }, [formData.email, touchedFields.email]);
+
+  const isPasswordInvalid = useMemo(() => {
+    if (!touchedFields.password) return false;
+    return formData.password.length < 6;
+  }, [formData.password, touchedFields.password]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,26 +47,77 @@ export function Login() {
       ...prevData,
       [name]: value
     }));
+    setTouchedFields((prevFields) => ({
+      ...prevFields,
+      [name]: true,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
+
+    if (isEmailInvalid || isPasswordInvalid) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Input",
+        text: "Please provide a valid email and a password with at least 6 characters.",
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: "info",
+      title: "Logging in...",
+      showConfirmButton: false,
+      timer: 1000
+    });
+
     try {
       const response = await loginUser(formData.email, formData.password);
       if (response) {
-        console.log('User logged in successfully:', response);
+        console.log('User logged in successfully:', response); // Logging success
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Berhasil Login!",
+          showConfirmButton: false,
+          timer: 2000
+        });
+
         sessionStorage.setItem('accessToken', response.results.accessToken);
         // Set refreshToken in cookie
         router.push('dashboard/');
-      } else {
-        setErrors([{ instancePath: '', message: 'Login failed. Please check your credentials and try again.' }]);
       }
     } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.errors) {
-        setErrors(error.response.data.errors);
+      // Menangani error yang dilemparkan oleh loginUser
+      console.error('Login failed:', error); // Logging error
+
+      if (error.status === 404 && error.data.message === 'User not found') {
+        Swal.fire({
+          icon: "error",
+          title: "Email tidak terdaftar",
+          text: "Email yang Anda masukkan belum terdaftar. Silakan periksa kembali atau daftar akun baru.",
+        });
+      } else if (error.status === 401 || error.status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Gagal Login. Cek kembali Email dan Password!",
+        });
       } else {
-        console.error('Error logging in user:', error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong during login!"
+        });
+      }
+
+      if (error.data && error.data.errors) {
+        setErrors(error.data.errors);
+      } else {
+        setErrors([{ instancePath: '', message: 'An unexpected error occurred. Please try again later.' }]);
       }
     }
   };
@@ -92,10 +160,8 @@ export function Login() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              isInvalid={!!errors.find((err) => err.instancePath === "/email")}
-              errorMessage={
-                errors.find((err) => err.instancePath === "/email")?.message
-              }
+              isInvalid={isEmailInvalid}
+              errorMessage={isEmailInvalid ? "Please enter a valid email." : undefined}
             />
 
             <Input
@@ -124,12 +190,8 @@ export function Login() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              isInvalid={
-                !!errors.find((err) => err.instancePath === "/password")
-              }
-              errorMessage={
-                errors.find((err) => err.instancePath === "/password")?.message
-              }
+              isInvalid={isPasswordInvalid}
+              errorMessage={isPasswordInvalid ? "Password harus memiliki minimal 6 karakter" : undefined}
             />
 
             <div className="flex justify-between items-center w-full">
@@ -139,9 +201,10 @@ export function Login() {
               >
                 Remember me
               </Checkbox>
+              <Button variant="light" className="font-sans text-kuning" aria-label="Lupa Password">Lupa Password?</Button>
             </div>
 
-            <div className="flex flex-row justify-between items-center w-full mt-5">
+            <div className="flex flex-row justify-between items-center w-full mt-3">
               <Button
                 type="submit"
                 variant="light"
@@ -152,9 +215,9 @@ export function Login() {
               </Button>
             </div>
 
-            <div className="flex flex-col gap-5 justify-center items-center w-full mt-5">
+            <div className="flex flex-col gap-5 justify-center w-full">
 
-              <div className="flex items-center w-full gap-6 mt-5">
+              <div className="flex items-center w-full gap-6">
                 <span className="font-inter font-normal text-gray-400">
                   Belum punya akun?{" "}
                 </span>
