@@ -39,7 +39,7 @@ const RecommendationEvent = () => {
                     {material.banner&&<Image
                         alt="Recommendation Event"
                         width={'100%'}
-                        
+                        height={440}
                         // src="/images/recommendation_event.png"
                         src={`${material.banner}`}
                         className='rounded-xl h-[440px] md:h-[940px] object-cover'
