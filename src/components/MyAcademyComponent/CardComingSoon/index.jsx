@@ -41,13 +41,13 @@ const CardComingSoon = ({ bgcard, training }) => {
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col">
-                        <div className="min-h-[172px] w-4/5  items-center mx-auto">
+                        <div className="min-h-[172px] w-4/5 mx-auto">
                             <Image
                                 alt="tes"
                                 // src="/images/fef.jpg"
                                 src={materials.length > 0 ? materials[0].banner : '/images/fef.jpg'}
                                 width={'100%'}
-                                height={480}
+                                height={172}
                                 className="rounded-[8px] object-cover"
                             />
                         </div>

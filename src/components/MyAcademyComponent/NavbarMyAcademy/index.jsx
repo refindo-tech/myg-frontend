@@ -19,7 +19,7 @@ const NavbarMyAcademy = ({ color }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await getDetailProfile(2)
+            const response = await getDetailProfile()
             console.log(response)
             if (response.meta.success) {
                 setDataProfile(response.results)

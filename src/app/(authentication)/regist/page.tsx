@@ -120,6 +120,7 @@ export function Regist() {
       router.push('/login');
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.errors) {
+        console.log(error)
         setErrors(error.response.data.errors);
       } else {
         console.error('Error registering user:', error.message);
