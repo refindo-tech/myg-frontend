@@ -12,7 +12,7 @@ const ComingSoonEvent = ({ bgcard, title, listTraining }) => {
     return (
         <div className="w-[90%] lg:container mx-auto flex flex-col py-[60px] gap-3 lg:gap-14">
             {title&&<h3 className="font-bold font-playfair text-xl lg:text-5xl">{title}</h3>}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 lg:gap-x-5 gap-y-3 lg:gap-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-3 lg:gap-x-5 gap-y-3 lg:gap-y-5">
                 {dataTraining ? (dataTraining.map((training, index) => (
                     <CardComingSoon bgcard={bgcard} key={index} training={training} />))) :
                     (<></>)

@@ -34,12 +34,13 @@ const CardExam = ({ bgcard, exam }) => {
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col">
-                        <div className="w-4/5 flex items-center mx-auto">
+                        <div className="w-4/5 mx-auto">
                             <Image
                                 alt="tes"
                                 src={`${detailExam.banner}`}
                                 width={'100%'}
                                 height={172}
+                                className="w-full"
                             />
                         </div>
                         <div className="flex flex-row items-center justify-between w-[90%] mx-auto my-[24px]">

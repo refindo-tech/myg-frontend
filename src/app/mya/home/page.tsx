@@ -9,40 +9,31 @@ import useTestimonies from '@/hooks/useTestimonies';
 const heroData = {
   title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
   description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
-  imageUrl: "/assets/images/hero/menhera.png",
+  imageUrl: "/assets/images/hero/hero.png",
 };
 
 
 const slides = [
-  "/assets/images/banners/banner1.jpg",
-  "/assets/images/banners/banner2.jpg",
-  "/assets/images/banners/banner3.jpg",
+  "/assets/images/banners/myabanner1.jpg",
+  "/assets/images/banners/myabanner2.jpg",
 ];
 
 const faqs = [
   {
-    question: "Apa itu MYA Beauty?",
-    answer: "MYA Beauty adalah brand lokal yang memproduksi produk perawatan kulit dan wajah alami dengan kualitas terbaik."
+    question: "Apa saja manfaat menjadi Reseller atau Distributor?",
+    answer: "Selain mendapatkan harga yang lebih murah, Reseller atau Distributor juga dapat poin-poin yang bisa ditukar dengan berbagai hadiah menarik seperti bimbingan marketing, produk knowledge dan bisa berkembang memiliki salon kecantikan sendiri."
   },
   {
-    question: "Apakah produk MYA Beauty aman digunakan?",
-    answer: "Ya, produk MYA Beauty telah terdaftar di BPOM dan aman digunakan untuk semua jenis kulit."
+    question: "Apa ketentuan menjadi Reseller atau Distributor?",
+    answer: "<p>Berikut merupakan syarat-syarat untuk menjadi Reseller atau Distributor.</p><p><br></p><ol><li>Aktif di sosial media</li><li>Sudah menggunakan produk MYA</li><li>Wajib jualan</li><li>Belanja produk 3 juta untuk menjadi Reseller, atau 10 juta untuk menjadi Distributor </li><li>Menaati peraturan MYA</li></ol><p><br></p>"
   },
   {
-    question: "Apakah MYA Beauty menerima pembelian grosir?",
-    answer: "Ya, MYA Beauty menerima pembelian grosir dengan harga khusus."
+    question: "Bagaimana cara membeli produk kami?",
+    answer: "Anda perlu melakukan pendaftaran akun terlebih dahulu dengan mengisi data yang diperlukan, dan membaca syarat dan ketentuan yang berlaku. Setelah itu memilih produk dengan memasukkannya ke dalam keranjang, lalu dilanjutkan dengan melukakan pembayaran."
   },
   {
-    question: "Bagaimana cara memesan produk MYA Beauty?",
-    answer: "Anda bisa memesan produk MYA Beauty melalui website ini atau menghubungi kontak kami."
-  },
-  {
-    question: "Apakah One Piece itu nyata?",
-    answer: "Ya, One Piece itu nyata."
-  },
-  {
-    question: "One Piece bosenin, kebanyakan episodenya.",
-    answer: "Ya, bener juga sih."
+    question: "Bagaimana cara melakukan pembayaran?",
+    answer: "Setelah memilih produk yang ingin dibeli. Maka lanjutkan proses pembayaran dengan melakukan transfer ke nomor rekening yang tertera, kemudian mengirim bukti transfer."
   },
 ];
 
@@ -51,10 +42,11 @@ const faqs = [
 
 const Home: React.FC = () => {
 
-  const { data: faceProducts, isLoading: faceLoading } = useProducts.all({ limit: 4 });
-  const { data: skinProducts, isLoading: skinLoading } = useProducts.all({ limit: 4 });
-  const { data: recommendedProducts, isLoading: recommendedLoading } = useProducts.all({ limit: 4 });
-  const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1 });
+  const { data: faceProducts, isLoading: faceLoading } = useProducts.all({ limit: 4, category: "FACE_CARE" });
+  const { data: skinProducts, isLoading: skinLoading } = useProducts.all({ limit: 4, category: "SKIN_CARE" });
+  const { data: recommendedProducts, isLoading: recommendedLoading } = useProducts.all({ limit: 3, isRecommended: true });
+  // console.log("recommendedProducts", recommendedProducts);
+  const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1, isRecommended: true });
   // const { data: testimonies, isLoading: testimoniesLoading } = useTestimonies.all({ limit: 3 });
 
   const isLoading = faceLoading || skinLoading || recommendedLoading || heroLoading;
@@ -63,7 +55,6 @@ const Home: React.FC = () => {
 
   return (
     <HomePage
-      logo="https://cdn.builder.io/api/v1/image/assets/TEMP/3286fac76e3ba9a985929c27e761a770990e30ecdadb8c2ecd7a514c9a3db612?apiKey=04edd4fc20274006b83b68624fe67059&"
       heroData={heroData}
       heroProduct={heroProducts[0]}
       faceProducts={faceProducts}

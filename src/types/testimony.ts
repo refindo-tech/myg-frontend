@@ -1,6 +1,7 @@
 export default interface Testimony {
     reviewId: number;
-    fullName: string;
+    name: string;
+    email: string;
     role: string;
     comment: string;
 }

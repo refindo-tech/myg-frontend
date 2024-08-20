@@ -10,7 +10,7 @@ export const metadata:Metadata = {
 export default function RootLayout({children}: { children: React.ReactNode }) {
   return (
     <html lang="en" className='light'>
-      <body className="leading-normal tracking-normal">
+      <body className="leading-normal tracking-normal" id="body">
         <Providers>
           {children}
         </Providers>

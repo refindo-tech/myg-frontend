@@ -40,7 +40,15 @@ const config: Config = {
           600: "#D77482",
         },
         myg: {
+          100: '#FFF7CC',
           500: '#FFC300',
+          700: '#B78300',
+        },
+        mybeautica: {
+          500: '#B680A2',
+        },
+        myacademy: {
+          500: '#06ADFE',
         },
       },
       fontSize: {

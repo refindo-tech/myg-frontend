@@ -42,7 +42,7 @@ const RecommendationEvent = () => {
                         height={440}
                         // src="/images/recommendation_event.png"
                         src={`${material.banner}`}
-                        className='rounded-xl h-[440px]'
+                        className='rounded-xl h-[440px] md:h-[940px] object-cover'
                     />}
                     <div className="flex flex-col gap-y-[12px] h-fit lg:h-[356px]">
                         <h3 className="font-playfair text-biru lg:text-black font-semibold text-xl lg:text-4xl text-wrap">{dataRecommendation.trainingName}</h3>

@@ -9,10 +9,12 @@ import { formattedDate, formattedTime } from '@/helpers/formattedDate'
 const CardComingSoon = ({ bgcard, training }) => {
     const [detailTraining, setDetailTraining] = useState({})
     const [materials, setMaterials] = useState([])
+    const [detailExam, setDetailExam] = useState({})
     // const [getMaterial, setGetMaterial] = useState(null)
     useEffect(() => {
         setDetailTraining(training)
         setMaterials(training.materials || [])
+        setDetailExam(training.exam || {})
         // setGetMaterial(training.materials)
         console.log('ini training', training)
     }, [training])
@@ -39,13 +41,14 @@ const CardComingSoon = ({ bgcard, training }) => {
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col">
-                        <div className="min-h-[172px] w-4/5  items-center mx-auto">
+                        <div className="min-h-[172px] w-4/5 mx-auto">
                             <Image
                                 alt="tes"
                                 // src="/images/fef.jpg"
                                 src={materials.length > 0 ? materials[0].banner : '/images/fef.jpg'}
                                 width={'100%'}
                                 height={172}
+                                className="rounded-[8px] object-cover"
                             />
                         </div>
                         <div className="flex flex-row items-center justify-between w-[90%] mx-auto my-[24px]">

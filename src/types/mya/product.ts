@@ -2,9 +2,14 @@ export default interface Product {
     productId: number;
     name: string;
     description: string;
-    priceId: number;
+    category: string;
+    price: {
+        RETAIL: number;
+        AGENT: number;
+        DISTRIBUTOR: number;
+    };
     stock: number;
-    productImages: string;
+    productImages: string[];
     type: string;
     uploadedBy: number;
     createdAt: string;

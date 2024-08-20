@@ -22,17 +22,13 @@ const DetailSection: React.FC<DetailSectionProps> = ({ product }) => {
                 <div className="flex flex-none flex-col w-full md:basis-1/2 justify-center items-start text-left">
                     <img
                         className="sm:rounded-2xl object-cover aspect-square w-full"
-                        src={imageUrl(product.productImages)}
+                        src={imageUrl(product.productImages[0])}
                         alt={product.name}
                     />
                 </div>
                 <div className="flex flex-col md:basis-1/2 justify-start items-center xl:mt-0 md:mt-0 relative h-full">
                     <ProductDetailCard
-                        category= 'Perawatan wajah'
-                        name= {product.name}
-                        views= {200}
-                        description= {product.description}
-                        price= {rupiah(product.productId)}
+                        product={product}
                     />
                 </div>
             </div>

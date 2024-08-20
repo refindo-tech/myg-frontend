@@ -134,10 +134,10 @@ export const getDetailExam = async(id)=>{
         }
     }
 }
-export const getDetailProfile = async(id)=>{
+export const getDetailProfile = async()=>{
     try {
-        const token = process.env.NEXT_PUBLIC_TOKEN
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/myg/api/users/${id}`,{
+        const token = sessionStorage.getItem('accessToken')
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/myg/auth/profile`,{
             method:'GET',
             headers:{
                 'Content-Type': 'application/json',
