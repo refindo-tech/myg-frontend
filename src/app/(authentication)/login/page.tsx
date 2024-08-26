@@ -56,7 +56,7 @@ export function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
-
+  
     if (isEmailInvalid || isPasswordInvalid) {
       Swal.fire({
         icon: "error",
@@ -65,19 +65,19 @@ export function Login() {
       });
       return;
     }
-
+  
     Swal.fire({
       icon: "info",
       title: "Logging in...",
       showConfirmButton: false,
       timer: 1000
     });
-
+  
     try {
       const response = await loginUser(formData.email, formData.password);
       if (response) {
-        console.log('User logged in successfully:', response); // Logging success
-
+        console.log('User logged in successfully:', response);
+  
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -85,27 +85,26 @@ export function Login() {
           showConfirmButton: false,
           timer: 2000
         });
-
+  
         sessionStorage.setItem('accessToken', response.results.accessToken);
-        // Set refreshToken in cookie
         router.push('dashboard/');
       }
     } catch (error: any) {
-      // Menangani error yang dilemparkan oleh loginUser
-      console.error('Login failed:', error); // Logging error
-
+      console.error('Login failed:', error);
+  
       if (error.status === 404 && error.data.message === 'User not found') {
         Swal.fire({
           icon: "error",
           title: "Email tidak terdaftar",
           text: "Email yang Anda masukkan belum terdaftar. Silakan periksa kembali atau daftar akun baru.",
         });
-      } else if (error.status === 401 || error.status === 400) {
+      } else if (error.status === 401 && error.data.message === 'Invalid password') {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Gagal Login. Cek kembali Email dan Password!",
+          title: "Password salah",
+          text: "Password yang Anda masukkan salah. Silakan coba lagi.",
         });
+
       } else {
         Swal.fire({
           icon: "error",
@@ -113,7 +112,7 @@ export function Login() {
           text: "Something went wrong during login!"
         });
       }
-
+  
       if (error.data && error.data.errors) {
         setErrors(error.data.errors);
       } else {

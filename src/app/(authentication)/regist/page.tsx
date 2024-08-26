@@ -97,7 +97,7 @@ export function Regist() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
-
+  
     if (isPasswordInvalid) {
       Swal.fire({
         icon: "error",
@@ -106,7 +106,7 @@ export function Regist() {
       });
       return;
     }
-
+  
     if (isConfirmPasswordInvalid) {
       Swal.fire({
         icon: "error",
@@ -115,7 +115,7 @@ export function Regist() {
       });
       return;
     }
-
+  
     try {
       const formattedData = {
         ...formData,
@@ -124,7 +124,7 @@ export function Regist() {
           birthdate: new Date(formData.userProfile.birthdate).toISOString() // Format birthdate to ISO 8601
         }
       };
-
+  
       const response = await api.post('/myg/auth/register', formattedData);
       console.log('User registered successfully:', response.data);
       Swal.fire({
@@ -133,33 +133,55 @@ export function Regist() {
         text: "Akun Anda berhasil didaftarkan. Silakan login.",
       });
       router.push('/login');
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        if (error.response.data.message === 'Email already in use') {
+    } 
+    
+    catch (error: any) {
+      console.error('Registration failed:', error);
+  
+      const errorType = error.response?.data?.errorType;
+  
+      switch (errorType) {
+        case 'EMAIL_DUPLICATE':
           Swal.fire({
             icon: "error",
-            title: "Email sudah digunakan",
-            text: "Email yang Anda masukkan sudah terdaftar. Silakan gunakan email lain.",
+            title: "Email Sudah Terdaftar",
+            text: "Email yang Anda masukkan sudah digunakan. Silakan gunakan email lain atau login dengan email tersebut.",
           });
-        } else {
+          break;
+  
+        case 'PASSWORD_MISMATCH':
           Swal.fire({
             icon: "error",
-            title: "Gagal Mendaftar",
-            text: "Terjadi kesalahan saat mendaftar. Silakan coba lagi nanti.",
+            title: "Password Tidak Cocok",
+            text: "Password dan konfirmasi password tidak cocok. Silakan periksa kembali.",
           });
-        }
-        setErrors(error.response.data.errors || []);
+          break;
+  
+        case 'VALIDATION_ERROR':
+          Swal.fire({
+            icon: "error",
+            title: "Input Tidak Valid",
+            text: "Ada kesalahan pada data yang Anda masukkan. Silakan periksa dan coba lagi.",
+          });
+          break;
+  
+        default:
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.response?.data?.message || "Terjadi kesalahan saat pendaftaran!",
+          });
+          break;
+      }
+  
+      if (error.response?.data?.errors) {
+          setErrors(error.response.data.errors);
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Gagal Mendaftar",
-          text: "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi nanti.",
-        });
-        console.error('Error registering user:', error.message);
+          setErrors([{ instancePath: '', message: 'An unexpected error occurred. Please try again later.' }]);
       }
     }
   };
-
+  
   return (
     <div className="flex flex-row h-full w-full mx-auto">
       {/* Bagian 1 */}
