@@ -59,7 +59,7 @@ const NavbarMyAcademy = ({ color }) => {
                                 placeholder="i'am looking for.."
                                 className={`text-[14px] text-${color} font-sans italic py-[8px] px-[16px] rounded-full bg-transparent border border-${color} focus:outline-none pr-10 placeholder:text-white`}
                             />
-                            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 flex items-center">
+                            <button className={`absolute right-3 top-1/2 transform -translate-y-1/2 z-10 flex items-center text-${color}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     className="size-6 text-white h-[20px]"
                                 >
@@ -91,11 +91,20 @@ const NavbarMyAcademy = ({ color }) => {
                 </div>
             </nav>
             {isHamburgerActive &&
-                <div className="absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
+                <div className="block lg:hidden absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
                     <div className="flex flex-col gap-4 font-playfair font-semibold text-sm">
-                        <p>Home</p>
-                        <p>Material</p>
-                        <p>Konsultasi</p>
+                        <Link
+                            href={"/dashboard"}
+                            className="px-5 hover:text-active"
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href={'https://wa.me/6281314485552'}
+                            className="px-5 hover:text-active"
+                        >
+                            Konsultasi
+                        </Link>
                     </div>
                 </div>
             }
