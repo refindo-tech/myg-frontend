@@ -18,6 +18,9 @@ import ArrowUp from './ArrowUp'
 import ChevronUp from "./ChevronUp";
 import ChevronDown from "./ChevronDown";
 import BubbleChat from "./BubbleChat";
+import PlusCircleIcon from "./PlusCircleIcon";
+import { EditIcon } from "./EditIcon";
+import { DeleteIcon } from "./DeleteIcon";
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -38,6 +41,9 @@ const icons = {
     ArrowUp,
     ChevronUp,
     ChevronDown,
-    BubbleChat
+    BubbleChat,
+    PlusCircleIcon,
+    EditIcon,
+    DeleteIcon
 };
 export default icons;
