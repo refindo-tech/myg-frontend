@@ -59,7 +59,7 @@ const NavbarMyAcademy = ({ color }) => {
                                 placeholder="i'am looking for.."
                                 className={`text-[14px] text-${color} font-sans italic py-[8px] px-[16px] rounded-full bg-transparent border border-${color} focus:outline-none pr-10 placeholder:text-white`}
                             />
-                            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 z-10 flex items-center">
+                            <button className={`absolute right-3 top-1/2 transform -translate-y-1/2 z-10 flex items-center text-${color}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     className="size-6 text-white h-[20px]"
                                 >
