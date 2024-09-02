@@ -21,6 +21,8 @@ import BubbleChat from "./BubbleChat";
 import PlusCircleIcon from "./PlusCircleIcon";
 import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
+import SkrupIcon from './SkrupIcon'
+import UploadFileIcon from "./UploadFileIcon";
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -44,6 +46,8 @@ const icons = {
     BubbleChat,
     PlusCircleIcon,
     EditIcon,
-    DeleteIcon
+    DeleteIcon,
+    SkrupIcon,
+    UploadFileIcon
 };
 export default icons;

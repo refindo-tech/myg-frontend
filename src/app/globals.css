@@ -12,3 +12,6 @@ body, html{
     overflow-x: hidden;
     box-sizing:border-box;
 }
+.customLabel {
+    color: #F59E0B; /* Hex code untuk warna kuning sesuai Tailwind (yellow-500) */
+}
