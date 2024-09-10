@@ -16,3 +16,5 @@ export const BurguerButton = () => {
     </div>
   );
 };
+
+export default BurguerButton;

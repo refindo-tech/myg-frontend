@@ -19,6 +19,9 @@ import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
 import useAuthCheck from "@/hooks/common/auth"; // Pastikan path ini benar
 
+//component
+import BurguerButton from "@/components/adminComponent/navbar/burguer-button"; // Pastikan path ini benar
+
 type NavbarProps = {
   userData: {
     email: string;
@@ -43,7 +46,9 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   return (
     <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
-
+        <NavbarContent className="md:hidden">
+          <BurguerButton />
+        </NavbarContent>
         <NavbarContent as="div" className="items-center" justify="end">
 
           <Dropdown
