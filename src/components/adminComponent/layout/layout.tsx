@@ -21,7 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <SidebarWrapper onToggle={toggleSidebar} />
 
         {/* Main content area */}
-        <div className="w-screen">
+        <div className="w-screen bg-slate-100">
           {/* Navbar */}
           <NavbarComponent
             userData={{
