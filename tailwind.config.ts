@@ -28,6 +28,7 @@ const config: Config = {
         pink1: `#FBECEF`,
         pink2: `#FDF4F4`,
         pink3: `#FDF4F4`,
+        pink4: `#FA9FA4`,
         zinc: `#71717A`,
         footer:'#292B22',
         biru: '#0364B6',

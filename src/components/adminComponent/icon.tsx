@@ -170,3 +170,63 @@ export const LogoutIcon: React.FC<IconProps> = ({ size = 24, fill = "currentColo
     </svg>
 );
 
+export const AddCircleIcon: React.FC<IconProps> = ({ size = 24, fill = "currentColor", width, height, ...props }) => (
+    <svg 
+        width="20" 
+        height="20" 
+        viewBox="0 0 20 20" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path 
+            stroke="#52525B"
+            d="M0.5 10C0.5 4.76614 4.76614 0.5 10 0.5C15.2339 0.5 19.5 4.76614 19.5 10C19.5 15.2339 15.2339 19.5 10 19.5C4.76614 19.5 0.5 15.2339 0.5 10ZM11.25 14V11.25H14C14.6861 11.25 15.25 10.6861 15.25 10C15.25 9.31386 14.6861 8.75 14 8.75H11.25V6C11.25 5.31386 10.6861 4.75 10 4.75C9.31386 4.75 8.75 5.31386 8.75 6V8.75H6C5.31386 8.75 4.75 9.31386 4.75 10C4.75 10.6861 5.31386 11.25 6 11.25H8.75V14C8.75 14.6861 9.31386 15.25 10 15.25C10.6861 15.25 11.25 14.6861 11.25 14Z"/>
+    </svg>
+);
+
+export const SearchIcon: React.FC<IconProps> = ({ size = 24, fill = "currentColor", width, height, ...props }) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Icons">
+            <circle id="Cicle" cx="11" cy="11" r="7" stroke="#2A2A2E" strokeWidth="1.5" />
+            <path
+                id="Vector 1280"
+                d="M16.5303 15.4697L16 14.9393L14.9393 16L15.4697 16.5303L16.5303 15.4697ZM18.9697 20.0303C19.2626 20.3232 19.7374 20.3232 20.0303 20.0303C20.3232 19.7374 20.3232 19.2626 20.0303 18.9697L18.9697 20.0303ZM15.4697 16.5303L18.9697 20.0303L20.0303 18.9697L16.5303 15.4697L15.4697 16.5303Z"
+                fill="#2A2A2E"
+            />
+        </g>
+    </svg>
+);
+
+export const ChevronDownIcon: React.FC<IconProps> = ({ size = 24, fill = "currentColor", width, height, ...props }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" {...props}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+);
+
+export const TrashIcon: React.FC<IconProps> = ({ size = 24, fill = "currentColor", width, height, ...props }) => (
+    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.0959 5.9473C17.7796 5.61865 14.4432 5.44934 11.117 5.44934C9.14509 5.44934 7.1732 5.54893 5.20132 5.74811L3.16968 5.9473" stroke="#F31260" strokeWidth="1.79262" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M8.64697 4.94147L8.86608 3.63684C9.02542 2.69072 9.14493 1.98364 10.828 1.98364H13.4372C15.1204 1.98364 15.2498 2.73057 15.3992 3.64679L15.6182 4.94147" stroke="#F31260" strokeWidth="1.79262" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M18.9557 9.09436L18.3083 19.1231C18.1987 20.6866 18.1091 21.9016 15.3305 21.9016H8.93685C6.15828 21.9016 6.06865 20.6866 5.9591 19.1231L5.31177 9.09436" stroke="#F31260" strokeWidth="1.79262" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M10.4678 16.4242H13.7841" stroke="#F31260" strokeWidth="1.79262" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9.64307 12.4407H14.6226" stroke="#F31260" strokeWidth="1.79262" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
+
+
+export const EditIcon: React.FC<IconProps> = ({ size = 19, fill = "none", width, height, ...props }) => (
+    <svg width={size} height={size} viewBox="0 0 19 19" fill={fill} xmlns="http://www.w3.org/2000/svg" {...props}>
+        <g id="Frame">
+            <path id="Vector" d="M10.6037 3.14255L4.4462 9.66006C4.2137 9.90756 3.9887 10.3951 3.9437 10.7326L3.6662 13.1626C3.5687 14.0401 4.1987 14.64 5.0687 14.4901L7.4837 14.0775C7.8212 14.0176 8.2937 13.7701 8.52619 13.515L14.6837 6.99755C15.7487 5.87255 16.2287 4.59005 14.5712 3.02254C12.9212 1.47004 11.6687 2.01755 10.6037 3.14255Z" stroke="#A1A1AA" strokeWidth="1.35" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Vector_2" d="M9.57812 4.23022C9.90066 6.30022 11.5806 7.88273 13.6656 8.09273" stroke="#A1A1AA" strokeWidth="1.35" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+            <path id="Vector_3" d="M2.91016 16.9426H16.4102" stroke="#A1A1AA" strokeWidth="1.35" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+    </svg>
+);
+
+export const DetailIcon: React.FC<IconProps> = ({ size = 25, fill = "none", width, height, ...props }) => (
+    <svg width={size} height={size} viewBox="0 0 25 24" fill={fill} xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M15.3465 9.44257C15.3465 10.9276 14.1466 12.1275 12.6616 12.1275C11.1766 12.1275 9.97656 10.9276 9.97656 9.44257C9.97656 7.95757 11.1766 6.75757 12.6616 6.75757C14.1466 6.75757 15.3465 7.95757 15.3465 9.44257Z" stroke="#A1A1AA" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12.6591 15.6451C15.3066 15.6451 17.774 14.0852 19.4916 11.3852C20.1666 10.3277 20.1666 8.55016 19.4916 7.49266C17.774 4.79266 15.3066 3.23267 12.6591 3.23267C10.0116 3.23267 7.54406 4.79266 5.82656 7.49266C5.15156 8.55016 5.15156 10.3277 5.82656 11.3852C7.54406 14.0852 10.0116 15.6451 12.6591 15.6451Z" stroke="#A1A1AA" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);

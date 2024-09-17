@@ -10,7 +10,8 @@ interface Props {
   href?: string;
 }
 
-export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
+// export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
+  export const SidebarItem = React.forwardRef(({ icon, title, isActive, href = "" }: Props, ref) => {
   const { collapsed, setCollapsed } = useSidebarContext();
 
   const handleClick = () => {
@@ -37,4 +38,4 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
       </div>
     </NextLink>
   );
-};
+});
