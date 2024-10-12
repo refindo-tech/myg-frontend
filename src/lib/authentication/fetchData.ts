@@ -25,10 +25,10 @@ export const registerUser = async (data: RegisterData) => {
     const response = await api.post('/myg/auth/register', data);
     return response.data;
   } catch (error: any) {
-    if (error.response && error.response.data && error.response.data.errors) {
-      throw error.response.data.errors;
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);  // Pastikan error message dilemparkan ke frontend
     }
-    throw new Error(error.response?.data?.message || 'Registration failed');
+    throw new Error('Registration failed');
   }
 };
 
@@ -36,9 +36,15 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const response = await api.post('/myg/auth/login', { email, password });
     return response.data;
-  } catch (error) {
-    console.error('Error logging in:', error);
-    return null;
+  } catch (error: any) {
+    // Jika ada error, lemparkan error agar bisa ditangani di komponen yang memanggilnya
+    if (error.response) {
+      // Menangani error yang berasal dari respons server
+      throw error.response;
+    } else {
+      console.error('Error logging in:', error);
+      throw new Error('Network error');
+    }
   }
 };
 

@@ -2,9 +2,11 @@
 import React, { useState, useMemo } from "react";
 import { Input, Button, Checkbox, Image, Progress } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 import api from '@/axios/axiosConfig';
 import icons from "@/components/icons/icon";
 import images from "../../../../public/images/images";
+import { InstagramIcon } from '@/components/mya/icons';
 
 interface UserProfile {
   fullName: string;
@@ -95,17 +97,25 @@ export function Regist() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors([]);
-
+  
     if (isPasswordInvalid) {
-      setErrors([{ instancePath: '/password', message: 'Password harus memiliki minimal 6 karakter' }]);
+      Swal.fire({
+        icon: "error",
+        title: "Password terlalu pendek",
+        text: "Password harus memiliki minimal 6 karakter.",
+      });
       return;
     }
-
+  
     if (isConfirmPasswordInvalid) {
-      setErrors([{ instancePath: '/confirmPassword', message: 'Password dan Confirm Password tidak sama' }]);
+      Swal.fire({
+        icon: "error",
+        title: "Password tidak cocok",
+        text: "Password dan Confirm Password tidak sama.",
+      });
       return;
     }
-
+  
     try {
       const formattedData = {
         ...formData,
@@ -114,20 +124,64 @@ export function Regist() {
           birthdate: new Date(formData.userProfile.birthdate).toISOString() // Format birthdate to ISO 8601
         }
       };
-
+  
       const response = await api.post('/myg/auth/register', formattedData);
       console.log('User registered successfully:', response.data);
+      Swal.fire({
+        icon: "success",
+        title: "Pendaftaran Berhasil",
+        text: "Akun Anda berhasil didaftarkan. Silakan login.",
+      });
       router.push('/login');
-    } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.errors) {
-        console.log(error)
-        setErrors(error.response.data.errors);
+    } 
+    
+    catch (error: any) {
+      console.error('Registration failed:', error);
+  
+      const errorType = error.response?.data?.errorType;
+  
+      switch (errorType) {
+        case 'EMAIL_DUPLICATE':
+          Swal.fire({
+            icon: "error",
+            title: "Email Sudah Terdaftar",
+            text: "Email yang Anda masukkan sudah digunakan. Silakan gunakan email lain atau login dengan email tersebut.",
+          });
+          break;
+  
+        case 'PASSWORD_MISMATCH':
+          Swal.fire({
+            icon: "error",
+            title: "Password Tidak Cocok",
+            text: "Password dan konfirmasi password tidak cocok. Silakan periksa kembali.",
+          });
+          break;
+  
+        case 'VALIDATION_ERROR':
+          Swal.fire({
+            icon: "error",
+            title: "Input Tidak Valid",
+            text: "Ada kesalahan pada data yang Anda masukkan. Silakan periksa dan coba lagi.",
+          });
+          break;
+  
+        default:
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.response?.data?.message || "Terjadi kesalahan saat pendaftaran!",
+          });
+          break;
+      }
+  
+      if (error.response?.data?.errors) {
+          setErrors(error.response.data.errors);
       } else {
-        console.error('Error registering user:', error.message);
+          setErrors([{ instancePath: '', message: 'An unexpected error occurred. Please try again later.' }]);
       }
     }
   };
-
+  
   return (
     <div className="flex flex-row h-full w-full mx-auto">
       {/* Bagian 1 */}
@@ -141,7 +195,7 @@ export function Regist() {
       </div>
 
       {/* Bagian 2 */}
-      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 md:px-28 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full ">
+      <div className="flex flex-col flex-grow mx-auto items-center justify-center px-3 md:ml-0 md:px-0 xl:pr-48 xl:w-[40%] xl:flex-grow xl:h-full">
         <div className="flex flex-col gap-6 w-full">
           <div className="w-full text-left">
             <h1 className="text-2xl font-bold font-playfair tracking-wider md:text-4xl xl:text-4xl">Daftar Akun</h1>
@@ -239,11 +293,6 @@ export function Regist() {
             />
             {errors.find(err => err.instancePath === '/confirmPassword') && <p>{errors.find(err => err.instancePath === '/confirmPassword')?.message}</p>}
 
-            <div className="flex justify-between items-center w-full">
-              <Checkbox className="font-inter text-gray-700" aria-label="Remember me">Remember me</Checkbox>
-              <Button variant="light" className="font-sans text-kuning" aria-label="Lupa Password">Lupa Password?</Button>
-            </div>
-
             <div className="flex flex-row justify-between items-center w-full mt-5">
               <Button onClick={handleNext} variant="light" className="w-full font-sans text-white bg-kuning2 font-semibold" aria-label="Selanjutnya">Selanjutnya</Button>
             </div>
@@ -307,12 +356,13 @@ export function Regist() {
 
             <Input
               type="text"
-              label="Sosial Media"
+              label="Sosial Media (Instagram)"
               variant="bordered"
               placeholder="Masukkan akun Anda"
               className="w-full"
               aria-label="Sosial Media"
               name="socialMedia"
+              startContent={<InstagramIcon />}
               value={formData.userProfile.socialMedia}
               onChange={handleProfileChange}
             />
