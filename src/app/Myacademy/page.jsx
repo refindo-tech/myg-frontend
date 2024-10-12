@@ -19,7 +19,10 @@ const MyAcademyTes = () => {
         const fetchData = async () => {
             const responseTraining = await getRecommendationTraining(4)
             if (responseTraining) {
-                setListTraining(responseTraining.results)
+                console.log(responseTraining)
+                if(responseTraining.results.length !== 0){
+                    setListTraining(responseTraining.results)
+                }
             }
             const responseExam = await getRecommendationExam(4)
             if (responseExam) {
