@@ -91,11 +91,20 @@ const NavbarMyAcademy = ({ color }) => {
                 </div>
             </nav>
             {isHamburgerActive &&
-                <div className="absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
+                <div className="block lg:hidden absolute top-[60px] lg:top-[92px] left-0 right-0 bg-white text-zinc p-4 z-20 shadow-xl border-t-1 border-zinc/50">
                     <div className="flex flex-col gap-4 font-playfair font-semibold text-sm">
-                        <p>Home</p>
-                        <p>Material</p>
-                        <p>Konsultasi</p>
+                        <Link
+                            href={"/dashboard"}
+                            className="px-5 hover:text-active"
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href={'https://wa.me/6281314485552'}
+                            className="px-5 hover:text-active"
+                        >
+                            Konsultasi
+                        </Link>
                     </div>
                 </div>
             }
