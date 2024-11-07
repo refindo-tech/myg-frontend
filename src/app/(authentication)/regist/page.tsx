@@ -121,7 +121,7 @@ export function Regist() {
         ...formData,
         userProfile: {
           ...formData.userProfile,
-          birthdate: new Date(formData.userProfile.birthdate).toISOString() // Format birthdate to ISO 8601
+          birthdate: new Date(formData.userProfile.birthdate).toISOString().split('T')[0] // Format birthdate to ISO 8601
         }
       };
   

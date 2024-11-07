@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   Modal,
   ModalContent,
@@ -11,19 +11,28 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 
-export interface Admin {
-  id: number;
-  name: string;
+interface Admin {
   email: string;
+  password: string;
+  confirmPassword: string;
   role: string;
   userLabel: string;
-  profilePicture: string | null;
+  userProfile: {
+    fullName: string;
+    profilePicture: File | null;
+  };
 }
+
+const userLabelOptions = {
+  MYA: "MYA",
+  MY_ACADEMI: "My Academy",
+  MY_BEAUTICA: "My Beautica",
+};
 
 interface AddAdminModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onAddAdmin: (admin: Omit<Admin, "id">) => void;
+  onAddAdmin: (formData: FormData) => void;
 }
 
 const AddAdminModal: React.FC<AddAdminModalProps> = ({
@@ -31,40 +40,79 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
   onOpenChange,
   onAddAdmin,
 }) => {
-  const [newAdmin, setNewAdmin] = useState<Omit<Admin, "id">>({
-    name: "",
+  const initialAdminState: Admin = {
     email: "",
-    role: "Admin",
+    password: "",
+    confirmPassword: "",
+    role: "ADMIN",
     userLabel: "",
-    profilePicture: null,
-  });
+    userProfile: {
+      fullName: "",
+      profilePicture: null,
+    },
+  };
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [newAdmin, setNewAdmin] = useState<Admin>(initialAdminState);
+  const [touchedFields, setTouchedFields] = useState({
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const validateEmail = (value: string) => {
+    return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+  };
+
+  const isEmailInvalid = useMemo(() => {
+    if (!touchedFields.email) return false;
+    return !validateEmail(newAdmin.email);
+  }, [newAdmin.email, touchedFields.email]);
+
+  const isPasswordInvalid = useMemo(() => {
+    if (!touchedFields.password) return false;
+    return newAdmin.password.length < 6;
+  }, [newAdmin.password, touchedFields.password]);
+
+  const isConfirmPasswordInvalid = useMemo(() => {
+    if (!touchedFields.confirmPassword) return false;
+    return newAdmin.password !== newAdmin.confirmPassword;
+  }, [newAdmin.password, newAdmin.confirmPassword, touchedFields.confirmPassword]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewAdmin((prevState) => ({ ...prevState, [name]: value }));
+    if (name === "fullName") {
+      setNewAdmin(prev => ({
+        ...prev,
+        userProfile: { ...prev.userProfile, fullName: value }
+      }));
+    } else {
+      setNewAdmin(prev => ({ ...prev, [name]: value }));
+    }
+    setTouchedFields(prev => ({ ...prev, [name]: true }));
   };
 
-  const handleSelectChange = (name: string, value: string) => {
-    setNewAdmin((prevState) => ({ ...prevState, [name]: value }));
-  };
+  const handleSelectChange = (value: string) => {
+    setNewAdmin(prev => ({ ...prev, userLabel: value }));
+  };    
+
+  const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setNewAdmin((prevState) => ({ ...prevState, profilePicture: base64String }));
-        setPreviewUrl(base64String);
-      };
-      reader.readAsDataURL(file);
+      if (file.size > MAX_FILE_SIZE) {
+        setError("File size too large. Max file size is 25MB");
+        return;
+      }
+      setNewAdmin(prev => ({
+        ...prev,
+        userProfile: { ...prev.userProfile, profilePicture: file }
+      }));
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -80,13 +128,15 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setNewAdmin((prevState) => ({ ...prevState, profilePicture: base64String }));
-        setPreviewUrl(base64String);
-      };
-      reader.readAsDataURL(file);
+      if (file.size > MAX_FILE_SIZE) {
+        setError("File size too large. Max file size is 25MB");
+        return;
+      }
+      setNewAdmin(prev => ({
+        ...prev,
+        userProfile: { ...prev.userProfile, profilePicture: file }
+      }));
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -94,27 +144,46 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
     fileInputRef.current?.click();
   };
 
-  const validatePasswords = () => {
-    if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match");
-      return false;
-    }
-    setPasswordError("");
-    return true;
-  };
-
   const handleAddAdmin = () => {
-    if (!validatePasswords()) return;
-    onAddAdmin(newAdmin);
+    if (isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', newAdmin.userProfile.fullName); // Use 'name' instead of 'userProfile[fullName]'
+    formData.append('email', newAdmin.email);
+    formData.append('password', newAdmin.password);
+    formData.append('confirmPassword', newAdmin.confirmPassword);
+    formData.append('role', newAdmin.role);
+    formData.append('userLabel', newAdmin.userLabel);
+
+    if (newAdmin.userProfile.profilePicture) {
+      formData.append('profilePicture', newAdmin.userProfile.profilePicture);
+    }
+
+    onAddAdmin(formData);
+    clearForm();
     onOpenChange(false);
   };
 
-  const updatePreviewUrl = (file: File) => {
-    if (previewUrl) {
-      URL.revokeObjectURL(previewUrl);
+  const clearForm = () => {
+    setNewAdmin(initialAdminState);
+    setPreviewUrl(null);
+    setTouchedFields({
+      email: false,
+      password: false,
+      confirmPassword: false,
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
-    setPreviewUrl(URL.createObjectURL(file));
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      clearForm();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     return () => {
@@ -145,8 +214,8 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                 label="Nama"
                 placeholder="Masukkan nama Admin"
                 className="mb-4"
-                name="name"
-                value={newAdmin.name}
+                name="fullName"
+                value={newAdmin.userProfile.fullName}
                 onChange={handleInputChange}
               />
               <Input
@@ -156,6 +225,8 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                 name="email"
                 value={newAdmin.email}
                 onChange={handleInputChange}
+                isInvalid={isEmailInvalid}
+                errorMessage={isEmailInvalid && "Please enter a valid email address"}
               />
               <div className="flex flex-row gap-3">
                 <Input
@@ -163,56 +234,47 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                   placeholder="Masukkan password"
                   type="password"
                   className="mb-4"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  value={newAdmin.password}
+                  onChange={handleInputChange}
+                  isInvalid={isPasswordInvalid}
+                  errorMessage={isPasswordInvalid && "Password must be at least 6 characters long"}
                 />
                 <Input
                   label="Konfirmasi password"
                   placeholder="Masukkan kembali password"
                   type="password"
                   className="mb-4"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  name="confirmPassword"
+                  value={newAdmin.confirmPassword}
+                  onChange={handleInputChange}
+                  isInvalid={isConfirmPasswordInvalid}
+                  errorMessage={isConfirmPasswordInvalid && "Passwords do not match"}
                 />
               </div>
-              {passwordError && (
-                <p className="text-red-500 text-sm mb-4">{passwordError}</p>
-              )}
               <div className="flex flex-row gap-3">
-                <Select
+                <Input
+                  isReadOnly
                   label="Role"
                   placeholder="Pilih role"
                   className="mb-4"
                   name="role"
                   value={newAdmin.role}
-                  onChange={(e) => handleSelectChange("role", e.target.value)}
-                >
-                  <SelectItem key="admin" value="Admin">
-                    Admin
-                  </SelectItem>
-                  <SelectItem key="super_admin" value="Super Admin">
-                    Super Admin
-                  </SelectItem>
-                </Select>
+                  onChange={handleInputChange}
+                />
                 <Select
                   label="Team"
                   placeholder="Pilih team"
                   className="mb-4"
                   name="userLabel"
                   value={newAdmin.userLabel}
-                  onChange={(e) =>
-                    handleSelectChange("userLabel", e.target.value)
-                  }
+                  onChange={(e) => handleSelectChange(e.target.value)}
                 >
-                  <SelectItem key="MYA" value="MYA">
-                    MYA
-                  </SelectItem>
-                  <SelectItem key="My_Academy" value="My Academy">
-                    My Academy
-                  </SelectItem>
-                  <SelectItem key="My_Beautica" value="My Beautica">
-                    My Beautica
-                  </SelectItem>
+                  {Object.entries(userLabelOptions).map(([value, label]) => (
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  ))}
                 </Select>
               </div>
               <div className="mb-4">
@@ -236,18 +298,18 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                     onChange={handleFileChange}
                     accept="image/*"
                   />
-                    {previewUrl ? (
-                      <div className="flex flex-col items-center">
-                        <img
-                          src={previewUrl}
-                          alt="Profile Preview"
-                          className="w-32 h-32 object-cover rounded-full mb-2"
-                        />
-                        <p className="text-sm text-gray-500">
-                          Image uploaded successfully
-                        </p>
-                      </div>
-                    ) : (
+                  {previewUrl ? (
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={previewUrl}
+                        alt="Profile Preview"
+                        className="w-32 h-32 object-cover rounded-full mb-2"
+                      />
+                      <p className="text-sm text-gray-500">
+                        Image uploaded successfully
+                      </p>
+                    </div>
+                  ) : (
                     <>
                       <div className="flex justify-center mb-2">
                         <svg
@@ -282,6 +344,7 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                 onPress={handleAddAdmin}
                 variant="light"
                 className="bg-kuning2 text-white font-bold"
+                isDisabled={isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid}
               >
                 Tambah
               </Button>

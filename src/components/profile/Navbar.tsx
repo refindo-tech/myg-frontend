@@ -88,7 +88,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           }}
           placeholder="I'm looking for..."
           size="sm"
-          endContent={<icons.SearchIcon size={18} />}
+          endContent={<icons.SearchIcon width={18} height={18} />}
           type="search"
           radius="full"
           value={searchTerm}

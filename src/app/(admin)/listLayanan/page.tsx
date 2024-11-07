@@ -1,15 +1,15 @@
-// ListServicePage.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import {
   Button, Input, Avatar, Card, Table, TableHeader, TableColumn, TableBody,
   TableRow, TableCell, Pagination, Modal, ModalContent, ModalHeader,
-  ModalBody, ModalFooter, useDisclosure, Image
+  ModalBody, ModalFooter, useDisclosure
 } from "@nextui-org/react";
-import { SearchIcon, TrashIcon, AddCircleIcon, EditIcon, DetailIcon } from "@/components/adminComponent/icon";
-import ServiceForm from "@/components/adminComponent/layanan/ServiceForm";  // Import the ServiceForm component
+import { SearchIcon, TrashIcon, AddCircleIcon, EditIcon } from "@/components/adminComponent/icon";
+import ServiceForm from "@/components/adminComponent/layanan/ServiceModal";
+import { getAllLayanan, createLayanan, updateLayananById, deleteLayananById } from "@/lib/admin/listLayanan/listLayananServiceAPI";
+import { formatRupiah } from "@/helpers/formatRupiah";
 
-// Types
 interface Service {
   serviceId: number;
   title: string;
@@ -18,51 +18,32 @@ interface Service {
   imageUrl: string | null;
 }
 
-// Utility functions
-const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(number).replace("IDR", "IDR ");
-};
-
-// Initial data
-const initialServices: Service[] = [
-    {
-        serviceId: 1,
-        title: "Service 1",
-        description: "Description 1",
-        price: 100000,
-        imageUrl: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-      },
-      {
-        serviceId: 2,
-        title: "Service 2",
-        description: "Description 2",
-        price: 200000,
-        imageUrl: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-      },
-      {
-        serviceId: 3,
-        title: "Service 3",
-        description: "Description 3",
-        price: 300000,
-        imageUrl: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-      },
-    ];
-
 const ListServicePage: React.FC = () => {
-  const [services, setServices] = useState<Service[]>(initialServices);
-  const [filteredServices, setFilteredServices] = useState<Service[]>(initialServices);
+  const [services, setServices] = useState<Service[]>([]);
+  const [filteredServices, setFilteredServices] = useState<Service[]>([]);
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [modalMode, setModalMode] = useState<"add" | "edit" | "delete" | "detail" | null>(null);
+  const [modalMode, setModalMode] = useState<"add" | "edit" | "delete" | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   useEffect(() => {
+    // Fetch all services from the backend
+    const fetchServices = async () => {
+      try {
+        const data = await getAllLayanan();
+        setServices(data.results);
+        setFilteredServices(data.results);
+      } catch (error) {
+        console.error("Failed to fetch services", error);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  useEffect(() => {
+    // Filter services based on search input
     const filtered = services.filter((service) =>
       service.title.toLowerCase().includes(filterValue.toLowerCase()) ||
       service.description.toLowerCase().includes(filterValue.toLowerCase()) ||
@@ -88,36 +69,40 @@ const ListServicePage: React.FC = () => {
     setSelectedService(prev => prev ? { ...prev, imageUrl } : null);
   };
 
-  const handleModalOpen = (mode: "add" | "edit" | "delete" | "detail", service?: Service) => {
+  const handleModalOpen = (mode: "add" | "edit" | "delete", service?: Service) => {
     setModalMode(mode);
     setSelectedService(service || { serviceId: services.length + 1, title: "", description: "", price: 0, imageUrl: null });
     onOpen();
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!selectedService) return;
 
-    switch (modalMode) {
-      case "add":
-        setServices([...services, selectedService]);
-        break;
-      case "edit":
-        setServices(services.map(s => s.serviceId === selectedService.serviceId ? selectedService : s));
-        break;
-      case "delete":
-        setServices(services.filter(s => s.serviceId !== selectedService.serviceId));
-        break;
+    try {
+      switch (modalMode) {
+        case "add":
+          const newService = await createLayanan(selectedService);
+          setServices([...services, newService.results]);
+          break;
+        case "edit":
+          const updatedService = await updateLayananById(selectedService.serviceId, selectedService);
+          setServices(services.map(s => s.serviceId === updatedService.results.serviceId ? updatedService.results : s));
+          break;
+        case "delete":
+          await deleteLayananById(selectedService.serviceId);
+          setServices(services.filter(s => s.serviceId !== selectedService.serviceId));
+          break;
+      }
+      onOpenChange(); // Close modal on successful action
+    } catch (error) {
+      console.error("Operation failed", error);
     }
-
-    onOpenChange();
   };
-
 
   return (
     <div className="w-full h-full px-6 py-6">
       <div className="font-openSans text-4xl text-abugelap mb-6">List Service</div>
       <Card className="bg-white rounded-2xl border p-6">
-        {/* Search and Add Service buttons */}
         <div className="flex justify-between mb-4">
           <Input
             placeholder="Search Layanan..."
@@ -137,29 +122,27 @@ const ListServicePage: React.FC = () => {
           </Button>
         </div>
 
-        {/* Table of Services */}
         <Table>
           <TableHeader>
             <TableColumn>No</TableColumn>
             <TableColumn>Nama Layanan</TableColumn>
             <TableColumn>Deskripsi</TableColumn>
             <TableColumn>Harga</TableColumn>
-            <TableColumn className="flex justify-center items-center">Actions</TableColumn>
+            <TableColumn>Actions</TableColumn>
           </TableHeader>
           <TableBody>
             {paginatedServices.map((service, index) => (
               <TableRow key={service.serviceId}>
-                <TableCell><div>{index + 1}</div></TableCell>
+                <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Avatar radius="sm" src={service.imageUrl || ''} />
-                    <div>{service.title}</div>
+                    {service.title}
                   </div>
                 </TableCell>
-                <TableCell><div>{service.description}</div></TableCell>
-                <TableCell><div>{formatToRupiah(service.price)}</div></TableCell>
-                <TableCell className="flex justify-center items-center">
-                  <Button variant="light" startContent={<DetailIcon />} onClick={() => handleModalOpen("detail", service)}>Detail</Button>
+                <TableCell>{service.description}</TableCell>
+                <TableCell>{formatRupiah(service.price)}</TableCell>
+                <TableCell>
                   <Button variant="light" startContent={<EditIcon />} onClick={() => handleModalOpen("edit", service)}>Edit</Button>
                   <Button variant="light" startContent={<TrashIcon />} onClick={() => handleModalOpen("delete", service)}>Delete</Button>
                 </TableCell>
@@ -168,7 +151,6 @@ const ListServicePage: React.FC = () => {
           </TableBody>
         </Table>
 
-        {/* Pagination */}
         <div className="flex mt-4 items-center justify-center">
           <div className="flex w-[40%] justify-center items-center gap-2">
             <Button isDisabled={page <= 1} size="sm" variant="flat" onPress={() => setPage(prev => prev - 1)}>Previous</Button>
@@ -178,66 +160,30 @@ const ListServicePage: React.FC = () => {
         </div>
       </Card>
 
-      {/* Modal for Add/Edit/Delete/Detail */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" className="bg-white rounded-lg p-6 max-w-2xl w-full">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col items-center border-b pb-4">
-                <h2 className="text-xl font-semibold">
-                  {modalMode === "add" ? "Tambah Layanan" : 
-                   modalMode === "edit" ? "Edit Layanan" :
-                   modalMode === "delete" ? "Confirm Deletion" : "Detail Service"}
-                </h2>
-                {(modalMode === "add" || modalMode === "edit") && (
-                  <p className="text-sm text-gray-500">
-                    {modalMode === "add" ? "Lengkapi data berikut untuk menambah Layanan" : "Ubah data layanan berikut"}
-                  </p>
-                )}
+              <ModalHeader>
+                {modalMode === "add" ? "Tambah Layanan" : modalMode === "edit" ? "Edit Layanan" : "Confirm Deletion"}
               </ModalHeader>
-              <ModalBody className="py-4">
+              <ModalBody>
                 {modalMode === "delete" ? (
                   <p>Are you sure you want to delete <strong>{selectedService?.title}</strong>?</p>
-                ) : modalMode === "detail" ? (
-                  <div className="flex gap-4">
-                    <Image
-                      src={selectedService?.imageUrl || ''}
-                      alt="Service Image"
-                      width={300}
-                      height={300}
+                ) : (
+                  selectedService && (
+                    <ServiceForm
+                      service={selectedService}
+                      onInputChange={handleInputChange}
+                      onFileChange={handleFileChange}
                     />
-                    <div>
-                      <div className="font-bold">{selectedService?.title}</div>
-                      <div>Harga: {formatToRupiah(selectedService?.price || 0)}</div>
-                      <div>Deskripsi: {selectedService?.description}</div>
-                    </div>
-                  </div>
-                ) : selectedService && (
-                  <ServiceForm
-                    service={selectedService}
-                    onInputChange={handleInputChange}
-                    onFileChange={handleFileChange}
-                  />
+                  )
                 )}
               </ModalBody>
               <ModalFooter>
-                {modalMode !== "detail" && (
-                  <Button
-                    fullWidth
-                    onPress={() => {
-                      handleConfirm();
-                      onClose();
-                    }}
-                    className={modalMode === "delete" ? "bg-danger text-white font-bold" : "bg-kuning2 text-white font-bold"}
-                  >
-                    {modalMode === "add" ? "Tambah" : modalMode === "edit" ? "Simpan Perubahan" : "Delete"}
-                  </Button>
-                )}
-                {modalMode === "detail" && (
-                  <Button variant="bordered" onPress={onClose}>
-                    Close
-                  </Button>
-                )}
+                <Button onPress={() => { handleConfirm(); onClose(); }} className={modalMode === "delete" ? "bg-danger text-white" : "bg-kuning2 text-white"}>
+                  {modalMode === "add" ? "Tambah" : modalMode === "edit" ? "Simpan Perubahan" : "Delete"}
+                </Button>
               </ModalFooter>
             </>
           )}

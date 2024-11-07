@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Input,
@@ -17,111 +17,120 @@ import {
 import { SearchIcon, TrashIcon, AddCircleIcon } from "@/components/adminComponent/icon";
 import AddAdminModal from "@/components/adminComponent/listAdmin/AddAdminModal";
 import DeleteAdminModal from "@/components/adminComponent/listAdmin/DeleteAdminModal";
+import ListAdminService from "@/lib/admin/listAdmin/listAdminServiceAPI";
+import Swal from 'sweetalert2';
 
-// Define the Admin interface
-interface Admin {
-  id: number;
+interface AdminData {
+  adminId: number;
   name: string;
   email: string;
   role: string;
+  profilePicture: string;
   userLabel: string;
-  profilePicture: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
-// Initial admin data
-const initialAdmins: Admin[] = [
-  {
-    id: 1,
-    name: "admin",
-    email: "admin@gmail.com",
-    role: "ADMIN",
-    userLabel: "MYA",
-    profilePicture: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  },
-  {
-    id: 2,
-    name: "testuser",
-    email: "testuser@test.com",
-    role: "ADMIN",
-    userLabel: "MY Beautica",
-    profilePicture: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  },
-  {
-    id: 3,
-    name: "Titik Sofianingsih",
-    email: "user1@test.com",
-    role: "ADMIN",
-    userLabel: "MY Academy",
-    profilePicture: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  },
-  {
-    id: 4,
-    name: "Maya Qorina",
-    email: "user2@test.com",
-    role: "ADMIN",
-    userLabel: "SAHABAT_MY_ACADEMI",
-    profilePicture: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  },
-  {
-    id: 5,
-    name: "Linda",
-    email: "user3@test.com",
-    role: "ADMIN",
-    userLabel: "DISTRIBUTOR",
-    profilePicture: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  },
-];
-
 const ListAdminPage: React.FC = () => {
-  const [listAdmin, setListAdmin] = useState<Admin[]>(initialAdmins);
+  const [listAdmin, setListAdmin] = useState<AdminData[]>([]);
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
-  const [rowsPerPage] = useState(5);
+  const [limit] = useState(8);
+  const [totalPages, setTotalPages] = useState(1);
   const { isOpen: isAddModalOpen, onOpen: onOpenAddModal, onOpenChange: onOpenChangeAddModal } = useDisclosure();
   const { isOpen: isDeleteModalOpen, onOpen: onOpenDeleteModal, onOpenChange: onOpenChangeDeleteModal } = useDisclosure();
-  const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
+  const [selectedAdmin, setSelectedAdmin] = useState<AdminData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const getProfilePictureUrl = (path: string) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
 
-  const filteredAdmins = listAdmin.filter((admin) =>
-    admin.name.toLowerCase().includes(filterValue.toLowerCase())
-  );
 
-  const pages = Math.ceil(filteredAdmins.length / rowsPerPage);
-  const paginatedAdmins = filteredAdmins.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      try {
+        const { data } = await ListAdminService.getAllAdmins(page, limit, filterValue);
+        setListAdmin(data.results.admins);
+        setTotalPages(data.results.pagination.totalPages);
+      } catch (error: any) {
+        console.error("Failed to fetch admins:", error);
+        setError("Failed to fetch admin list. Please try again.");
+      }
+    };
+    fetchAdmins();
+  }, [page, limit, filterValue]);
 
-  const handleAddAdmin = (newAdmin: Omit<Admin, 'id'>) => {
-    const newId = listAdmin.length + 1;
-    const adminWithId = { ...newAdmin, id: newId };
-    setListAdmin([...listAdmin, adminWithId]);
+  const handleAddAdmin = async (formData: FormData) => {
+    try {
+      setError(null);
+      const { data } = await ListAdminService.registerAdmin(formData);
+      setListAdmin((prevAdmins) => [...prevAdmins, data.results]);
+      onOpenChangeAddModal();
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Admin has been successfully added.',
+      });
+    } catch (error: any) {
+      console.error("Failed to add Admin:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: error.response?.data?.meta?.message || error.message || 'Unknown error occurred while adding admin.',
+      });
+    }
   };
 
-  const handleDeleteAdmin = (admin: Admin) => {
+  const handleDeleteAdmin = (admin: AdminData) => {
     setSelectedAdmin(admin);
     onOpenDeleteModal();
   };
 
-  const confirmDeleteAdmin = () => {
+  const confirmDeleteAdmin = async () => {
     if (selectedAdmin) {
-      setListAdmin(listAdmin.filter((admin) => admin.id !== selectedAdmin.id));
-      setSelectedAdmin(null);
+      try {
+        await ListAdminService.deleteAdmin(selectedAdmin.adminId);
+        setListAdmin((prevAdmins) =>
+          prevAdmins.filter((admin) => admin.adminId !== selectedAdmin.adminId)
+        );
+        setSelectedAdmin(null);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Admin has been successfully deleted.',
+        });
+      } catch (error: any) {
+        console.error("Error deleting admin:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An unknown error occurred while deleting the admin.',
+        });
+      }
     }
   };
+
+  const getRoleDisplayName = (role: string) => {
+    switch (role) {
+      case "ADMIN":
+        return "Admin";
+      case "SUPER_ADMIN":
+        return "Super Admin";
+      default:
+        return role;
+    }
+  };
+  
 
   const onPreviousPage = () => {
     if (page > 1) setPage((prev) => prev - 1);
   };
 
   const onNextPage = () => {
-    if (page < pages) setPage((prev) => prev + 1);
+    if (page < totalPages) setPage((prev) => prev + 1);
   };
 
   return (
     <div className="w-full h-full px-6 py-6">
-      <div className="font-openSans text-4xl text-abugelap mb-6">
-        List Akun Admin
-      </div>
+      <div className="font-openSans text-4xl text-abugelap mb-6">List Akun Admin</div>
 
       <Card className="bg-white rounded-2xl border p-6">
         <div className="flex justify-between mb-4">
@@ -148,29 +157,30 @@ const ListAdminPage: React.FC = () => {
             <TableColumn>No</TableColumn>
             <TableColumn>Name</TableColumn>
             <TableColumn>Role</TableColumn>
+            <TableColumn>Team</TableColumn>
             <TableColumn>Actions</TableColumn>
           </TableHeader>
           <TableBody>
-            {paginatedAdmins.map((admin, index) => (
-              <TableRow key={admin.id}>
-                <TableCell>{(page - 1) * rowsPerPage + index + 1}</TableCell>
+            {listAdmin.map((admin, index) => (
+              <TableRow key={admin.adminId}>
+                <TableCell>{(page - 1) * limit + index + 1}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                      <Avatar 
-                        radius="sm" 
-                        src={admin.profilePicture || "https://i.pravatar.cc/150?u=a04258114e29026702d"} 
-                      />
+                    <Avatar
+                      radius="sm"
+                      src={getProfilePictureUrl(admin.profilePicture) || "https://i.pravatar.cc/150?u=a04258114e29026702d"}
+                    />
                     <div className="flex flex-col">
                       <div>{admin.name}</div>
-                      <div className="text-tiny text-default-400">
-                        {admin.email}
-                      </div>
+                      <div className="text-tiny text-default-400">{admin.email}</div>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div>{admin.role}</div>
-                  <div className="text-tiny text-default-400">{admin.userLabel}</div>
+                  <div>{getRoleDisplayName(admin.role)}</div>
+                </TableCell>
+                <TableCell>
+                  <div>{admin.userLabel}</div>
                 </TableCell>
                 <TableCell>
                   <Button
@@ -196,13 +206,13 @@ const ListAdminPage: React.FC = () => {
             </Button>
             <Pagination
               isCompact
-              total={pages}
+              total={totalPages}
               initialPage={page}
-              onChange={(page) => setPage(page)}
+              onChange={(newPage) => setPage(newPage)}
               variant="light"
             />
             <Button
-              isDisabled={page >= pages}
+              isDisabled={page >= totalPages}
               size="sm"
               variant="flat"
               onPress={onNextPage}

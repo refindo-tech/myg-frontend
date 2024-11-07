@@ -37,13 +37,21 @@ export const loginUser = async (email: string, password: string) => {
     const response = await api.post('/myg/auth/login', { email, password });
     return response.data;
   } catch (error: any) {
-    // Jika ada error, lemparkan error agar bisa ditangani di komponen yang memanggilnya
     if (error.response) {
-      // Menangani error yang berasal dari respons server
-      throw error.response;
+      throw {
+        name: 'AuthenticationError',
+        message: error.response.data.meta.message,
+      };
+    } else if (error.request) {
+      throw {
+        name: 'NetworkError',
+        message: 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.',
+      };
     } else {
-      console.error('Error logging in:', error);
-      throw new Error('Network error');
+      throw {
+        name: 'RequestError',
+        message: 'Terjadi kesalahan dalam memproses permintaan Anda.',
+      };
     }
   }
 };

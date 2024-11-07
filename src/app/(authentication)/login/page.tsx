@@ -60,24 +60,27 @@ export function Login() {
     if (isEmailInvalid || isPasswordInvalid) {
       Swal.fire({
         icon: "error",
-        title: "Invalid Input",
-        text: "Please provide a valid email and a password with at least 6 characters.",
+        title: "Input Tidak Valid",
+        text: "Mohon periksa kembali email dan password Anda.",
       });
       return;
     }
   
-    Swal.fire({
-      icon: "info",
-      title: "Logging in...",
-      showConfirmButton: false,
-      timer: 1000
-    });
-  
     try {
-      const response = await loginUser(formData.email, formData.password);
-      if (response) {
-        console.log('User logged in successfully:', response);
+      const loadingAlert = Swal.fire({
+        title: "Mohon tunggu...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
   
+      const response = await loginUser(formData.email, formData.password);
+      
+      Swal.close();
+  
+      if (response) {
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -90,36 +93,23 @@ export function Login() {
         router.push('dashboard/');
       }
     } catch (error: any) {
-      console.error('Login failed:', error);
-  
-      if (error.status === 404 && error.data.message === 'User not found') {
-        Swal.fire({
-          icon: "error",
-          title: "Email tidak terdaftar",
-          text: "Email yang Anda masukkan belum terdaftar. Silakan periksa kembali atau daftar akun baru.",
-        });
-      } else if (error.status === 401 && error.data.message === 'Invalid password') {
-        Swal.fire({
-          icon: "error",
-          title: "Password salah",
-          text: "Password yang Anda masukkan salah. Silakan coba lagi.",
-        });
-
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong during login!"
-        });
-      }
-  
-      if (error.data && error.data.errors) {
-        setErrors(error.data.errors);
-      } else {
-        setErrors([{ instancePath: '', message: 'An unexpected error occurred. Please try again later.' }]);
+      Swal.fire({
+        icon: "error",
+        title: error.name === 'AuthenticationError' ? 'Gagal Masuk' : 'Terjadi Kesalahan',
+        text: error.message,
+        confirmButtonText: 'Tutup',
+        confirmButtonColor: '#dc3545'
+      });
+    
+      // Jika error berkaitan dengan kredensial, kosongkan password
+      if (error.name === 'AuthenticationError') {
+        setFormData((prev) => ({
+          ...prev,
+          password: ''
+        }));
       }
     }
-  };
+  }
 
   return (
     <div className="flex flex-row h-full w-full mx-auto">
