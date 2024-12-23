@@ -37,7 +37,7 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({ onToggle }) => {
       <div className={Sidebar({ collapsed })}>
         <div className={Sidebar.Header()}>
           {/* taruh logo di sini */}
-          <Image src={defaultLogo} sizes="lg" />
+          <Image src={defaultLogo} sizes="lg" alt={"logo"} />
         </div>
 
         <div className="flex flex-col justify-between h-full">
@@ -66,7 +66,7 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({ onToggle }) => {
 
             <SidebarMenu title="General">
               <SidebarItem
-                href="/"
+                href="/listEvent"
                 title="MY Academy"
                 icon={<BookIcon />}
                 isActive={pathname === "/"}

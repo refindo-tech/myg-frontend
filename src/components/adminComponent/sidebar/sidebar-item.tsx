@@ -39,3 +39,4 @@ interface Props {
     </NextLink>
   );
 });
+SidebarItem.displayName = "SidebarItem";
