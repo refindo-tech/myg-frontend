@@ -1,13 +1,12 @@
 import icons from "@/components/icons/icon"
-const PosterEventInput = () => {
+const PosterEventInput = ({label, id}) => {
     const { UploadFileIcon } = icons
     return (
         <div className="flex flex-col gap-3 w-full">
-            <h2 className="font-semibold text-base text-gray-500
-            ">Poster Acara</h2>
+            <h2 className="font-semibold text-base text-gray-500">{label}</h2>
             <div className="flex flex-col gap-3 items-center py-4 border-2 border-dashed border-gray-300 rounded-lg">
                 <label
-                    htmlFor="posterevent"
+                    htmlFor={id}
                     className="cursor-pointer"
                 >
                     <div className="w-11 h-11 flex items-center justify-center bg-gray-100 rounded-full">
@@ -16,7 +15,7 @@ const PosterEventInput = () => {
                 </label>
                 <input
                     type="file"
-                    id="posterevent"
+                    id={id}
                     className="hidden"
                 />
                 <div className="flex flex-col items-center gap-1">

@@ -18,7 +18,7 @@ const FormAddEvent = () => {
     <div className="flex flex-col gap-5 lg:gap-10 max-h-[100%]">
       <NameEventInput />
       <CaptionThumnailInput />
-      <PosterEventInput />
+      <PosterEventInput label={"Poster Acara"} id={"posteracara"}/>
       <AlamatEventInput />
       <div className="flex flex-col lg:flex-row gap-5">
         <HargaEventInput />

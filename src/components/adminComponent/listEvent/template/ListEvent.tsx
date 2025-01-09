@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { Card } from "@nextui-org/card";
 import TableEvent from "../organism/TableEvent";

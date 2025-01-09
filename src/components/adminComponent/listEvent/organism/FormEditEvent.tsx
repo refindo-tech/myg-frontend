@@ -19,7 +19,7 @@ const FormEditEvent = () => {
     <div className="flex flex-col gap-10">
       <NameEventInput />
       <CaptionThumnailInput />
-      <PosterEventInput />
+      <PosterEventInput label={"Poster Acara"} id={"posteracara"}/>
       <AlamatEventInput />
       <div className="flex flex-row gap-5">
         <HargaEventInput />
@@ -33,6 +33,7 @@ const FormEditEvent = () => {
       <h3 className="font-semibold text-lg">Deskripsi</h3>
       <JudulEventInput />
       <DeskripsiEventInput />
+      <PosterEventInput label={"Brosur"} id={"brosur"}/>
       <div className="w-full flex flex-row items-center gap-2">
         <div className="w-full border-t-1 border-gray-300"></div>
         <SkrupIcon />
