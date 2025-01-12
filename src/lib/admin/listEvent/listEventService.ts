@@ -1,6 +1,7 @@
 import api from "@/axios/axiosConfig";
 import { AxiosResponse } from "axios";
-
+import {EventListResponse} from "@/types/myAcademy/admin/listEvent";
+import {EventDetailResponse} from "@/types/myAcademy/admin/listEvent"
 interface EventData {
     adminId: number;
     name: string;
@@ -12,27 +13,12 @@ interface EventData {
     updatedAt: string;
 }
 
-interface EventListResponse {
-    meta: {
-        success: boolean;
-        message: string;
-    };
-    results: {
-        admins: EventData[];
-        pagination: {
-            total: number;
-            page: number;
-            limit: number;
-            totalPages: number;
-        };
-    };
-}
 class AdminEventService {
-    async listEvent(): Promise<AxiosResponse<EventListResponse>> {
-        return api.get('/admin/myAcademy/listEvent')
+    async listEvent(limit:number): Promise<AxiosResponse<EventListResponse>> {
+        return api.get(`/admin/myAcademy/listEvent/${limit}`)
     }
-    async detailEvent(): Promise<AxiosResponse<EventListResponse>> {
-        return api.get('/admin/myAcademy/detailEvent')
+    async detailEvent(trainingId:number): Promise<AxiosResponse<EventDetailResponse>> {
+        return api.get(`/admin/myAcademy/detailEvent/${trainingId}`)
     }
     async createEvent(): Promise<AxiosResponse<EventListResponse>> {
         return api.post('/admin/myAcademy/createEvent')

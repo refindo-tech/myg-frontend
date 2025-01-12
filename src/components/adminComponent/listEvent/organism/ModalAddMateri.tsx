@@ -20,7 +20,7 @@ export default function ModalAddMateri ({isOn, handleModal}: {isOn:boolean, hand
                 <h2 className="font-playfair text-2xl lg:text-4xl font-semibold text-center text-gray-700">Tambah Materi</h2>
                 <div className="w-full h-full flex items-center justify-center flex-col gap-5 p-8">
                     <YoutubeInput />
-                    <PosterEventInput />
+                    <PosterEventInput label={"Poster"} id={"posteracara"}/>
                     <SubmitAddEvent />
                 </div>
             </div>

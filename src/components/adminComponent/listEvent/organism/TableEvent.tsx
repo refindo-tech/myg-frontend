@@ -13,8 +13,9 @@ import EditButtonEvent from "../atom/EditButtonEvent";
 import DetailButtonEvent from "../atom/DetailButtonEvent";
 import DeleteButtonEvent from "../atom/DeleteButtonEvent";
 import ActionEvent from "../molecules/ActionEvent.jsx";
+import {ListEventData} from "@/types/myAcademy/admin/listEvent.js";
 
-const TableEvent = () => {
+const TableEvent: React.FC<{ data: ListEventData[] }> = ({ data }) => {
   return (
     <Table
       color="default"
@@ -31,26 +32,36 @@ const TableEvent = () => {
         <TableColumn>ACTION</TableColumn>
       </TableHeader>
       <TableBody>
-        <TableRow key="1">
-          <TableCell>
-            <IconEvent />
-          </TableCell>
-          <TableCell>
-            <p>1 September 2024</p>
-          </TableCell>
-          <TableCell>
-            <Chip color="success" variant="flat">
-              Active
-            </Chip>
-          </TableCell>
-          <TableCell>
-            <div className="flex flex-row gap-2">
-              <DetailButtonEvent href={`/listEvent/detail/1`}/>
-              <EditButtonEvent href={`/listEvent/edit/1`}/>
-              <DeleteButtonEvent />
-            </div>
-          </TableCell>
-        </TableRow>
+        {data?.map((item, index) => (
+          <TableRow key={index}>
+            <TableCell>
+              <IconEvent />
+            </TableCell>
+            <TableCell>
+              <p>1 September 2024</p>
+            </TableCell>
+            <TableCell>
+              {item.dateStart > new Date() ? (
+                <Chip color="success" variant="flat">
+                  Active
+                </Chip>
+              ) : (
+                <Chip color="danger" variant="flat">
+                  Passed
+                </Chip>
+              )}
+            </TableCell>
+            <TableCell>
+              <div className="flex flex-row gap-2">
+                <DetailButtonEvent
+                  href={`/listEvent/detail/${item.trainingId}`}
+                />
+                <EditButtonEvent href={`/listEvent/edit/${item.trainingId}`} />
+                <DeleteButtonEvent />
+              </div>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

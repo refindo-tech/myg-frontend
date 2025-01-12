@@ -7,14 +7,10 @@ const MateriAndBenefit = ({ data }) => {
     const { benefit } = detailTraining
     const listMateri = materi ? materi.split('/') : [];
     const listBenefit = benefit ? benefit.split('/') : [];
-    // const listMateri = materi.split('/')
-    // const listBenefit = benefit.split('/')
     useEffect(() => {
         setDetailTraining(data)
         console.log(data)
     }, [data])
-    console.log('ini materiiiii', listMateri)
-    console.log('ini benefit', listBenefit)
     return (
         <>
             <div className="flex flex-col gap-y-3">
