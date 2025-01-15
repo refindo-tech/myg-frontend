@@ -6,12 +6,12 @@ import TableEvent from "../organism/TableEvent";
 import PaginationBottom from "../atom/PaginationBottom.jsx";
 import OptionListEvent from "../organism/OptionListEvent";
 import ListEventServices from "@/lib/admin/listEvent/listEventService";
-import {EventListResponse, ListEventData} from "@/types/myAcademy/admin/listEvent"
+import {EventListResponse, DetailEventData} from "@/types/myAcademy/admin/listEvent"
 
 const ListEvent = () => {
   // const limit = 5
   const [limit, setLimit] = useState<number>(1)
-  const [dataListEvent, setDataListEvent] = useState<ListEventData[]>([])
+  const [dataListEvent, setDataListEvent] = useState<DetailEventData[]>([])
   const handleLimit = (e:number) => {
     setLimit(e)
   }

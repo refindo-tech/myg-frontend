@@ -10,13 +10,13 @@ import ModalAddMateri from "@/components/adminComponent/listEvent/organism/Modal
 import ListEventServices from "@/lib/admin/listEvent/listEventService";
 import {
   EventDetailResponse,
-  ListEventData,
+  DetailEventData,
 } from "@/types/myAcademy/admin/listEvent";
 
 export default function DetailEvent() {
   const path = usePathname();
   const idTraining = path.split("/")[3];
-  const [detailData, setDetailData] = useState<ListEventData | null>(null);
+  const [detailData, setDetailData] = useState<DetailEventData | null>(null);
   const { EditEventIcon } = icons;
   const [isOn, setIsOn] = React.useState(false);
   const handleModal = () => {
@@ -63,7 +63,7 @@ export default function DetailEvent() {
               <div className="w-full lg:w-[460px] min-h-[500px] lg:h-[650px] rounded-xl relative">
                 <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0">
                   <Image
-                    src={"/images/brosurmyacademi.png"}
+                    src={detailData.materials[0].brosur}
                     alt="brosur"
                     fill
                     style={{ borderRadius: "12px" }}

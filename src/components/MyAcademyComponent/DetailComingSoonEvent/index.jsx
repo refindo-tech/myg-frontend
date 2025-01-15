@@ -118,7 +118,10 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                         </div>
                         <div className="flex flex-col gap-y-3 lg:gap-y-7">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi Acara</h3>
-                            <iframe src={`https://www.google.com/maps/embed?pb=${data.embedMaps}`} width={'100%'} height={300} style={{ border: '0px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe>
+                            {data.embedMaps&&
+                                <div className="iframeMaps w-full" dangerouslySetInnerHTML={{__html:data.embedMaps}}></div>
+                            }
+                            {/* <iframe src={`https://www.google.com/maps/embed?pb=${data.embedMaps}`} width={'100%'} height={300} style={{ border: '0px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe> */}
                             <p className="text-wrap font-sans text-xs lg:text-xl font-normal text-abumuda">
                                 {`${data.address}`}
                             </p>

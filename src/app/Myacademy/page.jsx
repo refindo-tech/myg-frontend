@@ -12,6 +12,7 @@ import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy'
 import { Image } from "@nextui-org/image"
 import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI"
 import { useState, useEffect } from "react"
+
 const MyAcademyTes = () => {
     const [listTraining, setListTraining] = useState(null)
     const [listExam, setListExam] = useState(null)

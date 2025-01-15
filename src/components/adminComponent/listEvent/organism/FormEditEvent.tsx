@@ -11,7 +11,7 @@ import JudulEventInput from "../atom/JudulEventInput.jsx";
 import icons from "@/components/icons/icon";
 import DeskripsiEventInput from "../atom/DeskripsiEventInput.jsx";
 import SubmitAddEvent from "../atom/SubmitAddEvent";
-import PosterEventInput from "../atom/PosterEventInput.jsx";
+import PosterEventInput from "../atom/PosterEventInput";
 
 const FormEditEvent = () => {
   const { SkrupIcon } = icons;

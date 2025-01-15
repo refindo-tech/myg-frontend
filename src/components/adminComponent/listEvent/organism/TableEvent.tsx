@@ -13,9 +13,9 @@ import EditButtonEvent from "../atom/EditButtonEvent";
 import DetailButtonEvent from "../atom/DetailButtonEvent";
 import DeleteButtonEvent from "../atom/DeleteButtonEvent";
 import ActionEvent from "../molecules/ActionEvent.jsx";
-import {ListEventData} from "@/types/myAcademy/admin/listEvent.js";
+import {DetailEventData} from "@/types/myAcademy/admin/listEvent.js";
 
-const TableEvent: React.FC<{ data: ListEventData[] }> = ({ data }) => {
+const TableEvent: React.FC<{ data: DetailEventData[] }> = ({ data }) => {
   return (
     <Table
       color="default"

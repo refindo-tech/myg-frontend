@@ -3,6 +3,7 @@
 import React from 'react';
 import HomePage from '@/components/dashboard/HomePage';
 
+
 const heroData = {
   title: "Bergabunglah dengan kami di Yayasan Multi Yasykur Global",
   description: "Lihat layanan yang ada yaitu My Academy, MYA, dan My Beautica. Layanan kecantikan kami mencakup akademi kecantikan, produk kecantikan, hingga layanan kecantikan langsung.",
