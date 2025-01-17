@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../globals.css"
 export const metadata = {
     title:"Pelatihan Kecantikan My Academy",
     description:"Tingkatkan keterampilan kecantikan Anda dengan pelatihan dari My Academy. Pelajari teknik profesional dan dapatkan sertifikasi untuk memulai atau mengembangkan bisnis kecantikan Anda."

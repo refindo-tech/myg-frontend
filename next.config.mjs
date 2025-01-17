@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
+import nextPWA from 'next-pwa';
+
+const prod = process.env.NODE_ENV === 'production';
+
+const withPWA = nextPWA({
+    dest: 'public',
+    disable: prod ? false : true,
+});
+
 const nextConfig = {
     async redirects() {
         return [
@@ -24,14 +33,33 @@ const nextConfig = {
             // }
         ];
     },
+    //     // Menambahkan loader tambahan untuk memproses file CSS
+    webpack(config) {
+        config.module.rules.push(
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //         'style-loader',
+            //         {
+            //             loader: 'css-loader',
+            //             options: {
+            //                 importLoaders: 1,
+            //             },
+            //         },
+            //         // 'postcss-loader', // Memproses file CSS dengan Tailwind
+            //     ],
+            // },
+            {
+                test: /\.(eot|svg|ttf|css2|woff|woff2?)$/,
+                use: [
+                    'style-loader',
+                    'file-loader',
+                    'css-loader'
+                ],
+            },
+        );
+        return config;
+    }
 };
-
-import nextPWA from 'next-pwa';
-
-const prod = process.env.NODE_ENV === 'production';
-const withPWA = nextPWA({
-    dest: 'public',
-    disable: prod ? false : true,
-});
 
 export default withPWA(nextConfig);

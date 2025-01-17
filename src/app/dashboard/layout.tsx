@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ScrollToTopButton from '@/components/common/molecules/ScrollToTop';
-
+import "../globals.css"
 interface LayoutProps {
   children: React.ReactNode;
 }
