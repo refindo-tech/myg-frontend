@@ -34,7 +34,7 @@ const ListEvent = () => {
   },[limit])
   return (
     <div className="min-h-screen w-full p-6">
-      <h5 className="font-sans text-base text-gray-700">1 September 2024</h5>
+      <h5 className="font-sans text-base text-gray-700">{new Date().toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</h5>
       <h1 className="font-sans text-2xl text-gray-700">
         List Acara My Academy
       </h1>

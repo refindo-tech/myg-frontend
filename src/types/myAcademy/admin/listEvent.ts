@@ -38,8 +38,8 @@ export type inputMaterial = {
     title: string,
     description: string,
     type: "OFFLINE" | "ONLINE",
-    banner: string,
-    brosur?: string,
+    banner: string | File | undefined,
+    brosur?: string | File | undefined,
     formRegistration?: string | null | undefined,
     ebook?: string | null | undefined,
     youtubeVideo?: string | null | undefined,
@@ -51,13 +51,12 @@ export type inputEventData = {
     description: string,
     dateStart: Date,
     dateFinish?: Date | null | undefined,
-    adress: string,
+    address: string,
     price: number | null | undefined,
     embedMaps?: string | null | undefined,
     linkMaps?: string | null | undefined,
     materi: string,
     benefit: string,
-    thumbnail: string,
     materials: inputMaterial[]
 }
 

@@ -7,6 +7,7 @@ interface propsInputField {
     id: string;
     name: string;
     value: any;
+    isRequired?: boolean
     variant?: "bordered" | "flat" | "faded" | "underlined" | undefined;
     placeholder: string;
     onChange: (params:any) => void
@@ -18,6 +19,7 @@ const InputField:React.FC<propsInputField> = ({
     value,
     id,
     name,
+    isRequired=true,
     variant="bordered",
     placeholder,
     onChange
@@ -31,6 +33,7 @@ const InputField:React.FC<propsInputField> = ({
             color={color}
             label={label}
             variant={variant}
+            isRequired={isRequired}
             placeholder={placeholder}
             onChange={(e)=>{
                 onChange(e)

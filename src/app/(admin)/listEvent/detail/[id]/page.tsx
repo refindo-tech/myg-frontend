@@ -3,25 +3,25 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useLayoutEffect } from "react";
-import AddMateri from "@/components/adminComponent/listEvent/atom/AddMateri";
 import Link from "next/link";
 import icons from "@/components/icons/icon";
-import ModalAddMateri from "@/components/adminComponent/listEvent/organism/ModalAddMateri";
 import ListEventServices from "@/lib/admin/listEvent/listEventService";
 import {
   EventDetailResponse,
   DetailEventData,
 } from "@/types/myAcademy/admin/listEvent";
+// import AddMateri from "@/components/adminComponent/listEvent/atom/AddMateri";
+// import ModalAddMateri from "@/components/adminComponent/listEvent/organism/ModalAddMateri";
 
 export default function DetailEvent() {
   const path = usePathname();
   const idTraining = path.split("/")[3];
   const [detailData, setDetailData] = useState<DetailEventData | null>(null);
   const { EditEventIcon } = icons;
-  const [isOn, setIsOn] = React.useState(false);
-  const handleModal = () => {
-    setIsOn((prev) => !prev);
-  };
+  // const [isOn, setIsOn] = React.useState(false);
+  // const handleModal = () => {
+  //   setIsOn((prev) => !prev);
+  // };
   useLayoutEffect(() => {
     const fetchAPI = async () => {
       const response = await ListEventServices.detailEvent(
@@ -43,21 +43,21 @@ export default function DetailEvent() {
   });
   return (
     <div className="min-h-screen w-full p-6">
-      <h5 className="font-sans text-base text-gray-700">1 September 2024</h5>
+      <h5 className="font-sans text-base text-gray-700">{new Date().toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</h5>
       <h1 className="font-sans text-2xl text-gray-700">Detail Acara</h1>
       {detailData && (
         <div className="w-full lg:w-fit lg:max-w-4xl h-fit rounded-lg p-5 lg:p-8 bg-white shadow-xl mt-8 mx-auto flex flex-col gap-10">
           <div className="flex flex-col gap-5">
             <div className="w-full flex justify-end flex-row gap-3">
               <Link
-                href={"/listEvent/edit/1"}
+                href={`/listEvent/edit/${idTraining}`}
                 aria-label="add event"
-                className="bg-kuning2 text-abugelap flex flex-row gap-3 items-center px-6 rounded-xl"
+                className="h-12 bg-kuning2 text-abugelap flex flex-row gap-3 items-center px-6 rounded-xl"
               >
                 <EditEventIcon />
                 <p className="font-sans font-semibold text-base">Edit Acara</p>
               </Link>
-              <AddMateri handleModal={handleModal} />
+              {/* <AddMateri handleModal={handleModal} /> */}
             </div>
             <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-center">
               <div className="w-full lg:w-[460px] min-h-[500px] lg:h-[650px] rounded-xl relative">
@@ -77,10 +77,10 @@ export default function DetailEvent() {
                 <p className=" ">
                   {detailData.description}
                 </p>
-                <p className="text-yellow-700">27 Juli 2024</p>
+                <p className="text-yellow-700">{new Date(detailData.dateStart).toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</p>
                 <p className="">{detailData.address}</p>
                 <p className="font-semibold text-2xl lg:text-4xl">
-                  {detailData.price}
+                  {`Rp. ${detailData.price}`}
                 </p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function DetailEvent() {
           </div>
         </div>
       )}
-      <ModalAddMateri isOn={isOn} handleModal={handleModal} />
+      {/* <ModalAddMateri isOn={isOn} handleModal={handleModal} /> */}
     </div>
   );
 }

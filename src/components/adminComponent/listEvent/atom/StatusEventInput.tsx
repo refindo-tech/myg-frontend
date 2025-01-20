@@ -1,5 +1,9 @@
+import React from 'react';
 import { Select, SelectItem } from '@nextui-org/react'
-const StatusEventInput = () => {
+interface propsSelectInput{
+    handleInput: (params:any) => void
+}
+const StatusEventInput:React.FC<propsSelectInput> = ({handleInput}) => {
     const data = [
         {key: "active", label: "Active"},
         {key: "passed", label: "Passed"},
@@ -11,8 +15,9 @@ const StatusEventInput = () => {
             variant='bordered'
             items={data}
             placeholder="Pilih status"
+            onChange={(e)=>{handleInput(e)}}
         >
-            {(data)=><SelectItem>{data.label}</SelectItem>}
+            {(data)=><SelectItem key={data.label}>{data.label}</SelectItem>}
         </Select>
     )
 }
