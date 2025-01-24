@@ -10,6 +10,9 @@ const withPWA = nextPWA({
 });
 
 const nextConfig = {
+    images:{
+        domains:["localhost"]
+    },
     async redirects() {
         return [
             {

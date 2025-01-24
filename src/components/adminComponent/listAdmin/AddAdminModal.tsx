@@ -160,7 +160,6 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
     if (newAdmin.userProfile.profilePicture) {
       formData.append('profilePicture', newAdmin.userProfile.profilePicture);
     }
-
     onAddAdmin(formData);
     clearForm();
     onOpenChange(false);

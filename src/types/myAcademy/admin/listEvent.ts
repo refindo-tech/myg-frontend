@@ -38,8 +38,8 @@ export type inputMaterial = {
     title: string,
     description: string,
     type: "OFFLINE" | "ONLINE",
-    banner: string | File | undefined,
-    brosur?: string | File | undefined,
+    banner: string | File,
+    brosur?: string | File,
     formRegistration?: string | null | undefined,
     ebook?: string | null | undefined,
     youtubeVideo?: string | null | undefined,
@@ -49,10 +49,10 @@ export type inputMaterial = {
 export type inputEventData = {
     trainingName: string,
     description: string,
-    dateStart: Date,
+    dateStart: Date ,
     dateFinish?: Date | null | undefined,
     address: string,
-    price: number | null | undefined,
+    price: number | undefined,
     embedMaps?: string | null | undefined,
     linkMaps?: string | null | undefined,
     materi: string,
@@ -65,7 +65,10 @@ export type EventListResponse = {
         success: boolean;
         message: string;
     };
-    results: Array<DetailEventData>
+    results: {
+        list:Array<DetailEventData>,
+        count:number
+    }
 }
 export type EventDetailResponse = {
     meta: {

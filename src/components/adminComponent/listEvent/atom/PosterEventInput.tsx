@@ -14,8 +14,9 @@ const PosterEventInput: React.FC<propsPosterInput> = ({
   hasPoster,
   onChange,
 }) => {
+  const getBrosurPictureUrl = (path: string) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
   const [previewHovered, setPreviewHovered] = useState<boolean>(false);
-  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>("");
   const { UploadFileIcon, TrashIcon } = icons;
   const handleRemoveFile = () => {
     const inputRef = document.getElementById(id) as HTMLInputElement
@@ -28,7 +29,7 @@ const PosterEventInput: React.FC<propsPosterInput> = ({
     if (hasPoster instanceof File) {
       setPreviewUrl(URL.createObjectURL(hasPoster));
     } else if (typeof hasPoster === "string") {
-      setPreviewUrl(hasPoster);
+      setPreviewUrl(getBrosurPictureUrl(hasPoster));
     }
   }, [hasPoster]);
   return (

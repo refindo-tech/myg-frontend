@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Table,
@@ -9,15 +10,15 @@ import {
   TableCell,
   Chip,
 } from "@nextui-org/react";
-import IconEvent from "../atom/IconEvent.jsx";
 import EditButtonEvent from "../atom/EditButtonEvent";
 import DetailButtonEvent from "../atom/DetailButtonEvent";
 import DeleteButtonEvent from "../atom/DeleteButtonEvent";
-import ActionEvent from "../molecules/ActionEvent.jsx";
-import formatDateText from '@/helpers/formatDateText.js'
-import {DetailEventData} from "@/types/myAcademy/admin/listEvent.js";
-
-const TableEvent: React.FC<{ data: DetailEventData[] }> = ({ data }) => {
+import { DetailEventData } from "@/types/myAcademy/admin/listEvent.js";
+interface propsTableEvent {
+  data:DetailEventData[],
+}
+const TableEvent: React.FC<propsTableEvent> = ({ data }) => {
+  const getProfilePictureUrl = (path: string) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
   return (
     <Table
       color="default"
@@ -38,16 +39,34 @@ const TableEvent: React.FC<{ data: DetailEventData[] }> = ({ data }) => {
         {data?.map((item, index) => (
           <TableRow key={index} className="items-start">
             <TableCell className="align-top w-[300px]">
-              <Image alt="banner" src={item.materials[0].brosur} height={300} width={300}/>
+              {item.materials?.[0]?.brosur ? (
+                <Image
+                  alt="banner"
+                  src={getProfilePictureUrl(item.materials[0].brosur)}
+                  height={300}
+                  width={300}
+                  className="rounded-lg"
+                />
+              ) : (
+                <p className="text-gray-400 py-3">No Banner</p> // Teks fallback jika tidak ada brosur
+              )}
             </TableCell>
-            <TableCell className="align-top max-w-[250px]">
+            <TableCell className="align-top max-w-[250px] py-3">
               {/* <IconEvent /> */}
-              <p className=" font-semibold lg:text-lg line-clamp-2">{item.materials[0].title}</p>
+              <p className=" font-semibold lg:text-lg line-clamp-2">
+                {item.trainingName}
+              </p>
             </TableCell>
-            <TableCell className="align-top">
-              <p className="text-center">{new Date(item.dateStart).toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</p>
+            <TableCell className="align-top py-3">
+              <p className="text-center">
+                {new Date(item.dateStart).toLocaleDateString("id-ID", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
             </TableCell>
-            <TableCell className="align-top">
+            <TableCell className="align-top py-3">
               {new Date(item.dateStart) > new Date() ? (
                 <Chip color="success" variant="flat">
                   Active
@@ -58,13 +77,13 @@ const TableEvent: React.FC<{ data: DetailEventData[] }> = ({ data }) => {
                 </Chip>
               )}
             </TableCell>
-            <TableCell className="align-top">
+            <TableCell className="align-top py-3">
               <div className="flex flex-row gap-2">
                 <DetailButtonEvent
                   href={`/listEvent/detail/${item.trainingId}`}
                 />
                 <EditButtonEvent href={`/listEvent/edit/${item.trainingId}`} />
-                <DeleteButtonEvent />
+                <DeleteButtonEvent trainingName={item.trainingName} idTraining={item.trainingId}/>
               </div>
             </TableCell>
           </TableRow>

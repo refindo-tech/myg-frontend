@@ -61,6 +61,7 @@ const ListAdminPage: React.FC = () => {
   const handleAddAdmin = async (formData: FormData) => {
     try {
       setError(null);
+      console.log(formData)
       const { data } = await ListAdminService.registerAdmin(formData);
       setListAdmin((prevAdmins) => [...prevAdmins, data.results]);
       onOpenChangeAddModal();

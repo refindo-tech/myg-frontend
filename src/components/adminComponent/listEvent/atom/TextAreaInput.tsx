@@ -1,6 +1,6 @@
 'use client'
-import { Input } from '@nextui-org/react'
-import React, {useState, useEffect} from 'react';
+import { Textarea } from '@nextui-org/react'
+import React,{useState, useEffect} from 'react';
 interface propsInputField {
     type?: string;
     color?: "warning" | "danger" | "default" | "primary" | "secondary" | undefined;
@@ -13,7 +13,7 @@ interface propsInputField {
     placeholder: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
-const InputField:React.FC<propsInputField> = ({
+const TextAreaInput:React.FC<propsInputField> = ({
     type="text",
     color="warning",
     label,
@@ -39,7 +39,7 @@ const InputField:React.FC<propsInputField> = ({
         // }
     },[value, isInteract, label])
     return (
-        <Input
+        <Textarea
             id={id}
             name={name}
             value={value}
@@ -47,15 +47,15 @@ const InputField:React.FC<propsInputField> = ({
             color={color}
             label={label}
             variant={variant}
-            isRequired={isRequired}
-            isInvalid={isRequired ? isInvalid:false}
+            isInvalid={isInvalid}
             errorMessage={errorMessage}
+            isRequired={isRequired}
             placeholder={placeholder}
             onChange={(e)=>{
-                setIsInteract(true)
                 onChange(e)
+                setIsInteract(true)
             }}
         />
     )
 }
-export default InputField
+export default TextAreaInput

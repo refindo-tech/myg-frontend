@@ -18,6 +18,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
     const pathname = usePathname()
     const { CloudIcon, CollectionIcon } = icons
     const [data, setData] = useState({})
+    const getBannerPictureUrl = (path) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
     useEffect(() => {
         setData(detailTraining)
     }, [detailTraining])
@@ -109,7 +110,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                         <Image
                             alt="brosur"
                             // src="/images/brosurmyacademi.png"
-                            src={`${detailTraining.materials[0].brosur}`}
+                            src={getBannerPictureUrl(detailTraining.materials[0].brosur)}
                             width={'100%'}
                         />
                         <div className="flex flex-col gap-y-3 w-[70%]">

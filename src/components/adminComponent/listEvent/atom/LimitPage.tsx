@@ -4,9 +4,10 @@ import { useEffect } from 'react'
 import { Select, SelectItem } from '@nextui-org/react'
 import { useState } from 'react'
 interface propsLimitPage {
+    totalData:number;
     setLimit:(e:number)=>void
 }
-const LimitPage:React.FC<propsLimitPage> = ({setLimit}) => {
+const LimitPage:React.FC<propsLimitPage> = ({totalData, setLimit}) => {
     const [value, setValue] = useState<string>("1")
     const handleValue = (value:string)=>{
         setValue(value)
@@ -32,7 +33,7 @@ const LimitPage:React.FC<propsLimitPage> = ({setLimit}) => {
                 <SelectItem key={"10"} className='p-0 rounded-md text-center'>10</SelectItem>
                 <SelectItem key={"15"} className='p-0 rounded-md text-center'>15</SelectItem>
             </Select>
-            <p>of 10</p>
+            <p>of {totalData}</p>
         </div>
     )
 }

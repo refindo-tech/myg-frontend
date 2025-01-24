@@ -29,7 +29,7 @@ const Testimonial: React.FC<Testimony> = (testimony) => {
             <div className='flex-1 w-full h-full flex flex-col items-center justify-center'>
                 <div className="absolute -top-8 text-black text-[120px] font-normal font-['Open Sans'] leading-normal">“</div>
                 <div className="relative flex-col flex py-4 min-h-[150px] xl:min-h-[100px] items-center justify-center">
-                    <div className="w-full text-center text-black text-normal font-normal font-['Open Sans'] leading-normal"> "{testimony.comment}"</div>
+                    <div className="w-full text-center text-black text-normal font-normal font-['Open Sans'] leading-normal"> {`"${testimony.comment}"`}</div>
                 </div>
             </div>
 

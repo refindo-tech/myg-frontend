@@ -69,7 +69,7 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({ onToggle }) => {
                 href="/listEvent"
                 title="MY Academy"
                 icon={<BookIcon />}
-                isActive={pathname === "/"}
+                isActive={pathname === "/listEvent"}
               />
 
               <SidebarItem

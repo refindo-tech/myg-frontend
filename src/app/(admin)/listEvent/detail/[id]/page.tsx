@@ -10,32 +10,68 @@ import {
   EventDetailResponse,
   DetailEventData,
 } from "@/types/myAcademy/admin/listEvent";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 // import AddMateri from "@/components/adminComponent/listEvent/atom/AddMateri";
 // import ModalAddMateri from "@/components/adminComponent/listEvent/organism/ModalAddMateri";
 
 export default function DetailEvent() {
   const path = usePathname();
+  const router = useRouter();
   const idTraining = path.split("/")[3];
   const [detailData, setDetailData] = useState<DetailEventData | null>(null);
+  const [listMateri, setListMateri] = useState<string[]>([""]);
+  const [listBenefit, setListBenefit] = useState<string[]>([""]);
+
   const { EditEventIcon } = icons;
+  const getBannerPictureUrl = (path: string) =>
+    `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
   // const [isOn, setIsOn] = React.useState(false);
   // const handleModal = () => {
   //   setIsOn((prev) => !prev);
   // };
   useLayoutEffect(() => {
     const fetchAPI = async () => {
-      const response = await ListEventServices.detailEvent(
-        parseInt(idTraining)
-      );
-      if (response) {
-        const data: EventDetailResponse = response.data;
-        if (data.meta.success) {
-          setDetailData(data.results || null);
+      try {
+        const response = await ListEventServices.detailEvent(
+          parseInt(idTraining)
+        );
+        if (response) {
+          const data: EventDetailResponse = response.data;
+          if (data.meta.success) {
+            setDetailData(data.results || null);
+            const { materi } = data.results;
+            const { benefit } = data.results;
+            const listMateri = materi
+              ? materi
+                  .split("•")
+                  .map((item) => item.trim())
+                  .filter(Boolean)
+              : [];
+            const listBenefit = benefit
+              ? benefit
+                  .split("•")
+                  .map((item) => item.trim())
+                  .filter(Boolean)
+              : [];
+            setListMateri(listMateri);
+            setListBenefit(listBenefit);
+          }
+        }
+      } catch (error: any) {
+        console.error("Failed to fetch admins:", error);
+        if (error.response.status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Your sessioun was expired, please login again!",
+          });
+          router.push("/dashboard");
         }
       }
     };
     fetchAPI();
-  }, [idTraining]);
+  }, [idTraining, router]);
   useEffect(() => {
     if (detailData) {
       console.log(detailData);
@@ -43,7 +79,13 @@ export default function DetailEvent() {
   });
   return (
     <div className="min-h-screen w-full p-6">
-      <h5 className="font-sans text-base text-gray-700">{new Date().toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</h5>
+      <h5 className="font-sans text-base text-gray-700">
+        {new Date().toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
+      </h5>
       <h1 className="font-sans text-2xl text-gray-700">Detail Acara</h1>
       {detailData && (
         <div className="w-full lg:w-fit lg:max-w-4xl h-fit rounded-lg p-5 lg:p-8 bg-white shadow-xl mt-8 mx-auto flex flex-col gap-10">
@@ -63,7 +105,7 @@ export default function DetailEvent() {
               <div className="w-full lg:w-[460px] min-h-[500px] lg:h-[650px] rounded-xl relative">
                 <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0">
                   <Image
-                    src={detailData.materials[0].brosur}
+                    src={getBannerPictureUrl(detailData.materials[0].brosur)}
                     alt="brosur"
                     fill
                     style={{ borderRadius: "12px" }}
@@ -74,10 +116,13 @@ export default function DetailEvent() {
                 <h2 className="font-bold text-2xl lg:text-4xl">
                   {detailData.trainingName}
                 </h2>
-                <p className=" ">
-                  {detailData.description}
+                <p className="text-yellow-700">
+                  {new Date(detailData.dateStart).toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
-                <p className="text-yellow-700">{new Date(detailData.dateStart).toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</p>
                 <p className="">{detailData.address}</p>
                 <p className="font-semibold text-2xl lg:text-4xl">
                   {`Rp. ${detailData.price}`}
@@ -90,10 +135,59 @@ export default function DetailEvent() {
               <h3 className="font-medium font-serif lg:text-4xl text-2xl">
                 Deskripsi Acara
               </h3>
-              <p className=" text-gray-400">
-                {detailData.description}
-              </p>
+              <p className=" text-gray-400">{detailData.description}</p>
             </div>
+            {listMateri[0] !== "" && (
+              <div className="flex flex-col gap-5">
+                <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">
+                  Materi
+                </h3>
+                <div className="pl-6 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
+                  {/* {materi} */}
+                  <ol className="list-disc">
+                    {listMateri.map((item, indexmateri) => {
+                      const listSubmateri = item ? item.split("") : [];
+                      return (
+                        <li key={`materi-${indexmateri}`}>
+                          {listSubmateri[0] ? (
+                            <p>{listSubmateri[0]}</p>
+                          ) : (
+                            <p>{item}</p>
+                          )}
+                          <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
+                            <ol className="list-disc">
+                              {listSubmateri.map(
+                                (item, index) =>
+                                  index !== 0 && (
+                                    <li key={`submateri-${index}`}>
+                                      <p>{item}</p>
+                                    </li>
+                                  )
+                              )}
+                            </ol>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              </div>
+            )}
+            {listBenefit[0] !== "" && (
+              <div className="flex flex-col gap-5">
+                <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">
+                  Benefit
+                </h3>
+                <div className="pl-6 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
+                  {/* {benefit} */}
+                  <ol className="list-disc">
+                    {listBenefit.map((item, index) => (
+                      <li key={`benefit-${index}`}>{item}</li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            )}
             <div className="flex flex-col gap-5">
               <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">
                 Cara Mendaftar
