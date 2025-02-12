@@ -3,7 +3,7 @@ import { DatePicker } from '@nextui-org/react'
 import * as dateFormated from '@internationalized/date';
 
 interface propsDateInput {
-    value: Date | null | undefined;
+    value: Date;
     handleInput: (params:any) => void
 }
 const DateEventInput:React.FC<propsDateInput> = ({handleInput, value}) => {

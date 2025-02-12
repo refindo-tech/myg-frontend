@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import icons from "@/components/icons/icon";
 interface propsPosterInput {
-  hasPoster: string | File | undefined;
+  hasPoster: string | Blob | undefined;
   label: string;
   id: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

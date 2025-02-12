@@ -3,10 +3,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "@nextui-org/card";
+import { Button } from "@nextui-org/button";
 import TableEvent from "@/components/adminComponent/listEvent/organism/TableEvent";
-import PaginationBottom from "@/components/adminComponent/listEvent/atom/PaginationBottom";
+// import PaginationBottom from "@/components/adminComponent/listEvent/atom/PaginationBottom";
 import OptionListEvent from "@/components/adminComponent/listEvent/organism/OptionListEvent";
 import ListEventServices from "@/lib/admin/listEvent/listEventService";
+import { Pagination } from "@nextui-org/react";
 import {
   EventListResponse,
   DetailEventData,
@@ -15,28 +17,30 @@ import Swal from "sweetalert2";
 import { Router } from "lucide-react";
 const ListEvent = () => {
   // const limit = 5
-  const router = useRouter()
+  const router = useRouter();
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const [totalData, setTotalData] = useState<number>(0);
   const [query, setQuery] = useState<string | undefined>(undefined);
   const [limit, setLimit] = useState<number>(1);
   const [dataListEvent, setDataListEvent] = useState<DetailEventData[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const handleLimit = (e: number) => {
     setLimit(e);
   };
   const handlePage = (val: number) => {
-    setPage(val);
+    console.log("Page changed to:", val);
+    setCurrentPage(val);
   };
   const handleQuery = (val: string | undefined) => {
     console.log(val);
     setQuery(val);
   };
   useEffect(() => {
-    const fetchAPI = async (): Promise<void> => {
+    const fetchAPI = async () => {
       try {
-        const response = await ListEventServices.listEvent(limit, page, query);
-        console.log(response);
+        const response = await ListEventServices.listEvent(limit, currentPage, query)
+        console.log("Fetching data for page:", response)
         if (response.data.meta.success) {
           const data: EventListResponse = response.data;
           console.log(data);
@@ -53,13 +57,13 @@ const ListEvent = () => {
             title: "Error!",
             text: "Your sessioun was expired, please login again!",
           });
-          router.push('/dashboard')
+          router.push("/dashboard");
         }
         // setError("Failed to fetch admin list. Please try again.");
       }
     };
     fetchAPI();
-  }, [limit, page, query, router]);
+  }, [limit, currentPage, query, router]);
   useEffect(() => {
     if (totalData > 0) {
       const result = totalData / limit;
@@ -86,7 +90,42 @@ const ListEvent = () => {
         />
         <TableEvent data={dataListEvent} />
         <div className="flex justify-center mt-8">
-          <PaginationBottom totalPage={totalPage} handleChange={handlePage} />
+          <div className="flex flex-row gap-2">
+            {totalPage !== 1 && (
+              <Button
+                size="sm"
+                variant="light"
+                onPress={() =>
+                  setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))
+                }
+                isDisabled={currentPage == 1 ? true : false}
+                className="font-semibold hidden lg:block"
+              >
+                Prev
+              </Button>
+            )}
+            <Pagination
+              total={totalPage}
+              isCompact
+              color="warning"
+              page={currentPage}
+              initialPage={1}
+              onChange={(page)=>handlePage(page)}
+            />
+            {totalPage !== 1 && (
+              <Button
+                size="sm"
+                variant="light"
+                onPress={() =>
+                  setCurrentPage((prev) => (prev < 10 ? prev + 1 : prev))
+                }
+                className="font-semibold hidden lg:block"
+              >
+                Next
+              </Button>
+            )}
+          </div>
+          {/* <PaginationBottom totalPage={totalPage} handleChange={handlePage} /> */}
         </div>
       </Card>
     </div>

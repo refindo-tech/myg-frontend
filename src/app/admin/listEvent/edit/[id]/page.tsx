@@ -19,14 +19,14 @@ const EditEvent = () => {
                 title: 'Success!',
                 text: 'Event has been successfully edited.',
             });
-            router.push('/listEvent')
+            router.push('/admin/listEvent')
         }
     } catch (error:any) {
-        console.error("Failed to add Admin:", error);
+        console.error("Failed to add Event:", error);
         Swal.fire({
             icon: 'error',
             title: 'Error!',
-            text: error.response?.data?.meta?.message || error.message || 'Unknown error occurred while aedit event.',
+            text: error.response?.data?.meta?.message || error.message || 'Unknown error occurred while edit event.',
         });
     }
 }

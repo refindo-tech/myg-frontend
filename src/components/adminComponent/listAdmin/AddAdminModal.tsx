@@ -253,7 +253,7 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
               </div>
               <div className="flex flex-row gap-3">
                 <Input
-                  isReadOnly
+                  // isReadOnly
                   label="Role"
                   placeholder="Pilih role"
                   className="mb-4"

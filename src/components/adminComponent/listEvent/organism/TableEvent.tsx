@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   Table,
@@ -19,6 +19,11 @@ interface propsTableEvent {
 }
 const TableEvent: React.FC<propsTableEvent> = ({ data }) => {
   const getProfilePictureUrl = (path: string) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
+  const [listEvent, setListEvent] = useState<DetailEventData[]>(data)
+  useEffect(()=>{
+    setListEvent(data)
+    console.log("Table Event", data)
+  },[data])
   return (
     <Table
       color="default"
@@ -36,7 +41,7 @@ const TableEvent: React.FC<propsTableEvent> = ({ data }) => {
         <TableColumn>ACTION</TableColumn>
       </TableHeader>
       <TableBody>
-        {data?.map((item, index) => (
+        {listEvent?.map((item, index) => (
           <TableRow key={index} className="items-start">
             <TableCell className="align-top w-[300px]">
               {item.materials?.[0]?.brosur ? (
@@ -80,9 +85,9 @@ const TableEvent: React.FC<propsTableEvent> = ({ data }) => {
             <TableCell className="align-top py-3">
               <div className="flex flex-row gap-2">
                 <DetailButtonEvent
-                  href={`/listEvent/detail/${item.trainingId}`}
+                  href={`/admin/listEvent/detail/${item.trainingId}`}
                 />
-                <EditButtonEvent href={`/listEvent/edit/${item.trainingId}`} />
+                <EditButtonEvent href={`/admin/listEvent/edit/${item.trainingId}`} />
                 <DeleteButtonEvent trainingName={item.trainingName} idTraining={item.trainingId}/>
               </div>
             </TableCell>

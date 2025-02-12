@@ -6,7 +6,7 @@ const AddEvent = () => {
   return (
     <Link
       prefetch
-      href={'/listEvent/add'}
+      href={'/admin/listEvent/add'}
       aria-label="add event"
       className="bg-kuning2 text-abugelap flex flex-row gap-1 lg:gap-3 text-2xl rounded-xl"
     >

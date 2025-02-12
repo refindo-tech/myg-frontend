@@ -19,7 +19,8 @@ const MyAcademyTes = () => {
     useEffect(() => {
         const fetchData = async () => {
             const responseTraining = await getRecommendationTraining(4)
-            if (responseTraining) {
+            if (responseTraining.results.length !== 0) {
+                console.log(responseTraining)
                 setListTraining(responseTraining.results)
             }
             const responseExam = await getRecommendationExam(4)

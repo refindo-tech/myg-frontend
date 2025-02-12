@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 export default function DetailEvent() {
   const path = usePathname();
   const router = useRouter();
-  const idTraining = path.split("/")[3];
+  const idTraining = path.split("/")[4];
   const [detailData, setDetailData] = useState<DetailEventData | null>(null);
   const [listMateri, setListMateri] = useState<string[]>([""]);
   const [listBenefit, setListBenefit] = useState<string[]>([""]);
@@ -92,7 +92,7 @@ export default function DetailEvent() {
           <div className="flex flex-col gap-5">
             <div className="w-full flex justify-end flex-row gap-3">
               <Link
-                href={`/listEvent/edit/${idTraining}`}
+                href={`/admin/listEvent/edit/${idTraining}`}
                 aria-label="add event"
                 className="h-12 bg-kuning2 text-abugelap flex flex-row gap-3 items-center px-6 rounded-xl"
               >

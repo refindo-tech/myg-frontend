@@ -13,11 +13,11 @@ import YoutubeInput from "../atom/YoutubeInput";
 import PosterEventInput from "../atom/PosterEventInput";
 import SubmitAddEvent from "../atom/SubmitAddEvent";
 import InputField from "../atom/InputField";
-import { inputEventData } from "@/types/myAcademy/admin/listEvent";
+import { inputMaterial } from "@/types/myAcademy/admin/listEvent";
 interface propsModalAddMateri {
   isOn: boolean;
   handleModal: () => void;
-  stateData: inputEventData;
+  stateData: inputMaterial;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const ModalAddMateri: React.FC<propsModalAddMateri> = ({
@@ -40,7 +40,7 @@ const ModalAddMateri: React.FC<propsModalAddMateri> = ({
                   id="youtubeVideo"
                   name="youtubeVideo"
                   placeholder="Masukkan URL"
-                  value={stateData.materials[0].youtubeVideo}
+                  value={stateData.youtubeVideo}
                   onChange={handleInputChange}
                 />
                 <InputField
@@ -48,7 +48,7 @@ const ModalAddMateri: React.FC<propsModalAddMateri> = ({
                   id="ebook"
                   name="ebook"
                   placeholder="Masukkan URL e-book"
-                  value={stateData.materials[0].ebook}
+                  value={stateData.ebook}
                   onChange={handleInputChange}
                 />
               </ModalBody>

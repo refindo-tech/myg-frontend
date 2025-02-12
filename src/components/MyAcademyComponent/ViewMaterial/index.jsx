@@ -13,6 +13,11 @@ const ViewMaterial = () => {
     const idTraining = pathname.split('/').pop()
     const [dataTraining, setDataTraining] = useState({})
     const [dataMateri, setDataMateri] = useState({})
+    const getEmbedYTUrl = (input) => {
+        const rawUrl = `https://www.youtube.com/embed/${input.split('https://www.youtube.com/watch?v=')[1]}` 
+        console.log(rawUrl)
+        return rawUrl
+    }
     useEffect(() => {
         if (idTraining) {
             const fetchData = async () => {
@@ -30,6 +35,12 @@ const ViewMaterial = () => {
         }
     }, [idTraining])
     console.log('data traininggg', dataTraining)
+    const handleDownload = (input) => {
+        const deleteHttp = input.split('https://drive.google.com/file/d/')[1];
+        const urlDownload = `https://drive.google.com/uc?export=download&id=${deleteHttp.split('/view')[0]}`
+        console.log(urlDownload)
+        window.location.href = urlDownload
+    }
     return (
         <>
             {/* <div className='bg-white shadow-xl'>
@@ -45,15 +56,16 @@ const ViewMaterial = () => {
                         {/* <p className="font-sans text-[18px] font-normal text-stone-900 mt-[10px]">Saturday, July 14, 2024 at 10:00 WIB</p> */}
                         <p className="font-sans text-[18px] font-normal text-stone-900 mt-[10px]">{formattedDateAndDay(dataTraining.dateStart)}</p>
                     </div>
-                    {!dataMateri.youtubeVideo && !dataMateri.youtubeVideo == '' &&
-                        (<div className="w-[90%] mx-auto ">
-                            <iframe src="https://www.youtube-nocookie.com/embed/Ht83QKbvO6c" width="100%" height={500} className="rounded-lg" />
-                        </div>)
+                    {dataMateri.youtubeVideo && !dataMateri.youtubeVideo == '' &&
+                        <div className="w-[90%] mx-auto ">
+                            <iframe src={getEmbedYTUrl(dataMateri.youtubeVideo)} width="100%" height={500} className="rounded-lg" />
+                            {/* <iframe src="https://www.youtube-nocookie.com/embed/Ht83QKbvO6c" width="100%" height={500} className="rounded-lg" /> */}
+                        </div>
                     }
-                    {!dataMateri.ebook && !dataMateri.ebook == '' && (
+                    {dataMateri.ebook && !dataMateri.ebook == '' && (
                         <div className="w-[90%] mx-auto flex flex-row gap-x-[20px]">
                             <Card className="min-h-[30vh] sm:w-[50%] lg:w-[30%] py-3">
-                                <h4 className="text-zinc text-roboto font-medium text-[24px] w-[90%] mx-auto my-3 text-center">Workshop Kecantikan Alami</h4>
+                                <h4 className="text-zinc text-roboto font-medium text-[24px] w-[90%] mx-auto my-3 text-center">Materi</h4>
                                 <div className="w-[100px] mx-auto">
                                     <Image
                                         alt="pdflogo"
@@ -63,10 +75,10 @@ const ViewMaterial = () => {
                                     />
                                 </div>
                                 <div className="flex justify-end p-3">
-                                    <Button color="primary" variant="solid" size="sm">Download</Button>
+                                    <Button color="primary" variant="solid" size="sm" onPress={()=>handleDownload(dataMateri.ebook)}>Download</Button>
                                 </div>
                             </Card>
-                            <Card className="min-h-[30vh] sm:w-[50%] lg:w-[30%] py-3">
+                            {/* <Card className="min-h-[30vh] sm:w-[50%] lg:w-[30%] py-3">
                                 <h4 className="text-zinc text-roboto font-medium text-[24px] w-[90%] mx-auto my-3 text-center">Workshop Kecantikan Alami</h4>
                                 <div className="w-[100px] mx-auto h-[134px] flex items-center">
                                     <Image
@@ -77,9 +89,9 @@ const ViewMaterial = () => {
                                     />
                                 </div>
                                 <div className="flex justify-end p-3">
-                                    <Button color="primary" variant="solid" size="sm">Download</Button>
+                                    <Button color="primary" variant="solid" size="sm" onPress={()=>handleDownload(dataMateri.ebook)}>Download</Button>
                                 </div>
-                            </Card>
+                            </Card> */}
                         </div>
                     )}
                 </Card>

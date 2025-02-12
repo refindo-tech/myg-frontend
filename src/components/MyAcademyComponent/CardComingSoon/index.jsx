@@ -32,7 +32,7 @@ const CardComingSoon = ({ bgcard, training }) => {
                             <div className="absolute top-0 left-0 right-0 bottom-0 bg-top">
                                 <Image
                                     alt="tes"
-                                    src={materials.length > 0 ? getBannerPictureUrl(materials[0].banner) : '/images/fef.jpg'}
+                                    src={materials.length > 0 ? getBannerPictureUrl(materials[0].banner) : ''}
                                     // width={'100%'}
                                     // height={172}
                                     // className="rounded-[8px] object-cover"
@@ -46,7 +46,7 @@ const CardComingSoon = ({ bgcard, training }) => {
                                 <p>{new Date(detailTraining.dateStart).toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}</p>
                                 <p>{`${new Date(detailTraining.dateStart).toLocaleTimeString('id-ID',{hour:"2-digit", minute:"2-digit"})} WIB`}</p>
                             </div>
-                            {new Date(detailExam.dateFinish) <= new Date() ? (
+                            {new Date(detailTraining.dateStart) <= new Date() ? (
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/material/${detailTraining.trainingId}`}>Lihat Acara</Button>
                             ) : (
                                 <Button as={Link} color="primary" size="sm" className="text-[8px] lg:text-base" href={`/Myacademy/material/${detailTraining.trainingId}`}>Daftar Acara</Button>

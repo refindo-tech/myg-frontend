@@ -51,53 +51,53 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({ onToggle }) => {
 
             <SidebarMenu title="Manajemen Akun">
               <SidebarItem
-                href="/listAdmin"
+                href="/admin/listAdmin"
                 title="admin"
                 icon={<UserIcon />}
-                isActive={pathname === "/listAdmin"}
+                isActive={pathname === "/admin/listAdmin"}
               />
               <SidebarItem
-                href="/listPengguna"
+                href="/admin/listPengguna"
                 title="User"
                 icon={<UserIcon />}
-                isActive={pathname === "/listPengguna"}
+                isActive={pathname === "/admin/listPengguna"}
               />
             </SidebarMenu>
 
             <SidebarMenu title="General">
               <SidebarItem
-                href="/listEvent"
+                href="/admin/listEvent"
                 title="MY Academy"
                 icon={<BookIcon />}
-                isActive={pathname === "/listEvent"}
+                isActive={pathname === "/admin/listEvent"}
               />
 
               <SidebarItem
-                href="/listProduct"
+                href="/admin/listProduct"
                 title="Produk"
                 icon={<ProductIcon />}
-                isActive={pathname === "/listProduct"}
+                isActive={pathname === "/admin/listProduct"}
               />
 
               <SidebarItem
-                href="/listPenjualan"
+                href="/admin/listPenjualan"
                 title="Penjualan Produk"
                 icon={<PenjualanIcon />}
-                isActive={pathname === "/listPenjualan"}
+                isActive={pathname === "/admin/listPenjualan"}
               />
 
               <SidebarItem
-                href="/listLayanan"
+                href="/admin/listLayanan"
                 title="Pelayanan"
                 icon={<LayananIcon />}
-                isActive={pathname === "/listLayanan"}
+                isActive={pathname === "/admin/listLayanan"}
               />
 
               <SidebarItem
-                href="/listTestimoni"
+                href="/admin/listTestimoni"
                 title="Testimonial"
                 icon={<TestimonialIcon />}
-                isActive={pathname === "/listTestimoni"}
+                isActive={pathname === "/admin/listTestimoni"}
               />
             </SidebarMenu>
           </div>

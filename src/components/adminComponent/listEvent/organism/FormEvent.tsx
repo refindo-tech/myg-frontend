@@ -4,19 +4,20 @@ import React from "react";
 import DateEventInput from "../atom/DateEventInput";
 import TimeEventInput from "../atom/TimeInputEvent";
 import TextAreaInput from "../atom/TextAreaInput";
-import icons from "@/components/icons/icon";
+// import icons from "@/components/icons/icon";
 import SubmitAddEvent from "../atom/SubmitAddEvent";
 import PosterEventInput from "../atom/PosterEventInput";
 import InputField from "../atom/InputField";
 import AddMateri from "../atom/AddMateri";
 import ModalAddMateri from "./ModalAddMateri";
 import { Card } from "@nextui-org/card";
-import { usePathname } from "next/navigation";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
   inputMaterial,
   inputEventData,
 } from "@/types/myAcademy/admin/listEvent";
+import Swal from "sweetalert2";
 import ListEventServices from "@/lib/admin/listEvent/listEventService";
 import { EventDetailResponse } from "@/types/myAcademy/admin/listEvent";
 import { Time } from "@internationalized/date";
@@ -50,7 +51,8 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
     materials: [initMaterial],
   };
   const path = usePathname();
-  const idTraining = path.split("/")[3];
+  const router = useRouter();
+  const idTraining = path.split("/")[4];
   const [dateStart, setDateStart] = useState<Date | undefined>(undefined);
   const [disabledTime, setDisabledTime] = useState<boolean>(true);
   const [dataMaterial, setDataMaterial] = useState<inputMaterial>(initMaterial);
@@ -60,9 +62,6 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
   const handleModal = () => {
     setIsOn((prev) => !prev);
   };
-  // const [status, setStatus] = useState<"Active" | "Passed" | undefined>(
-  //   undefined
-  // );
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (
@@ -84,9 +83,8 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
       setDataEvent((prevDataEvent) => ({ ...prevDataEvent, [name]: value }));
     }
   };
-  const submitData = async () => {
-    // e: React.FormEvent<HTMLFormElement>
-    // e.preventDefault();
+  const submitData = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("title", dataMaterial.title);
     formData.append("description", dataMaterial.description);
@@ -100,10 +98,9 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
     );
     formData.append("linkMaps", dataEvent.linkMaps || "");
     formData.append("embedMaps", dataEvent.embedMaps || "");
-    formData.append(
-      "posteracara",
-      dataMaterial.brosur ? dataMaterial.brosur : ""
-    );
+    if (dataMaterial.brosur) {
+      formData.append("posteracara", dataMaterial.brosur);
+    }
     if (dataMaterial.youtubeVideo) {
       formData.append("youtubeVideo", dataMaterial.youtubeVideo || "");
     }
@@ -123,7 +120,10 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
       setDataEvent((prev) => ({ ...prev, ["dateStart"]: dateAbsolute }));
     }
   };
-  const handleTimeInput = (value: any | undefined, dateStart:Date|string) => {
+  const handleTimeInput = (
+    value: any | undefined,
+    dateStart: Date | string
+  ) => {
     if (value !== undefined && dateStart !== undefined) {
       const timeValue = value ? new Time(value.hour, value.minute) : null;
       setTimeValue(timeValue);
@@ -137,12 +137,7 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
         value.second || 0, // Update detik jika ada
         value.millisecond || 0 // Update millisecond jika ada
       );
-      setDateStart(updatedDateStart)
-      console.log('Input Value:', value);
-      console.log('Date Start:', currentDate);
-      console.log('Time Value:', timeValue);
-      console.log('Updated Date Start:', updatedDateStart);
-      
+      setDateStart(updatedDateStart);
     }
   };
   const MAX_FILE_SIZE = 25 * 1024 * 1024;
@@ -157,54 +152,71 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
         ...prev,
         brosur: file,
       }));
-      // setPreviewUrl(URL.createObjectURL(file));
     }
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchAPI = async () => {
-      const response = await ListEventServices.detailEvent(
-        parseInt(idTraining)
-      );
-      if (response) {
-        const data: EventDetailResponse = response.data;
-        if (data.meta.success) {
-          const eventDetails = data.results;
-        // Ensure dateStart is a Date object
-        const dateStart = typeof eventDetails.dateStart === 'string'
-          ? new Date(eventDetails.dateStart)
-          : eventDetails.dateStart;
-          setDataEvent((prevDataEvent) =>
-            Object.assign({}, prevDataEvent, {
-              ...eventDetails,
-              dateStart: dateStart
-                ? new Date(dateStart)
-                : prevDataEvent.dateStart,
-              dateFinish: undefined,
-            })
-          );
-          if(dateStart){
-            const hour = dateStart.getHours()
-            const minute = dateStart.getMinutes()
-            const timeValue = dateStart ? new Time(hour, minute) : null;
-            setTimeValue(timeValue)
+      try {
+        const response = await ListEventServices.detailEvent(
+          parseInt(idTraining)
+        );
+        if (response) {
+          const data: EventDetailResponse = response.data;
+          console.log(data);
+          if (data.meta.success) {
+            const eventDetails = data.results;
+            // Ensure dateStart is a Date object
+            const dateStart =
+              typeof eventDetails.dateStart === "string"
+                ? new Date(eventDetails.dateStart)
+                : eventDetails.dateStart;
+            setDataEvent((prevDataEvent) =>
+              Object.assign({}, prevDataEvent, {
+                ...eventDetails,
+                dateStart: dateStart
+                  ? new Date(dateStart)
+                  : prevDataEvent.dateStart,
+                dateFinish: undefined,
+              })
+            );
+            if (dateStart) {
+              const hour = dateStart.getHours();
+              const minute = dateStart.getMinutes();
+              const timeValue = dateStart ? new Time(hour, minute) : null;
+              setTimeValue(timeValue);
+            }
+            if (data.results.materials && data.results.materials.length > 0) {
+              setDataMaterial((prev) => ({
+                ...prev,
+                title: data.results.materials[0].title,
+                description: data.results.materials[0].description,
+                brosur: data.results.materials[0].brosur,
+              }));
+            }
+            setDisabledTime(false);
           }
-          if (data.results.materials) {
-            setDataMaterial(data.results.materials[0]);
-          }
-          setDisabledTime(false);
+        }
+      } catch (error:any) {
+        if(error.response.status===401){
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text:"Your sessioun was expired, please login again!"
+          });
+          router.push("/dashboard")
         }
       }
     };
     if (idTraining) {
       fetchAPI();
     }
-  }, [idTraining]);
+  }, [idTraining, router]);
   useEffect(() => {
     if (dateStart !== undefined) {
       setDisabledTime(false);
-      setDataEvent((prev)=>({...prev, ["dateStart"]:new Date(dateStart)}))
-      console.log("tess",dateStart);
+      setDataEvent((prev) => ({ ...prev, ["dateStart"]: new Date(dateStart) }));
     }
+    // console.log(OldMaterial)
   }, [dateStart]);
   return (
     <article className="flex justify-center min-h-screen w-full">
@@ -214,13 +226,14 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
       >
         <AddMateri handleModal={handleModal} />
         <ModalAddMateri
-          stateData={dataEvent}
+          stateData={dataMaterial}
           handleInputChange={handleInputChange}
           isOn={isOn}
           handleModal={handleModal}
         />
         <form
           className="flex flex-col gap-5 lg:gap-10 max-h-[100%] w-full"
+          // action={`${process.env.NEXT_PUBLIC_BASE_API}/api/admin/myAcademy/updateEvent/`}
           onSubmit={submitData}
         >
           <InputField
@@ -321,8 +334,3 @@ const FormEvent: React.FC<propsFormEvent> = ({ onAddEvent, onEditEvent }) => {
   );
 };
 export default FormEvent;
-// const printAllData = (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   const result = { ...dataEvent, ["materials"]: [dataMaterial] };
-//   console.log(result);
-// };
