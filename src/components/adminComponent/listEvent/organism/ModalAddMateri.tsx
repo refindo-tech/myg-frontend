@@ -36,7 +36,7 @@ const ModalAddMateri: React.FC<propsModalAddMateri> = ({
               </ModalHeader>
               <ModalBody>
                 <InputField
-                  label="Youtube"
+                  label="Link Youtube"
                   id="youtubeVideo"
                   name="youtubeVideo"
                   placeholder="Masukkan URL"
@@ -44,7 +44,7 @@ const ModalAddMateri: React.FC<propsModalAddMateri> = ({
                   onChange={handleInputChange}
                 />
                 <InputField
-                  label="E-book"
+                  label="Link G-Drive E-Book"
                   id="ebook"
                   name="ebook"
                   placeholder="Masukkan URL e-book"

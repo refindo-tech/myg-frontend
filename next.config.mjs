@@ -30,6 +30,11 @@ const nextConfig = {
                 destination: '/myBeautica/home',
                 permanent: true,
             },
+            {
+                source: '/admin',
+                destination: '/admin/listAdmin',
+                permanent: true,
+            },
             // {
             //     source: '/Myacademy',
             //     destination: '/Myacademy/',
