@@ -23,6 +23,8 @@ import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
 import SkrupIcon from './SkrupIcon'
 import UploadFileIcon from "./UploadFileIcon";
+import EditEventIcon from "./EditEventIcon";
+import TrashIcon from "./TrashIcon";
 const icons = {
     GoogleIcon,
     FacebookIcon,
@@ -48,6 +50,8 @@ const icons = {
     EditIcon,
     DeleteIcon,
     SkrupIcon,
-    UploadFileIcon
+    UploadFileIcon,
+    EditEventIcon,
+    TrashIcon
 };
 export default icons;

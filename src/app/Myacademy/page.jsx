@@ -12,17 +12,16 @@ import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy'
 import { Image } from "@nextui-org/image"
 import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI"
 import { useState, useEffect } from "react"
+
 const MyAcademyTes = () => {
     const [listTraining, setListTraining] = useState(null)
     const [listExam, setListExam] = useState(null)
     useEffect(() => {
         const fetchData = async () => {
             const responseTraining = await getRecommendationTraining(4)
-            if (responseTraining) {
+            if (responseTraining.results.length !== 0) {
                 console.log(responseTraining)
-                if(responseTraining.results.length !== 0){
-                    setListTraining(responseTraining.results)
-                }
+                setListTraining(responseTraining.results)
             }
             const responseExam = await getRecommendationExam(4)
             if (responseExam) {
@@ -61,7 +60,7 @@ const MyAcademyTes = () => {
             </div>
             <FAQMyAcademy />
             {/* <FooterMyAcademy /> */}
-            <Footer/>
+            <Footer />
         </>
     )
 }

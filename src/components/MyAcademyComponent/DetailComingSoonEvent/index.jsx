@@ -18,6 +18,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
     const pathname = usePathname()
     const { CloudIcon, CollectionIcon } = icons
     const [data, setData] = useState({})
+    const getBannerPictureUrl = (path) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
     useEffect(() => {
         setData(detailTraining)
     }, [detailTraining])
@@ -79,73 +80,6 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                             </p>
                         </div>
                         <MateriAndBenefit data={detailTraining} />
-                        {/* <div className="flex flex-col gap-y-3">
-                            <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Agenda Acara</h3>
-                            <div className="pl-6 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                <ol className="list-disc">
-                                    <li>
-                                        <p>10:00 - 10:15: Pembukaan dan pengenalan</p>
-                                        <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                            <ol className="list-disc">
-                                                <li>Selamat datang dan perkenalan dengan instruktur.</li>
-                                                <li>Gambaran umum tentang workshop dan tujuan.</li>
-                                            </ol>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p>10:15 - 11:00: Pembuatan produk kecantikan alami</p>
-                                        <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                            <ol className="list-disc">
-                                                <li>Demonstrasi cara membuat masker wajah alami.</li>
-                                                <li>Panduan membuat scrub tubuh dengan bahan bahan organik.</li>
-                                                <li>Sesi tanya jawab interaktif.</li>
-                                            </ol>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p>11:00 - 11:15: Istirahat</p>
-                                        <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                            <ol className="list-disc">
-                                                <li>Waktu untuk beristirahat sejenak dan menikmati refreshment yang sudah disiapkan</li>
-                                            </ol>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p>11:15 - 11:45: Tips perawatan kulit dan rambut</p>
-                                        <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                            <ol className="list-disc">
-                                                <li>Teknik perawatan kulit dengan bahan alami.</li>
-                                                <li>Rekomendasi perawatan rambut untuk berbagai jenis rambut.</li>
-                                            </ol>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p>11:45 - 12:00: Penutupan dan Networking</p>
-                                        <div className="pl-11 font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                            <ol className="list-disc">
-                                                <li>Ringkasan materi yang telah dipelajari.</li>
-                                                <li>Kesempatan untuk berinteraksi dengan instruktur dan peserta lainnya.</li>
-                                            </ol>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-y-3">
-                            <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi dan Tanggal</h3>
-                            <div>
-                                <p className="font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                    Tanggal: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{formattedDate(data.dateStart)}</span>
-                                </p>
-                                <p className="font-sans text-xs lg:text-xl font-normal text-abumuda text-wrap">
-                                    Waktu: <span className="font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{formattedTime(data.dateStart, data.dateFinish)}</span>
-                                </p>
-                                <div className="font-sans text-xs lg:text-xl font-normal flex flex-row text-abumuda text-wrap">
-                                    <p>Lokasi:</p>
-                                    <p className="pl-3 font-sans text-xs lg:text-xl font-bold text-abumuda text-wrap">{`${data.address}`}</p>
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="flex flex-col gap-y-3">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Cara Mendaftar</h3>
                             <div className="pl-6">
@@ -176,7 +110,7 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                         <Image
                             alt="brosur"
                             // src="/images/brosurmyacademi.png"
-                            src={`${detailTraining.materials[0].brosur}`}
+                            src={getBannerPictureUrl(detailTraining.materials[0].brosur)}
                             width={'100%'}
                         />
                         <div className="flex flex-col gap-y-3 w-[70%]">
@@ -185,7 +119,10 @@ const DetailComingSoonEvent = ({ detailTraining, listRecommendationTraining }) =
                         </div>
                         <div className="flex flex-col gap-y-3 lg:gap-y-7">
                             <h3 className="font-playfair text-stone-950 text-xl lg:text-[36px] font-medium">Lokasi Acara</h3>
-                            <iframe src={`https://www.google.com/maps/embed?pb=${data.embedMaps}`} width={'100%'} height={300} style={{ border: '0px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe>
+                            {data.embedMaps&&
+                                <div className="iframeMaps w-full" dangerouslySetInnerHTML={{__html:data.embedMaps}}></div>
+                            }
+                            {/* <iframe src={`https://www.google.com/maps/embed?pb=${data.embedMaps}`} width={'100%'} height={300} style={{ border: '0px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="rounded-lg"></iframe> */}
                             <p className="text-wrap font-sans text-xs lg:text-xl font-normal text-abumuda">
                                 {`${data.address}`}
                             </p>

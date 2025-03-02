@@ -8,6 +8,7 @@ import { formattedDate, formattedTime } from '@/helpers/formattedDate'
 import { getRecommendationTraining } from '@/helpers/fetchAPI'
 const RecommendationEvent = () => {
     const { PlaceIcon, CalendarIcon } = icons
+    const getBannerPictureUrl = (path) => `${process.env.NEXT_PUBLIC_BASE_API}/${path}`;
     const [dataRecommendation, setDataRecommendation] = useState(null)
     const [material, setMaterial] = useState({})
     useEffect(() => {
@@ -39,8 +40,8 @@ const RecommendationEvent = () => {
                                 width={'100%'}
                                 height={440}
                                 // src="/images/recommendation_event.png"
-                                src={`${material.banner}`}
-                                className='rounded-xl h-[440px] md:h-[940px] object-cover'
+                                src={getBannerPictureUrl(material.banner)}
+                                className='rounded-xl h-[440px] md:h-[940px] object-cover object-top'
                             />}
                             <div className="flex flex-col gap-y-[12px] h-fit lg:h-[356px]">
                                 <h3 className="font-playfair text-biru lg:text-black font-semibold text-xl lg:text-4xl text-wrap">{dataRecommendation.trainingName}</h3>
@@ -64,11 +65,10 @@ const RecommendationEvent = () => {
                                         </div>
                                         <div className="text-xs lg:text-xl">
                                             {dataRecommendation.dateStart && <p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
-                                                {/* 10-21 Juni 2024 */}
-                                                {formattedDate(dataRecommendation.dateStart)}
+                                                {new Date(dataRecommendation.dateStart).toLocaleDateString('id-ID',{day:"numeric", month:"long", year:"numeric"})}
                                             </p>}
                                             <p className="font-sans font-normal lg:font-semibold  text-zinc text-wrap">
-                                                {formattedTime(dataRecommendation.dateStart, dataRecommendation.dateFinish)}
+                                                {`${new Date(dataRecommendation.dateStart).toLocaleTimeString('id-ID',{hour:"2-digit", minute:"2-digit"})} WIB`}
                                             </p>
                                         </div>
                                     </div>

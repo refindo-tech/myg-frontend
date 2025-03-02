@@ -3,28 +3,29 @@ import { Card } from "@nextui-org/card"
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea } from "@nextui-org/react";
 import { Image } from "@nextui-org/image"
 import { addTestimoni } from "@/helpers/fetchAPI";
+import { YoutubeIcon } from '@/components/mya/icons';
 import icons from "@/components/icons/icon"
 import { useState } from "react";
 const AddTestimoni = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [name, setName] = useState('')
     const [comment, setComment] = useState('')
-    const handleName = (value)=>{
+    const handleName = (value) => {
         setName(value)
     }
-    const handlecomment = (value)=>{
+    const handlecomment = (value) => {
         setComment(value)
     }
-    const handleSubmit=()=>{
-        const postData = async()=>{
+    const handleSubmit = () => {
+        const postData = async () => {
             const response = await addTestimoni(name, comment)
-            if(response){
+            if (response) {
                 return true
             }
         }
         postData()
     }
-    const { BubbleChat } = icons
+    const { BubbleChat, YoutubeIcon } = icons
     return (
         <>
             <Card className="min-h-[272px] w-full py-5 bg-gray-200 gap-y-[20px]">
@@ -41,11 +42,14 @@ const AddTestimoni = () => {
                         </div>
                     </div>
                     <div className="w-1/2 h-full bg-birumuda shadow-xl flex items-center justify-center rounded-xl">
-                        <div className="text-center">
+                        <div className="text-center flex flex-col items-center justify-center">
                             <p>
                                 Lihat lainnya di
                             </p>
-                            <p>Youtube</p>
+                            <div className="self-stretch px-2 py-1.5 bg-zinc-100 rounded justify-end items-center gap-2.5 inline-flex text-red-600">
+                                <YoutubeIcon size={48} fill="currentColor" />
+                                <div className="text-center text-black text-normal font-bold font-['Open Sans'] leading-normal">Youtube</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,7 +67,7 @@ const AddTestimoni = () => {
                                     placeholder="Masukkan Nama"
                                     variant="bordered"
                                     value={name}
-                                    onChange={(e)=>{handleName(e.target.value)}}
+                                    onChange={(e) => { handleName(e.target.value) }}
                                 />
                                 <Textarea
                                     label="Testimoni"
@@ -71,19 +75,19 @@ const AddTestimoni = () => {
                                     placeholder="Tulis Testimoni"
                                     height={300}
                                     value={comment}
-                                    onChange={(e)=>{handlecomment(e.target.value)}}
+                                    onChange={(e) => { handlecomment(e.target.value) }}
                                 />
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="flat" onPress={onClose}>
                                     Cancel
                                 </Button>
-                                <Button color="primary" onPress={(e)=>{
+                                <Button color="primary" onPress={(e) => {
                                     const post = handleSubmit()
-                                    if(post){
+                                    if (post) {
                                         onClose
                                     }
-                                    }}>
+                                }}>
                                     Save Testimoni
                                 </Button>
                             </ModalFooter>

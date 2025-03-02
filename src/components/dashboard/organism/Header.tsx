@@ -13,6 +13,7 @@ const Header: React.FC<HeaderProps> = ({ logo = defaultLogo }) => {
         { label: "MyAcademy", isActive: false, href: "/Myacademy" },
         { label: "MYA", isActive: false, href: "/mya" },
         { label: "My Beautica", isActive: false, href: "/myBeautica" },
+        { label: "Admin", isActive: false, href: "/admin" },
     ];
 
     return (
