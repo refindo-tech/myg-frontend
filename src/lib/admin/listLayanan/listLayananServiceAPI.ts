@@ -1,78 +1,128 @@
-// layananService.ts
 import api from '@/axios/axiosConfig';
 
-// Interface untuk struktur data Layanan
+// Interface for Service data structure
 interface Service {
   serviceId?: number;
   title: string;
   description: string;
   price: number;
-  imageUrl: string | null;
+  imageFile?: File | string | null;
+  imageUrl?: string;
+  viewCount?: number;
 }
 
-// Fungsi untuk mengambil semua layanan
+// Configuration for requests
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+};
+
+// Get all services
 export const getAllLayanan = async () => {
   try {
-    const response = await api.get('/myg/api/layanan/');
+    const response = await api.get(`/myg/api/layanan/`, config);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch services:', error);
-    throw error;
+    return { meta: { success: false }, message: 'Gagal memuat layanan' };
   }
 };
 
-// Fungsi untuk membuat layanan baru
+// Alias for getAllLayanan to maintain compatibility with both naming conventions
+export const fetchServices = getAllLayanan;
+
+// Get service by ID
+export const getLayananById = async (serviceId: number | string) => {
+  try {
+    const response = await api.get(`/myg/api/layanan/${serviceId}`, config);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch service by ID:', error);
+    return { meta: { success: false }, message: 'Gagal memuat layanan berdasarkan ID' };
+  }
+};
+
+// Alias for getLayananById
+export const fetchServiceById = getLayananById;
+
+// Create new service
 export const createLayanan = async (layananData: Service) => {
   try {
     const formData = new FormData();
     formData.append('title', layananData.title);
     formData.append('description', layananData.description);
     formData.append('price', layananData.price.toString());
-    if (layananData.imageUrl) {
-      formData.append('imageUrl', layananData.imageUrl); // imageUrl berupa path atau file upload
+    
+    if (layananData.imageFile && layananData.imageFile instanceof File) {
+      formData.append('imageUrl', layananData.imageFile);
     }
-
-    const response = await api.post('/myg/api/layanan/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+    
+    const response = await api.post(`/myg/api/layanan/`, formData, {
+      ...config,
+      headers: { 'Content-Type': 'multipart/form-data' }
     });
     return response.data;
   } catch (error) {
     console.error('Failed to create service:', error);
-    throw error;
+    return { meta: { success: false }, message: 'Gagal membuat layanan' };
   }
 };
 
-// Fungsi untuk memperbarui layanan berdasarkan ID
-export const updateLayananById = async (serviceId: number, layananData: Service) => {
+// Update service by ID
+export const updateLayananById = async (serviceId: number | string, layananData: Service) => {
   try {
-    const response = await api.put(`/myg/api/layanan/${serviceId}`, layananData);
-    return response.data;
+    // If data contains a file, use FormData
+    if (layananData.imageFile && layananData.imageFile instanceof File) {
+      const formData = new FormData();
+      formData.append('title', layananData.title);
+      formData.append('description', layananData.description);
+      formData.append('price', layananData.price.toString());
+      formData.append('imageUrl', layananData.imageFile);
+      
+      if (layananData.viewCount !== undefined) {
+        formData.append('viewCount', layananData.viewCount.toString());
+      }
+      
+      const response = await api.put(`/myg/api/layanan/${serviceId}`, formData, {
+        ...config,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      return response.data;
+    } 
+    // Otherwise use JSON
+    else {
+      const response = await api.put(`/myg/api/layanan/${serviceId}`, layananData, config);
+      return response.data;
+    }
   } catch (error) {
     console.error('Failed to update service:', error);
-    throw error;
+    return { meta: { success: false }, message: 'Gagal memperbarui layanan' };
   }
 };
 
-// Fungsi untuk mengambil layanan berdasarkan ID
-export const getLayananById = async (serviceId: number) => {
+// Alias for updateLayananById
+export const updateServiceById = updateLayananById;
+
+// Specific function to update only the view count
+export const updateServiceViews = async (serviceId: number, viewCount: number) => {
   try {
-    const response = await api.get(`/myg/api/layanan/${serviceId}`);
+    const response = await api.put(`/myg/api/layanan/${serviceId}`, { viewCount }, config);
     return response.data;
   } catch (error) {
-    console.error('Failed to fetch service by ID:', error);
-    throw error;
+    console.error('Error updating service views:', error);
+    return { meta: { success: false }, message: 'Gagal memperbarui jumlah tampilan' };
   }
 };
 
-// Fungsi untuk menghapus layanan berdasarkan ID
-export const deleteLayananById = async (serviceId: number) => {
+// Delete service by ID
+export const deleteLayananById = async (serviceId: number | string) => {
   try {
-    const response = await api.delete(`/myg/api/layanan/${serviceId}`);
+    const response = await api.delete(`/myg/api/layanan/${serviceId}`, config);
     return response.data;
   } catch (error) {
     console.error('Failed to delete service:', error);
-    throw error;
+    return { meta: { success: false }, message: 'Gagal menghapus layanan' };
   }
 };
