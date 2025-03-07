@@ -92,18 +92,6 @@ const ListPengguna = () => {
     }
   };
 
-  const getRoleDisplayName = (role: string) => {
-    switch (role) {
-      case "ADMIN":
-        return "Admin";
-      case "SUPER_ADMIN":
-        return "Super Admin";
-      default:
-        return role;
-    }
-  };
-  
-
   return (
     <div className="w-full h-full px-6 py-6">
       {/* Page Header */}
@@ -128,10 +116,10 @@ const ListPengguna = () => {
           <TableHeader>
             <TableColumn>Name</TableColumn>
             <TableColumn>User Aplikasi</TableColumn>
-            <TableColumn>Actions</TableColumn>
             <TableColumn>No Telpon</TableColumn>
             <TableColumn>Alamat</TableColumn>
             <TableColumn>Ulang Tahun</TableColumn>
+            <TableColumn>Actions</TableColumn>
           </TableHeader>
           <TableBody>
             {paginatedUsers.map((user) => (
@@ -148,7 +136,7 @@ const ListPengguna = () => {
                 <TableCell>{user.userLabel}</TableCell>
                 <TableCell>{user.userProfiles[0]?.phoneNumber}</TableCell>
                 <TableCell>{user.userProfiles[0]?.address}</TableCell>
-                <TableCell>{dayjs(user.userProfiles[0]?.birthdate).format("DD MM YYYY")}</TableCell>
+                <TableCell>{dayjs(user.userProfiles[0]?.birthdate).format("DD/MM/YYYY")}</TableCell>
                 <TableCell>
                   <Button
                     variant="light"

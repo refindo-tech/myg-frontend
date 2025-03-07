@@ -1,19 +1,21 @@
-// ServiceForm.tsx
 import React, { useRef, useState } from "react";
 import { Input, Textarea } from "@nextui-org/react";
+import Image from "next/image";
+import api from '@/axios/axiosConfig';
 
 interface Service {
   serviceId: number;
   title: string;
   description: string;
   price: number;
-  imageUrl: string | null;
+  imageFile?: File | string | null;
+  imageUrl?: string;
 }
 
 interface ServiceFormProps {
   service: Service;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onFileChange: (imageUrl: string | null) => void;
+  onFileChange: (imageFile: File | null) => void;
 }
 
 const ServiceForm: React.FC<ServiceFormProps> = ({ service, onInputChange, onFileChange }) => {
@@ -36,13 +38,39 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ service, onInputChange, onFil
   };
 
   const handleFileUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64String = reader.result as string;
-      onFileChange(base64String);
-    };
-    reader.readAsDataURL(file);
+    onFileChange(file);
   };
+
+  // Get the image source for preview
+  const getImagePreviewSrc = () => {
+    if (service.imageFile) {
+      if (typeof service.imageFile === 'string') {
+        return service.imageFile;
+      } else {
+        return URL.createObjectURL(service.imageFile);
+      }
+    } else if (service.imageUrl) {
+      // Handle relative URL paths correctly
+      if (service.imageUrl.startsWith('http')) {
+        return service.imageUrl;
+      } else {
+        // Convert relative path to absolute URL
+        // Replace backslashes with forward slashes for web URLs
+        const normalizedPath = service.imageUrl.replace(/\\/g, '/');
+        
+        // Add leading slash if needed
+        const pathWithSlash = normalizedPath.startsWith('/') 
+          ? normalizedPath 
+          : `/${normalizedPath}`;
+          
+        return `${api.defaults.baseURL}${pathWithSlash}`;
+      }
+    }
+    return null;
+  };
+
+  const hasImage = service.imageFile || service.imageUrl;
+  const previewSrc = getImagePreviewSrc();
 
   return (
     <>
@@ -94,15 +122,20 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ service, onInputChange, onFil
             }}
             accept="image/*"
           />
-          {service.imageUrl ? (
+          {hasImage && previewSrc ? (
             <div className="flex flex-col items-center">
-              <img
-                src={service.imageUrl}
+              {/* Use standard img tag instead of NextUI Image component */}
+              <Image
+                src={previewSrc}
                 alt="Service Preview"
                 className="w-32 h-32 object-cover rounded-lg mb-2"
+                width={100}
+                height={100}
               />
               <p className="text-sm text-gray-500">
-                {typeof service.imageUrl === 'string' ? 'Current Image' : (service.imageUrl as File).name}
+                {service.imageFile instanceof File 
+                  ? service.imageFile.name 
+                  : 'Click or drag new image'}
               </p>
             </div>
           ) : (

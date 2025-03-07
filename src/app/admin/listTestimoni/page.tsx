@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Button,
   Input,
@@ -29,10 +29,10 @@ const ListTestimonialPage = () => {
   const [filterValue, setFilterValue] = useState("");
   const [selectedTestimonial, setSelectedTestimonial] = useState<{ id: number; name: string } | null>(null);
   const [page, setPage] = useState(1);
-  const rowsPerPage = 5;  // Display 10 items per page
+  const rowsPerPage = 5;  // Display 5 items per page
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const loadTestimonials = async () => {
+  const loadTestimonials = useCallback(async () => {
     try {
         const [approvedResponse, pendingResponse] = await Promise.all([
             ListReviewService.getAllTestimonials({ isApproved: true, limit: rowsPerPage, page }),
@@ -55,12 +55,11 @@ const ListTestimonialPage = () => {
         console.error("Error fetching testimonials:", error);
         toast.error(error instanceof Error ? error.message : "Failed to fetch testimonials");
     }
-  };
-
+  }, [page]);
 
   useEffect(() => {
     loadTestimonials();
-  }, []);
+  }, [loadTestimonials]);
 
   const filteredTestimonials = useMemo(() => {
     return testimonials
@@ -185,7 +184,7 @@ const ListTestimonialPage = () => {
                 <ModalBody>
                   <p>
                     Are you sure you want to delete{" "}
-                    <strong>{selectedTestimonial?.name}</strong>'s testimonial?
+                    <strong>{selectedTestimonial?.name}</strong> testimonial?
                   </p>
                 </ModalBody>
                 <ModalFooter>
