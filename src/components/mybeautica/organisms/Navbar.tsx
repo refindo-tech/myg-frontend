@@ -49,17 +49,19 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   return (
     <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
       <NavbarContent justify="start" className="flex-none ">
-        <Image
-          src={images.my_Beauty_logo.src}
-          alt="Logo"
-          className="object-cover w-[70px] h-[46px]"
-        />
+        <Link href="/myBeautica/home" className="flex items-center gap-2">
+          <Image
+            src={images.my_Beauty_logo.src}
+            alt="Logo"
+            className="object-cover w-[70px] h-[46px]"
+          />
+        </Link>
       </NavbarContent>
 
       <NavbarContent className="items-center gap-4 flex" justify="start">
         <NavbarContent className="hidden xl:flex gap-16 font-playfair font-semibold">
           <NavbarItem>
-            <Link color="foreground" href="#" className="text-ungu px-5 text-[20px]">
+            <Link color="foreground" href="/" className="px-5 text-[20px]">
               Home
             </Link>
           </NavbarItem>
@@ -88,7 +90,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           }}
           placeholder="I'm looking for..."
           size="sm"
-          endContent={<icons.SearchIcon size={18} />}
+          endContent={<icons.SearchIcon className="w-4 h-4" />}
           type="search"
           radius="full"
           value={searchTerm}
