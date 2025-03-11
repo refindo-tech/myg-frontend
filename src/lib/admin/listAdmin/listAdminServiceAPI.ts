@@ -66,4 +66,5 @@ class ListAdminService {
   }
 }
 
-export default new ListAdminService();
+const listAdminService = new ListAdminService();
+export default listAdminService;
