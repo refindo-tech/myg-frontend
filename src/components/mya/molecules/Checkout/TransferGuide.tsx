@@ -14,7 +14,7 @@ const TransferGuide: React.FC<Props> = () => {
             <AccordionItem key="1" title="Petunjuk transfer ATM">
                 {/* ordered list */}
                 <ol className="list-decimal list-inside pl-4">
-                    <li className="text-zinc">Pilih 'Transaksi' &gt; 'Transfer' &gt; Ke Rekening 'BCA'</li>
+                    <li className="text-zinc">Pilih &apos;Transaksi&apos; &gt; &apos;Transfer&apos; &gt; Ke Rekening &apos;BCA&apos;</li>
                     <li className="text-zinc">Masukkan nomor rekening yang tertera</li>
                     <li className="text-zinc">Foto atau Screenshoot bukti transfer</li>
                     <li className="text-zinc">Konfirmasi sudah transfer dengan mengirim bukti transfer ke WA +6281314485552</li>
@@ -23,7 +23,7 @@ const TransferGuide: React.FC<Props> = () => {
             <AccordionItem key="2" title="Petunjuk transfer mBanking">
                 {/* ordered list */}
                 <ol className="list-decimal list-inside pl-4">
-                    <li className="text-zinc">Pilih 'Transfer &gt Ke rekening 'BCA'</li>
+                    <li className="text-zinc">Pilih &apos;Transfer &gt; Ke rekening &apos;BCA&apos;</li>
                     <li className="text-zinc">Masukkan nomor rekening yang tertera</li>
                     <li className="text-zinc">Foto atau Screenshoot bukti transfer</li>
                     <li className="text-zinc">Konfirmasi sudah transfer dengan mengirim bukti transfer ke WA +6281314485552</li>
