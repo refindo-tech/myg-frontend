@@ -1,5 +1,5 @@
 // src/axios/cookieUtils.js
-export function setCookie(name, value, days = 7) {
+export default function setCookie(name, value, days = 7) {
     const date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     const expires = "expires=" + date.toUTCString();
@@ -7,7 +7,7 @@ export function setCookie(name, value, days = 7) {
   }
   
 // src/axios/cookieUtils.js
-export function getCookie(name) {
+export default function getCookie(name) {
   const nameEQ = name + "=";
   const ca = document.cookie.split(';');
   for (let i = 0; i < ca.length; i++) {
@@ -18,7 +18,7 @@ export function getCookie(name) {
   return null;
 }
 
-export function removeCookie(name) {
+export default function removeCookie(name) {
   document.cookie = name + '=; Max-Age=-99999999;';
 }
   
