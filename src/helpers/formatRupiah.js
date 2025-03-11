@@ -1,5 +1,5 @@
 // Fungsi untuk memformat angka menjadi Rupiah
-export default function formatRupiah(number) {
+export function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR'

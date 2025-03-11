@@ -22,6 +22,7 @@ import TestimonialSection from "@/components/common/organism/TestimonialSection"
 import Description from "@/components/mybeautica/molecules/Description";
 import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
 import useAuthCheck from "@/hooks/common/auth";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 type User = {
   id: number;
@@ -84,15 +85,6 @@ const faqItems: FAQItem[] = [
   { question: "Bagaimana cara melakukan pembayaran", answer: "Pembayaran dilakukan di tempat." },
 ];
 
-export const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(number)
-    .replace("IDR", "IDR ");
-};
 
 // Utility function to get the full image URL
 const getImageUrl = (relativePath: string) => {
@@ -176,7 +168,7 @@ const Home = () => {
 
   const handleOrderClick = (service: Service) => {
     const whatsappNumber = "6281314485552";
-    const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatToRupiah(
+    const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatRupiah(
       service.price
     )}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -336,7 +328,7 @@ const Home = () => {
                     <div className="flex-0 justify-end items-end font-openSans">
                       <div className="flex flex-col w-full py-2">
                         <span className="text-lg font-semibold">
-                          {formatToRupiah(service.price)}
+                          {`${formatRupiah(service.price)}`}
                         </span>
                         <p className="text-sm font-normal text-gray-700 mt-1 line-clamp-3">
                           {service.description}
@@ -377,7 +369,7 @@ const Home = () => {
                   {mostViewedService.title}
                 </h3>
                 <p className="font-semibold font-openSans text-lg xl:text-2xl">
-                  {formatToRupiah(mostViewedService.price)}
+                  {`${formatRupiah(mostViewedService.price)}`}
                 </p>
                 <Description description={mostViewedService.description} />
                 <Button

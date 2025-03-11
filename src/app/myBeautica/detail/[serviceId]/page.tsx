@@ -19,27 +19,18 @@ import FooterComponent from "@/components/common/organism/Footer";
 import Description from "@/components/mybeautica/molecules/Description";
 import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
 import useAuthCheck from "@/hooks/common/auth";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 interface Service {
   serviceId: number;
   title: string;
   description: string;
-  price: number | string;
+  price: number;
   imageUrl: string;
   viewCount?: number;
   views?: number;
 }
 
-export const formatToRupiah = (number: number | string): string => {
-  const numValue = typeof number === 'string' ? parseFloat(number) : number;
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(numValue)
-    .replace("IDR", "IDR ");
-};
 
 // Utility function to get the full image URL
 const getImageUrl = (relativePath: string) => {
@@ -210,7 +201,7 @@ const Detail: NextPage = () => {
     const whatsappNumber = "6281314485552";
     const message = `Halo, saya ingin memesan layanan ${
       service.title
-    } dengan harga ${formatToRupiah(service.price)}`;
+    } dengan harga ${formatRupiah(service.price)}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       message
     )}`;
@@ -308,7 +299,7 @@ const Detail: NextPage = () => {
                   <h2>{service.title}</h2>
                 </div>
                 <div className="text-xl font-openSans mt-6">
-                  <p>{formatToRupiah(service.price)}</p>
+                  {`${formatRupiah(service.price)}`}
                 </div>
                 <div className="text-xl mt-6 font-openSans text-justify text-zinc">
                   {/* Fix potential hydration error by ensuring Description properly handles the content */}
@@ -336,7 +327,7 @@ const Detail: NextPage = () => {
                 <h2>{service.title}</h2>
               </div>
               <div className="text-xl font-openSans mt-6">
-                <p>{formatToRupiah(service.price)}</p>
+                {`${formatRupiah(service.price)}`}
               </div>
               <div className="text-xl mt-6 font-openSans text-justify text-zinc">
                 {/* Fix potential hydration error by removing the paragraph tag that might be causing nesting issues */}
@@ -464,7 +455,7 @@ const Detail: NextPage = () => {
                     <div className="flex-0 justify-end items-end font-openSans">
                       <div className="flex flex-col w-full py-2">
                         <span className="text-lg font-bold">
-                          {formatToRupiah(otherService.price)}
+                          {`${formatRupiah(otherService.price)}`}
                         </span>
                         <p className="text-sm font-normal text-gray-700 mt-1 line-clamp-3">
                           {otherService.description}
