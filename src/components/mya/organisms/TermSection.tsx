@@ -9,7 +9,8 @@ const RegistrationPage: React.FC = () => {
     <section className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32 justify-center items-center">
      <RegistrationTitle
         title="Syarat dan Ketentuan"
-        subtitle="Lengkapi data berikut untuk melanjutkan pendaftaran"
+        subtitle=""
+        // subtitle="Lengkapi data berikut untuk melanjutkan pendaftaran"
       />
       <RegistrationForm />
     </section>

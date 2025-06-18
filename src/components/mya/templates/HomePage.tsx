@@ -20,7 +20,7 @@ interface HomePageProps {
   heroProduct: any;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ faceProducts, skinProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
+const HomePage: React.FC<HomePageProps> = ({ faceProducts, recommendedProducts, slides, faqs, heroData, heroProduct }) => {
   return (
     <div className="flex flex-col h-full bg-white w-screen">
       
@@ -28,13 +28,13 @@ const HomePage: React.FC<HomePageProps> = ({ faceProducts, skinProducts, recomme
       <main className="flex flex-col w-full">
         <Hero heroData={heroData} showcaseProduct={heroProduct} />
         <div id="produk" />
-        <ProductSection title="Perawatan wajah" products={faceProducts} />
+        <ProductSection title="Perawatan Kulit dan Wajah" products={faceProducts} />
         <CarouselSection autoSlide={true} >
           {[...slides.map((s,index) => (
             <img src={s} key={index} className="object-cover" />
           ))]}
         </CarouselSection>
-        <ProductSection title="Perawatan kulit" products={skinProducts} />
+        {/* <ProductSection title="Perawatan kulit" products={skinProducts} /> */}
         <RecommendationSection title="Produk rekomendasi" recommendedProducts={recommendedProducts} />
         <FAQSection faqs={faqs} />
         <TestimonialSection />

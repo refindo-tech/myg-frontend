@@ -190,7 +190,7 @@ export default function Login() {
               >
                 Remember me
               </Checkbox>
-              <Button variant="light" className="font-sans text-kuning" aria-label="Lupa Password">Lupa Password?</Button>
+              {/* <Button variant="light" className="font-sans text-kuning" aria-label="Lupa Password">Lupa Password?</Button> */}
             </div>
 
             <div className="flex flex-row justify-between items-center w-full mt-3">
