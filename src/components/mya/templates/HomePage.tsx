@@ -11,7 +11,7 @@ import TestimonialSection from '@/components/common/organism/TestimonialSection'
 import Footer from '@components/mya/organisms/Footer';
 interface HomePageProps {
   faceProducts: any[];
-  skinProducts: any[];
+  // skinProducts: any[];
   recommendedProducts: any[];
   slides: string[];
   faqs: any[];
