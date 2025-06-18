@@ -7,7 +7,7 @@ import useProducts from "@hooks/mya/useProducts";
 import useTestimonies from '@/hooks/useTestimonies';
 
 const heroData = {
-  title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
+  title: "Raih Kulit Sehat dan Berseri dengan MYA",
   description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
   imageUrl: "/assets/images/hero/hero.png",
 };
