@@ -79,7 +79,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
       </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
-        <Input
+        {/* <Input
           classNames={{
             base: "max-w-full sm:max-w-[10rem]",
             mainWrapper: "h-full p-0",
@@ -95,7 +95,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           radius="full"
           value={searchTerm}
           onChange={onSearchChange}
-        />
+        /> */}
 
         <Dropdown
           placement="bottom-end"
