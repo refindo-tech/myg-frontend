@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import Image from "next/image";
 import {
   Modal,
   ModalContent,
@@ -40,7 +41,8 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
   onOpenChange,
   onAddAdmin,
 }) => {
-  const initialAdminState: Admin = {
+  // Move initialAdminState inside the component to ensure referential stability
+  const createInitialAdminState = (): Admin => ({
     email: "",
     password: "",
     confirmPassword: "",
@@ -50,9 +52,9 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
       fullName: "",
       profilePicture: null,
     },
-  };
+  });
 
-  const [newAdmin, setNewAdmin] = useState<Admin>(initialAdminState);
+  const [newAdmin, setNewAdmin] = useState<Admin>(createInitialAdminState());
   const [touchedFields, setTouchedFields] = useState({
     email: false,
     password: false,
@@ -62,6 +64,26 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Use a function to reset the state
+  const clearForm = useCallback(() => {
+    setNewAdmin(createInitialAdminState());
+    setPreviewUrl(null);
+    setTouchedFields({
+      email: false,
+      password: false,
+      confirmPassword: false,
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  }, []); // No dependencies needed
+
+  useEffect(() => {
+    if (!isOpen) {
+      clearForm();
+    }
+  }, [isOpen, clearForm]);
 
   const validateEmail = (value: string) => {
     return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
@@ -165,24 +187,6 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
     onOpenChange(false);
   };
 
-  const clearForm = () => {
-    setNewAdmin(initialAdminState);
-    setPreviewUrl(null);
-    setTouchedFields({
-      email: false,
-      password: false,
-      confirmPassword: false,
-    });
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      clearForm();
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     return () => {
@@ -299,10 +303,12 @@ const AddAdminModal: React.FC<AddAdminModalProps> = ({
                   />
                   {previewUrl ? (
                     <div className="flex flex-col items-center">
-                      <img
+                      <Image
                         src={previewUrl}
                         alt="Profile Preview"
                         className="w-32 h-32 object-cover rounded-full mb-2"
+                        width={128}
+                        height={128}
                       />
                       <p className="text-sm text-gray-500">
                         Image uploaded successfully

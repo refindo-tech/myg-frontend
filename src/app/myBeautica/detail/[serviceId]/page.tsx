@@ -12,13 +12,14 @@ import {
   fetchServiceById,
   fetchServices,
   updateServiceViews,
-} from "@/lib/mybeautica/layananService";
+} from "@/lib/admin/listLayanan/listLayananServiceAPI";
 import Head from "next/head";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
 import FooterComponent from "@/components/common/organism/Footer";
 import Description from "@/components/mybeautica/molecules/Description";
 import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
 import useAuthCheck from "@/hooks/common/auth";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 interface Service {
   serviceId: number;
@@ -26,21 +27,25 @@ interface Service {
   description: string;
   price: number;
   imageUrl: string;
-  views: number;
+  viewCount?: number;
+  views?: number;
 }
 
-export const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(number)
-    .replace("IDR", "IDR ");
+
+// Utility function to get the full image URL
+const getImageUrl = (relativePath: string) => {
+  if (!relativePath) return ''; // Handle empty paths
+  const formattedPath = relativePath.replace(/\\/g, '/');
+  return `${process.env.NEXT_PUBLIC_BASE_API || ''}/${formattedPath}`;
 };
 
+
 const Detail: NextPage = () => {
-  const { serviceId } = useParams();
+  const params = useParams();
+  // Handle the case where serviceId could be a string or string array
+  const serviceIdParam = params?.serviceId;
+
+  
   const router = useRouter();
   const [service, setService] = useState<Service | null>(null);
   const [services, setServices] = useState<Service[]>([]);
@@ -54,6 +59,14 @@ const Detail: NextPage = () => {
   } | null>(null);
 
   const isLogged = useAuthCheck();
+
+  // Gunakan Optional Chaining dan Nullish Coalescing
+  const serviceId = params?.serviceId 
+  ? Array.isArray(params.serviceId) 
+    ? params.serviceId[0] 
+    : params.serviceId
+  : null;
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -73,65 +86,112 @@ const Detail: NextPage = () => {
   };
 
   useEffect(() => {
-    const getService = async () => {
-      if (!serviceId) return;
+    const getServices = async () => {
       try {
-        const data = await fetchServiceById(serviceId);
-        if (data && data.meta.success) {
-          const updatedService = {
-            ...data.meta.message,
-            views: data.meta.message.views || 0, // Ensure views is initialized
-          };
-          setService(updatedService);
-
-          // Increment views when the service is fetched
-          await incrementViews(updatedService.serviceId, updatedService.views);
+        const data = await fetchServices();
+        
+        // Perbaikan penanganan data dari backend
+        if (data && data.meta && data.meta.success) {
+          // Tambahkan pengecekan tambahan untuk format data
+          let servicesList: Service[] = [];
+          
+          // Jika results adalah objek tunggal, konversi ke array
+          if (data.results && typeof data.results === 'object' && !Array.isArray(data.results)) {
+            servicesList = [data.results];
+          } 
+          // Jika sudah array, gunakan langsung
+          else if (Array.isArray(data.results)) {
+            servicesList = data.results;
+          }
+          
+          // Map data ke format Service
+          setServices(
+            servicesList.map((service: any) => ({
+              serviceId: service.serviceId,
+              title: service.title,
+              description: service.description,
+              price: service.price,
+              imageUrl: service.imageUrl,
+              views: service.viewCount || 0
+            }))
+          );
         } else {
-          setError("Failed to load service details");
+          console.error("Invalid services data format:", data);
+          setError("Failed to load services: Invalid data format");
         }
       } catch (err) {
-        setError("Error fetching service details");
-      }
-      setLoading(false);
-    };
-
-    getService();
-  }, [serviceId]);
-
-  useEffect(() => {
-    const getServices = async () => {
-      const data = await fetchServices();
-      if (data && data.meta.success) {
-        setServices(
-          data.meta.message.map((service: Service) => ({
-            ...service,
-            views: service.views || 0, // Ensure views is initialized
-          }))
-        );
-      } else {
+        console.error("Error fetching services:", err);
         setError("Failed to load services");
       }
       setLoading(false);
     };
-
+  
     getServices();
   }, []);
 
+  useEffect(() => {
+    const getService = async () => {
+      if (!serviceId || serviceId === 'undefined') {
+        setError("Invalid service ID");
+        setLoading(false);
+        return;
+      }
+      
+      try {
+        const data = await fetchServiceById(serviceId);
+        
+        // Pastikan mengakses results langsung
+        if (data && data.results) {
+          const serviceData = data.results;
+          const updatedService = {
+            serviceId: serviceData.serviceId,
+            title: serviceData.title,
+            description: serviceData.description,
+            price: serviceData.price,
+            imageUrl: serviceData.imageUrl,
+            views: serviceData.viewCount || 0
+          };
+          setService(updatedService);
+  
+          // Increment views
+          if (updatedService.serviceId) {
+            await incrementViews(updatedService.serviceId, updatedService.views);
+          }
+        } else {
+          setError("Failed to load service details");
+        }
+      } catch (err) {
+        console.error("Error fetching service:", err);
+        setError("Error fetching service details");
+      }
+      setLoading(false);
+    };
+  
+    getService();
+  }, [serviceId]);
+
   const incrementViews = async (id: number, currentViews: number) => {
+    if (!id || isNaN(id)) {
+      console.error("Invalid service ID for view increment");
+      return;
+    }
+    
     try {
       const updatedService = await updateServiceViews(id, currentViews + 1);
-      setService((prevService) =>
-        prevService && prevService.serviceId === id
-          ? { ...prevService, views: updatedService.viewCount }
-          : prevService
-      );
-      setServices((prevViews) =>
-        prevViews.map((service) =>
-          service.serviceId === id
-            ? { ...service, views: updatedService.viewCount }
-            : service
-        )
-      );
+      if (updatedService && updatedService.viewCount !== undefined) {
+        setService((prevService) =>
+          prevService && prevService.serviceId === id
+            ? { ...prevService, views: updatedService.viewCount }
+            : prevService
+        );
+        setServices((prevViews) =>
+          prevViews.map((service) =>
+            service.serviceId === id
+              ? { ...service, views: updatedService.viewCount }
+              : service
+          )
+        );
+      }
     } catch (error) {
       console.error("Failed to update views", error);
     }
@@ -141,7 +201,7 @@ const Detail: NextPage = () => {
     const whatsappNumber = "6281314485552";
     const message = `Halo, saya ingin memesan layanan ${
       service.title
-    } dengan harga ${formatToRupiah(service.price)}`;
+    } dengan harga ${formatRupiah(service.price)}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       message
     )}`;
@@ -175,17 +235,44 @@ const Detail: NextPage = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="bg-red-50 p-6 rounded-lg shadow-md max-w-md w-full text-center">
+          <h2 className="text-2xl font-semibold text-red-700 mb-2">Error</h2>
+          <p className="text-red-600 mb-4">{error}</p>
+          <Button 
+            className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2"
+            onClick={() => router.push('/myBeautica')}
+          >
+            Back to Services
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   if (!service) {
-    return <div>No service details available</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <div className="bg-yellow-50 p-6 rounded-lg shadow-md max-w-md w-full text-center">
+          <h2 className="text-2xl font-semibold text-yellow-700 mb-2">Service Not Found</h2>
+          <p className="text-yellow-600 mb-4">The requested service could not be found.</p>
+          <Button 
+            className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2"
+            onClick={() => router.push('/myBeautica')}
+          >
+            View All Services
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="w-full h-full">
+      {/* Use next/head properly */}
       <Head>
-        <title>Detail Page</title>
+        <title>{`${service.title} | My Beautica`}</title>
       </Head>
 
       <NavbarComponent
@@ -201,8 +288,8 @@ const Detail: NextPage = () => {
         <section className="container flex flex-col gap-8 h-full w-full">
           <div className="relative flex flex-col md:basis-1/2 justify-center items-center text-left mt-8 mx-6 md:flex-row">
             <Image
-              src={service.imageUrl || ""}
-              alt="Image"
+              src={getImageUrl(service.imageUrl)}
+              alt={service.title}
               className="flex rounded-lg w-86 xl:pr-2 xl:w-[826px] xl:h-[731px] z-20"
             />
 
@@ -212,13 +299,11 @@ const Detail: NextPage = () => {
                   <h2>{service.title}</h2>
                 </div>
                 <div className="text-xl font-openSans mt-6">
-                  <p>{formatToRupiah(service.price)}</p>
+                  {`${formatRupiah(service.price)}`}
                 </div>
                 <div className="text-xl mt-6 font-openSans text-justify text-zinc">
-                  <p>
-                    {" "}
-                    <Description description={service.description} />
-                  </p>
+                  {/* Fix potential hydration error by ensuring Description properly handles the content */}
+                  <Description description={service.description} />
                 </div>
                 <div className="mb-4 mt-8">
                   <Button
@@ -242,13 +327,11 @@ const Detail: NextPage = () => {
                 <h2>{service.title}</h2>
               </div>
               <div className="text-xl font-openSans mt-6">
-                <p>{formatToRupiah(service.price)}</p>
+                {`${formatRupiah(service.price)}`}
               </div>
               <div className="text-xl mt-6 font-openSans text-justify text-zinc">
-                <p>
-                  {" "}
-                  <Description description={service.description} />
-                </p>
+                {/* Fix potential hydration error by removing the paragraph tag that might be causing nesting issues */}
+                <Description description={service.description} />
               </div>
               <div className="mb-4 mt-8">
                 <Button
@@ -271,7 +354,7 @@ const Detail: NextPage = () => {
                   Cara Reservasi Layanan
                 </h2>
                 <ol className="list-decimal pl-4 space-y-2 font-openSans text-sm text-zinc xl:text-xl">
-                  <li>Klik tombol 'Pesan' di halaman detail layanan.</li>
+                  <li>Klik tombol Pesan di halaman detail layanan.</li>
                   <li>
                     Mulai diskusi dengan Admin untuk menentukan waktu reservasi.
                   </li>
@@ -294,7 +377,7 @@ const Detail: NextPage = () => {
                   </p>
                   <ul className="list-none">
                     <li>
-                      Telepon: <a className="font-semibold"> +6281314485552</a>
+                      Telepon: <span className="font-semibold"> +6281314485552</span>
                     </li>
                   </ul>
                 </div>
@@ -311,7 +394,7 @@ const Detail: NextPage = () => {
                 </h2>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.282646621907!2d106.13395487570472!3d-6.092576259767963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418b41ba42419f%3A0x60c87132fd6ddd9f!2sMy%20Academy!5e0!3m2!1sid!2sid!4v1721152723132!5m2!1sid!2sid"
-                  width="w-full"
+                  width="100%"
                   height="400"
                   style={{ border: "0" }}
                   allowFullScreen
@@ -342,42 +425,45 @@ const Detail: NextPage = () => {
               Layanan Lainnya
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredServices.map((service: Service) => (
+              {filteredServices
+                .filter(item => item.serviceId !== service.serviceId) // Exclude current service
+                .slice(0, 6) // Limit to 6 services
+                .map((otherService: Service) => (
                 <NextLink
-                  key={service.serviceId}
-                  href={`/mybeautica/detail/${service.serviceId}`}
+                  key={otherService.serviceId}
+                  href={`/myBeautica/detail/${otherService.serviceId}`}
                   passHref
                 >
                   <div
                     className="flex flex-col bg-transparent rounded-md shadow-none p-4 mb-6 gap-2 cursor-pointer"
                     onClick={() =>
-                      incrementViews(service.serviceId, service.views)
+                      incrementViews(otherService.serviceId, otherService.views || 0)
                     }
                   >
                     <div className="overflow-visible flex justify-center items-center w-full rounded-t-md">
                       <Image
-                        src={service.imageUrl}
-                        alt={service.title}
+                        src={getImageUrl(otherService.imageUrl)}
+                        alt={otherService.title}
                         className="w-full h-40 md:h-96 object-cover rounded-t-md"
                       />
                     </div>
                     <div className="flex flex-col pt-2 flex-1 items-start">
                       <h3 className="text-lg font-semibold font-playfair text-black">
-                        {service.title}
+                        {otherService.title}
                       </h3>
                     </div>
                     <div className="flex-0 justify-end items-end font-openSans">
                       <div className="flex flex-col w-full py-2">
                         <span className="text-lg font-bold">
-                          {formatToRupiah(service.price)}
+                          {`${formatRupiah(otherService.price)}`}
                         </span>
                         <p className="text-sm font-normal text-gray-700 mt-1 line-clamp-3">
-                          {service.description}
+                          {otherService.description}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <icons.EyeFilledIcon className="h-4 w-4 text-gray-500" />
                           <span className="text-gray-500 text-xs">
-                            {"Dilihat " + service.views + " kali"}
+                            {"Dilihat " + (otherService.views || otherService.viewCount || 0) + " kali"}
                           </span>
                         </div>
                       </div>

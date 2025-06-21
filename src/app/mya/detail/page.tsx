@@ -59,11 +59,12 @@ const relatedProducts = [
 const Detail: React.FC = () => {
   
   const { data: heroProducts, isLoading: heroLoading } = useProducts.all({ limit: 1 });
+  if (heroLoading) return <p>Loading...</p>;
   return (
     <DetailPage
       product={product}
       heroData={heroData}
-      heroProduct={heroProducts}
+      heroProduct={heroProducts?.[0] || null}
       relatedProducts={relatedProducts}
     />
   );

@@ -72,7 +72,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                   </Button>
                 ) : (
                   <p className="font-semibold hidden">
-                    {userData?.email || "zoey@example.com"}
+                    {userData?.email || "Selamat Datang!"}
                   </p>
                 )}
               </div>
@@ -82,7 +82,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">
-                    {userData?.email || "zoey@example.com"}
+                    {userData?.email || "Selamat Datang!"}
                   </p>
                 </DropdownItem>
                 {/* <DropdownItem key="settings">My Profile</DropdownItem> */}
@@ -104,7 +104,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Signed in as</p>
                   <p className="font-semibold">
-                    {userData?.email || "zoey@example.com"}
+                    {userData?.email || "Selamat Datang!"}
                   </p>
                 </DropdownItem>
                 <DropdownItem key="settings">My Profile</DropdownItem>

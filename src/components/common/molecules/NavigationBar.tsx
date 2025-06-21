@@ -67,7 +67,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ logo, navItems, service =
                     <Navigation NavItems={navItems} service={service} />
                 </NavbarContent>
                 <NavbarContent justify="end" as="div" className="items-center">
-                    <SearchBar />
+                    {/* <SearchBar /> */}
                     {/* <Button className='bg-myg-500' color='default' variant='solid' size='md' radius='full'>
                             <span className="text-black">Unduh Aplikasi</span>
                         </Button> */}

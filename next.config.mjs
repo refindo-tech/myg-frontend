@@ -11,7 +11,14 @@ const withPWA = nextPWA({
 
 const nextConfig = {
     images:{
-        domains:["localhost"]
+        domains:[
+            "localhost",
+            "http://92.112.192.81",
+            "myg.app",
+        ]
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
     },
     async redirects() {
         return [
@@ -42,33 +49,6 @@ const nextConfig = {
             // }
         ];
     },
-    //     // Menambahkan loader tambahan untuk memproses file CSS
-    // webpack(config) {
-    //     config.module.rules.push(
-    //         // {
-    //         //     test: /\.css$/,
-    //         //     use: [
-    //         //         'style-loader',
-    //         //         {
-    //         //             loader: 'css-loader',
-    //         //             options: {
-    //         //                 importLoaders: 1,
-    //         //             },
-    //         //         },
-    //         //         // 'postcss-loader', // Memproses file CSS dengan Tailwind
-    //         //     ],
-    //         // },
-    //         {
-    //             test: /\.(eot|svg|ttf|css2|woff|woff2?)$/,
-    //             use: [
-    //                 'style-loader',
-    //                 'file-loader',
-    //                 'css-loader'
-    //             ],
-    //         },
-    //     );
-    //     return config;
-    // }
 };
 export default withPlugins([{transpilePackages: ['my-awesome-package']}, withPWA(nextConfig)])
 // export default withPWA(nextConfig);

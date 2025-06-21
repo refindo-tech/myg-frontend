@@ -7,7 +7,7 @@ import useProducts from "@hooks/mya/useProducts";
 import useTestimonies from '@/hooks/useTestimonies';
 
 const heroData = {
-  title: "Raih Kulit Sehat dan Berseri dengan MYA Beauty",
+  title: "Raih Kulit Sehat dan Berseri dengan MYA",
   description: "Perawatan kulit alami menjadi prioritas utama. Kami menghadirkan produk yang memastikan kulit Anda selalu tampak sehat dan bercahaya.",
   imageUrl: "/assets/images/hero/hero.png",
 };
@@ -16,6 +16,10 @@ const heroData = {
 const slides = [
   "/assets/images/banners/myabanner1.jpg",
   "/assets/images/banners/myabanner2.jpg",
+  "/assets/images/banners/myabanner3.jpg",
+  "/assets/images/banners/myabanner4.jpg",
+  "/assets/images/banners/myabanner5.jpg",
+  "/assets/images/banners/myabanner6.jpg",
 ];
 
 const faqs = [
@@ -25,15 +29,15 @@ const faqs = [
   },
   {
     question: "Apa ketentuan menjadi Reseller atau Distributor?",
-    answer: "<p>Berikut merupakan syarat-syarat untuk menjadi Reseller atau Distributor.</p><p><br></p><ol><li>Aktif di sosial media</li><li>Sudah menggunakan produk MYA</li><li>Wajib jualan</li><li>Belanja produk 3 juta untuk menjadi Reseller, atau 10 juta untuk menjadi Distributor </li><li>Menaati peraturan MYA</li></ol><p><br></p>"
+    answer: "<p>Berikut merupakan syarat-syarat untuk menjadi Reseller atau Distributor:</p><ol><li>- Aktif di sosial media</li><li>- Sudah menggunakan produk MYA</li><li>- Wajib jualan</li><li>- Belanja produk sampai 3 juta untuk menjadi Reseller</li><li>- Belanja produk sampai 10 juta untuk menjadi Distributor </li><li>- Menaati peraturan MYA</li></ol><p><br></p>"
   },
   {
-    question: "Bagaimana cara membeli produk kami?",
-    answer: "Anda perlu melakukan pendaftaran akun terlebih dahulu dengan mengisi data yang diperlukan, dan membaca syarat dan ketentuan yang berlaku. Setelah itu memilih produk dengan memasukkannya ke dalam keranjang, lalu dilanjutkan dengan melukakan pembayaran."
+    question: "Kenapa harus kami?",
+    answer: "Karena kami bersertifikat resmi dan memiliki pengalaman yang cukup sehingga kami yakin dapat menjadi perusahaan yang unggul dan dapat diandalkan serta mampu bersaing baik secara nasional maupun global."
   },
   {
-    question: "Bagaimana cara melakukan pembayaran?",
-    answer: "Setelah memilih produk yang ingin dibeli. Maka lanjutkan proses pembayaran dengan melakukan transfer ke nomor rekening yang tertera, kemudian mengirim bukti transfer."
+    question: "Saya memiliki pertanyaan lebih lanjut, kemana saya bisa bertanya?",
+    answer: "Anda bisa bertanya atau berdiskusi lebih lanjut dengan kami melalui tombol Konsultasi pada bagian atas."
   },
 ];
 
@@ -59,7 +63,7 @@ const Home: React.FC = () => {
       heroProduct={heroProducts[0]}
       faceProducts={faceProducts}
       recommendedProducts={recommendedProducts}
-      skinProducts={skinProducts}
+      // skinProducts={skinProducts}
       slides={slides}
       faqs={faqs}
       // testimonials={testimonies}

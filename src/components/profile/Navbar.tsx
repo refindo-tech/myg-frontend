@@ -112,7 +112,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                   Login
                 </Button>
               ) : (
-                <p className="font-semibold hidden">{userData?.email || "zoey@example.com"}</p>
+                <p className="font-semibold hidden">{userData?.email || "Selamat Datang!"}</p>
               )}
             </div>
           </DropdownTrigger>
@@ -120,7 +120,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
             <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
+              <p className="font-semibold">{userData?.email || "Selamat Datang!"}</p>
             </DropdownItem>
             {/* <DropdownItem key="settings">My Profile</DropdownItem> */}
             <DropdownItem key="logout" color="danger" onClick={onLogout}>
@@ -140,7 +140,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
+                <p className="font-semibold">{userData?.email || "Selamat Datang!"}</p>
               </DropdownItem>
               <DropdownItem key="settings">My Profile</DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={onLogout}>

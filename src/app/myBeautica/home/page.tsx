@@ -12,7 +12,7 @@ import images from "../../../../public/images/images";
 import {
   fetchServices,
   updateServiceViews,
-} from "@/lib/mybeautica/layananService";
+} from "@/lib/admin/listLayanan/listLayananServiceAPI";
 import TestimonyService from "@/lib/testimonyService";
 import NextLink from "next/link";
 import NavbarComponent from "@/components/mybeautica/organisms/Navbar";
@@ -22,6 +22,7 @@ import TestimonialSection from "@/components/common/organism/TestimonialSection"
 import Description from "@/components/mybeautica/molecules/Description";
 import { getUserProfile, logoutUser } from "@/lib/authentication/fetchData";
 import useAuthCheck from "@/hooks/common/auth";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 type User = {
   id: number;
@@ -84,14 +85,12 @@ const faqItems: FAQItem[] = [
   { question: "Bagaimana cara melakukan pembayaran", answer: "Pembayaran dilakukan di tempat." },
 ];
 
-export const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(number)
-    .replace("IDR", "IDR ");
+
+// Utility function to get the full image URL
+const getImageUrl = (relativePath: string) => {
+  if (!relativePath) return ''; // Handle empty paths
+  const formattedPath = relativePath.replace(/\\/g, '/');
+  return `${process.env.NEXT_PUBLIC_BASE_API || ''}/${formattedPath}`;
 };
 
 const Home = () => {
@@ -103,7 +102,6 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const serviceSectionRef = useRef<HTMLDivElement>(null);
   const [userData, setUserData] = useState<{ email: string; profilePicture: string | null; fullName: string; } | null>(null);
-
 
   const isLogged = useAuthCheck();
 
@@ -117,7 +115,6 @@ const Home = () => {
 
     fetchUserProfile();
   }, [isLogged]);
-
 
   const handleLogout = async () => {
     await logoutUser();
@@ -141,7 +138,7 @@ const Home = () => {
         ]);
 
         if (servicesData) {
-          setServices(servicesData.meta.message);
+          setServices(servicesData.results);
         } else {
           setError("Gagal memuat layanan");
         }
@@ -162,7 +159,7 @@ const Home = () => {
   }, []);
 
   const mostViewedService =
-    services && services.length > 0
+    Array.isArray(services) && services.length > 0
       ? services.reduce(
           (max, service) => (service.viewCount > max.viewCount ? service : max),
           services[0]
@@ -171,7 +168,7 @@ const Home = () => {
 
   const handleOrderClick = (service: Service) => {
     const whatsappNumber = "6281314485552";
-    const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatToRupiah(
+    const message = `Halo, saya ingin memesan layanan ${service.title} dengan harga ${formatRupiah(
       service.price
     )}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -219,7 +216,6 @@ const Home = () => {
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-
 
   const filteredServices = services?.filter((service) =>
     service.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -275,6 +271,7 @@ const Home = () => {
                     Jelajahi Produk kami
                   </Button>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -318,7 +315,7 @@ const Home = () => {
                   >
                     <div className="overflow-visible flex justify-center items-center w-full rounded-t-md">
                       <Image
-                        src={service.imageUrl}
+                        src={getImageUrl(service.imageUrl)}
                         alt={service.title}
                         className="w-full h-40 md:h-96 object-cover rounded-t-md"
                       />
@@ -331,7 +328,7 @@ const Home = () => {
                     <div className="flex-0 justify-end items-end font-openSans">
                       <div className="flex flex-col w-full py-2">
                         <span className="text-lg font-semibold">
-                          {formatToRupiah(service.price)}
+                          {`${formatRupiah(service.price)}`}
                         </span>
                         <p className="text-sm font-normal text-gray-700 mt-1 line-clamp-3">
                           {service.description}
@@ -362,7 +359,7 @@ const Home = () => {
             <div className="flex flex-col items-center gap-6 xl:flex-row">
               <div className="flex justify-centerw-full xl:w-3/5">
                 <Image
-                  src={mostViewedService.imageUrl}
+                  src={getImageUrl(mostViewedService.imageUrl)}
                   alt="Service Image"
                   className="w-[370px] h-[370px] rounded-lg xl:w-[826px] xl:h-[759px]"
                 />
@@ -372,11 +369,9 @@ const Home = () => {
                   {mostViewedService.title}
                 </h3>
                 <p className="font-semibold font-openSans text-lg xl:text-2xl">
-                  {formatToRupiah(mostViewedService.price)}
+                  {`${formatRupiah(mostViewedService.price)}`}
                 </p>
-                {/* <p className="text-zinc text-sm font-normal text-justify font-openSans xl:text-lg line-clamp-10"> */}
-                  <Description description={mostViewedService.description} />
-                {/* </p> */}
+                <Description description={mostViewedService.description} />
                 <Button
                   className="bg-ungu text-white font-openSans font-semibold rounded-lg px-4 py-2"
                   onClick={() => handleOrderClick(mostViewedService)}
@@ -391,7 +386,7 @@ const Home = () => {
 
       <FAQComponent faqItems={filteredFAQItems} />
 
-      {/* Ganti TestimoniComponent dengan TestimonialSection */}
+      {/* Testimoni Section */}
       <TestimonialSection service="mybeautica" />
 
       <FooterComponent />

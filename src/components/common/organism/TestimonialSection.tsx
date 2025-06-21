@@ -73,7 +73,7 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ service = "mya"
     };
 
     return (
-        <section className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32">
+        <section className="w-full max-w-[1420px] mx-auto bg-white p-8 xl:px-32 mb-16">
             <div className="w-full items-center flex flex-col lg:flex-row gap-8">
                 <div className="h-full relative flex md:basis-2/5 justify-center items-center flex-col pr-0 md:pr-8 overflow-visible">
                     {/* <div className="absolute -top-30 right-0 text-mya-600 text-[532px] font-normal font-['Open Sans'] leading-normal z-0 blur-2xl">?</div> */}
@@ -94,11 +94,13 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ service = "mya"
                                 <AddNewTestimony />
                             </div>
                             <div className="w-full h-full px-3 bg-red-50 rounded-xl shadow flex-col justify-center items-center gap-3 inline-flex">
-                                <div className="text-center text-black text-normal font-normal font-['Open Sans'] leading-normal">Lihat lainnya di</div>
-                                <div className="self-stretch px-2 py-1.5 bg-zinc-100 rounded justify-end items-center gap-2.5 inline-flex">
-                                    <YoutubeIcon size={48} fill="currentColor" />
-                                    <div className="text-center text-black text-normal font-bold font-['Open Sans'] leading-normal">Youtube</div>
-                                </div>
+                                <a href="https://www.youtube.com/@MultiYasykurGlobal" target="_blank" rel="noopener noreferrer">
+                                    <div className="text-center text-black text-normal font-normal font-['Open Sans'] leading-normal">Lihat lainnya di</div>
+                                        <div className="self-stretch px-2 py-1.5 bg-zinc-100 rounded justify-end items-center gap-2.5 inline-flex">
+                                            <YoutubeIcon size={48} fill="currentColor" />
+                                        <div className="text-center text-black text-normal font-bold font-['Open Sans'] leading-normal">Youtube</div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

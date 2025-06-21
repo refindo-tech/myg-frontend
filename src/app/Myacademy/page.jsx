@@ -1,38 +1,36 @@
-"use client"
-import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy"
-import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy"
-import Promotion from "@/components/MyAcademyComponent/Promotion"
-import Review from "@/components/MyAcademyComponent/Review"
-import RecommendationEvent from "@/components/MyAcademyComponent/RecommendationEvent"
-import ComingSoonEvent from "@/components/MyAcademyComponent/ComingSoonEvent"
-import ContainerExam from '@/components/MyAcademyComponent/ContainerExam'
-import Link from "next/link"
-import Footer from "@/components/MyAcademyComponent/Footer"
-import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy'
-import { Image } from "@nextui-org/image"
-import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI"
-import { useState, useEffect } from "react"
+"use client";
+import NavbarMyAcademy from "@/components/MyAcademyComponent/NavbarMyAcademy";
+import FooterMyAcademy from "@/components/MyAcademyComponent/FooterMyAcademy";
+import Promotion from "@/components/MyAcademyComponent/Promotion";
+import RecommendationEvent from "@/components/MyAcademyComponent/RecommendationEvent";
+import ComingSoonEvent from "@/components/MyAcademyComponent/ComingSoonEvent";
+import ContainerExam from '@/components/MyAcademyComponent/ContainerExam';
+import Link from "next/link";
+import Footer from "@/components/MyAcademyComponent/Footer";
+import FAQMyAcademy from '@/components/MyAcademyComponent/FAQMyAcademy';
+import { Image } from "@nextui-org/image";
+import { getRecommendationTraining, getRecommendationExam } from "@/helpers/fetchAPI";
+import { useState, useEffect } from "react";
+import TestimonialSection from "@/components/common/organism/TestimonialSection";  // Import TestimonialSection
 
 const MyAcademyTes = () => {
-    const [listTraining, setListTraining] = useState(null)
-    const [listExam, setListExam] = useState(null)
+    const [listTraining, setListTraining] = useState(null);
+    const [listExam, setListExam] = useState(null);
+
     useEffect(() => {
         const fetchData = async () => {
-            const responseTraining = await getRecommendationTraining(4)
+            const responseTraining = await getRecommendationTraining(4);
             if (responseTraining.results.length !== 0) {
-                console.log(responseTraining)
-                setListTraining(responseTraining.results)
+                setListTraining(responseTraining.results);
             }
-            const responseExam = await getRecommendationExam(4)
+            const responseExam = await getRecommendationExam(4);
             if (responseExam) {
-                setListExam(responseExam.results)
+                setListExam(responseExam.results);
             }
-        }
-        fetchData()
-    }, [])
-    // useEffect(()=>{
-    //     console.log(listMaterial)
-    // },[listMaterial])
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
             <NavbarMyAcademy color={'white'} />
@@ -51,17 +49,21 @@ const MyAcademyTes = () => {
                     </div>
                 </div>
             </div>
+
             <ComingSoonEvent bgcard={'bg-birumuda'} title={'Daftar Acara'} listTraining={listTraining} />
             <RecommendationEvent />
             <ContainerExam bgcard={'bg-birumuda'} title={'Daftar Ujian'} listExam={listExam} />
-            <div className="hidden lg:block mb-[60px]">
+            
+            {/* Testimoni Section added here */}
+            
+            <div className="hidden lg:block">
                 <Promotion />
-                <Review />
             </div>
             <FAQMyAcademy />
-            {/* <FooterMyAcademy /> */}
+            <TestimonialSection service="myacademy" /> {/* Added Testimonial section */}
             <Footer />
         </>
-    )
-}
-export default MyAcademyTes
+    );
+};
+
+export default MyAcademyTes;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Button,
   Input,
@@ -29,38 +29,43 @@ const ListTestimonialPage = () => {
   const [filterValue, setFilterValue] = useState("");
   const [selectedTestimonial, setSelectedTestimonial] = useState<{ id: number; name: string } | null>(null);
   const [page, setPage] = useState(1);
-  const rowsPerPage = 5;  // Display 10 items per page
+  const rowsPerPage = 100;  // Display 5 items per page
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const loadTestimonials = async () => {
+  const loadTestimonials = useCallback(async () => {
     try {
-        const [approvedResponse, pendingResponse] = await Promise.all([
-            ListReviewService.getAllTestimonials({ isApproved: true, limit: rowsPerPage, page }),
-            ListReviewService.getAllTestimonials({ isApproved: false, limit: rowsPerPage, page })
-        ]);
+      const [approvedResponse, pendingResponse] = await Promise.all([
+        ListReviewService.getAllTestimonials({ isApproved: true, limit: rowsPerPage, page }),
+        ListReviewService.getAllTestimonials({ isApproved: false, limit: rowsPerPage, page })
+      ]);
 
-        const approvedTestimonials = Array.isArray(approvedResponse.meta.message) 
-            ? approvedResponse.meta.message.flat()
-            : [];
+      const approvedTestimonials = Array.isArray(approvedResponse.meta.message)
+          ? approvedResponse.meta.message.flat()
+          : [];
 
-        const pendingTestimonials = Array.isArray(pendingResponse.meta.message)
-            ? pendingResponse.meta.message.flat()
-            : [];
+      const pendingTestimonials = Array.isArray(pendingResponse.meta.message)
+          ? pendingResponse.meta.message.flat()
+          : [];
 
-        const allTestimonials = [...approvedTestimonials, ...pendingTestimonials];
-        
-        setTestimonials(allTestimonials);
-        localStorage.setItem('testimonials', JSON.stringify(allTestimonials));
+      // Gabungkan testimoni dan pastikan hanya satu entri yang muncul per reviewId
+      const allTestimonials = [
+        ...approvedTestimonials,
+        ...pendingTestimonials
+      ].filter((value, index, self) => 
+        index === self.findIndex((t) => t.reviewId === value.reviewId) // Pastikan reviewId unik
+      );
+
+      setTestimonials(allTestimonials);
+      localStorage.setItem('testimonials', JSON.stringify(allTestimonials));
     } catch (error) {
-        console.error("Error fetching testimonials:", error);
-        toast.error(error instanceof Error ? error.message : "Failed to fetch testimonials");
+      console.error("Error fetching testimonials:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to fetch testimonials");
     }
-  };
-
+  }, [page]);  // Pastikan `page` di-track untuk pembaruan
 
   useEffect(() => {
     loadTestimonials();
-  }, []);
+  }, [loadTestimonials]);
 
   const filteredTestimonials = useMemo(() => {
     return testimonials
@@ -168,13 +173,13 @@ const ListTestimonialPage = () => {
             </TableBody>
           </Table>
 
-          <div className="flex mt-4 items-center justify-center">
+          {/* <div className="flex mt-4 items-center justify-center">
             <div className="flex w-[40%] justify-center items-center gap-2">
               <Button isDisabled={page <= 1} size="sm" variant="flat" onPress={() => setPage(prev => prev - 1)}>Previous</Button>
               <Pagination isCompact total={pages} initialPage={page} onChange={(page) => setPage(page)} variant="light" />
               <Button isDisabled={page >= pages} size="sm" variant="flat" onPress={() => setPage(prev => prev + 1)}>Next</Button>
             </div>
-          </div>
+          </div> */}
         </Card>
 
         <Modal isOpen={isOpen} onOpenChange={onClose}>
@@ -185,7 +190,7 @@ const ListTestimonialPage = () => {
                 <ModalBody>
                   <p>
                     Are you sure you want to delete{" "}
-                    <strong>{selectedTestimonial?.name}</strong>'s testimonial?
+                    <strong>{selectedTestimonial?.name}</strong> testimonial?
                   </p>
                 </ModalBody>
                 <ModalFooter>

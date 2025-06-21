@@ -44,8 +44,8 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
                     <p className="text-zinc-500 text-lg font-normal font-openSans leading-7 mt-4">
                         {heroData.description}
                     </p>
-                    <Button className="bg-rose-400 text-white font-semibold rounded-xl mt-6 px-6 py-3" onClick={redirectToHome}>
-                        Jelajahi produk kami
+                    <Button className="bg-rose-400 text-white font-semibold rounded-xl mt-6 px-6 py-3" onClick={handleConsultationClick}>
+                        Mulai konsultasi
                     </Button>
                 </div>
                 <div className="flex-1 flex flex-col md:basis-3/5 justify-center items-center mt-12 md:mt-0 relative h-full">
@@ -84,6 +84,12 @@ const Hero: React.FC<HeroProps> = ({ heroData, showcaseProduct }) => {
             </div>
         </section>
     );
+};
+const handleConsultationClick = () => {
+    const whatsappNumber = "6281314485552";
+    const message = "Halo, saya ingin berkonsultasi mengenai produk MYA.";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
 };
 
 export default Hero;

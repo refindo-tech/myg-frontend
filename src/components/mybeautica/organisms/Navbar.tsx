@@ -49,17 +49,19 @@ const NavbarComponent: React.FC<NavbarProps> = ({
   return (
     <Navbar isBordered className="bg-white py-2 inline-flex mx-auto gap-20">
       <NavbarContent justify="start" className="flex-none ">
-        <Image
-          src={images.my_Beauty_logo.src}
-          alt="Logo"
-          className="object-cover w-[70px] h-[46px]"
-        />
+        <Link href="/myBeautica/home" className="flex items-center gap-2">
+          <Image
+            src={images.my_Beauty_logo.src}
+            alt="Logo"
+            className="object-cover w-[70px] h-[46px]"
+          />
+        </Link>
       </NavbarContent>
 
       <NavbarContent className="items-center gap-4 flex" justify="start">
         <NavbarContent className="hidden xl:flex gap-16 font-playfair font-semibold">
           <NavbarItem>
-            <Link color="foreground" href="#" className="text-ungu px-5 text-[20px]">
+            <Link color="foreground" href="/" className="px-5 text-[20px]">
               Home
             </Link>
           </NavbarItem>
@@ -77,7 +79,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
       </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
-        <Input
+        {/* <Input
           classNames={{
             base: "max-w-full sm:max-w-[10rem]",
             mainWrapper: "h-full p-0",
@@ -88,12 +90,12 @@ const NavbarComponent: React.FC<NavbarProps> = ({
           }}
           placeholder="I'm looking for..."
           size="sm"
-          endContent={<icons.SearchIcon size={18} />}
+          endContent={<icons.SearchIcon className="w-4 h-4" />}
           type="search"
           radius="full"
           value={searchTerm}
           onChange={onSearchChange}
-        />
+        /> */}
 
         <Dropdown
           placement="bottom-end"
@@ -103,7 +105,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
             <div className="xl:flex items-center hidden gap-2">
               <Avatar
                 showFallback
-                name={userData?.fullName || "Jane Doe"}
+                name={userData?.fullName}
                 src={userData?.profilePicture || "https://api.dicebear.com/9.x/thumbs/svg?seed=Felix"}
                 className="bg-ungu2 text-white font-inter"
               />
@@ -112,7 +114,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
                   Login
                 </Button>
               ) : (
-                <p className="font-semibold hidden">{userData?.email || "zoey@example.com"}</p>
+                <p className="font-semibold hidden">{userData?.email || "Selamat Datang!"}</p>
               )}
             </div>
           </DropdownTrigger>
@@ -120,7 +122,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
             <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
+              <p className="font-semibold">{userData?.email || "Selamat Datang!"}</p>
             </DropdownItem>
             {/* <DropdownItem key="settings">My Profile</DropdownItem> */}
             <DropdownItem key="logout" color="danger" onClick={onLogout}>
@@ -140,7 +142,7 @@ const NavbarComponent: React.FC<NavbarProps> = ({
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">{userData?.email || "zoey@example.com"}</p>
+                <p className="font-semibold">{userData?.email || "Selamat Datang!"}</p>
               </DropdownItem>
               <DropdownItem key="settings">My Profile</DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={onLogout}>

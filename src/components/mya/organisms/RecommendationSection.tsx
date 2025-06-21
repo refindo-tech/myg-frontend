@@ -10,11 +10,11 @@ interface RecommendationSectionProps {
 }
 
 const RecommendationSection: React.FC<RecommendationSectionProps> = ({ title, recommendedProducts }) => {
+    const router = useRouter();
+
     if (!recommendedProducts || recommendedProducts.length === 0) {
         return null; // or render a message indicating no products available
     }
-
-    const router = useRouter();
     const firstProduct = recommendedProducts[0];
 
     return (

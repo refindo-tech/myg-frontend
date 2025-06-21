@@ -28,7 +28,7 @@ interface ValidationError {
   message: string;
 }
 
-export function Regist() {
+export default function Regist() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -389,5 +389,3 @@ export function Regist() {
     </div>
   );
 }
-
-export default Regist;

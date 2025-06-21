@@ -12,10 +12,16 @@ const heroData = {
 
 
 const slides = [
+  "/assets/images/banners/banner1.jpg",
+  "/assets/images/banners/banner2.jpg",
+  "/assets/images/banners/banner3.jpg",
+  "/assets/images/banners/banner4.jpg",
   "/assets/images/banners/banner5.jpg",
   "/assets/images/banners/banner6.jpg",
   "/assets/images/banners/banner7.jpg",
-  // "/assets/images/banners/Brightening Body Serum Night.jpg",
+  "/assets/images/banners/banner8.jpg",
+  "/assets/images/banners/banner9.jpg",
+  "/assets/images/banners/banner10.jpg",
 ];
 
 const services = [
@@ -45,7 +51,7 @@ const services = [
 const faqs = [
   {
     question: "Apa itu MYG?",
-    answer: "<p>MYG merupakan sebuah icon perusahaan dan yayasan pendidikan. MYG adalah sebuah singkatan dari MULTI YASYKUR GLOBAL. </p><p className='text-red'>Secara Harfiah yaitu:</p><ul><li>MULTI = Manfaat</li><li>Yasykur = Bersyukur</li><li>Global = Menyeluruh</li></ul><p>Kami berharap dapat terus memberikan manfaat dan senantiasa selalu bersyukur.</p><p><br></p>"
+    answer: "<p>MYG merupakan sebuah icon perusahaan dan yayasan pendidikan. MYG adalah sebuah singkatan dari Multi Yasykur Global. </p><ul><li>- Multi : Manfaat</li><li>- Yasykur : Bersyukur</li><li>- Global : Menyeluruh</li></ul><p>Kami berharap dapat terus memberikan manfaat dan senantiasa selalu bersyukur.</p><p><br></p>"
   },
   {
     question: "Kenapa harus kami?",

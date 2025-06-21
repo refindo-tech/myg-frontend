@@ -6,6 +6,7 @@ import {
     EditIcon,
     DetailIcon,
 } from "@/components/adminComponent/icon";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 interface Product {
     productId: number;
@@ -22,16 +23,6 @@ interface ProductTableProps {
     onEdit: (product: Product) => void;
     onDelete: (productId: number, productTitle: string) => void;
 }
-
-export const formatToRupiah = (number: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    })
-      .format(number)
-      .replace("IDR", "IDR ");
-  };
 
 const ProductTable: React.FC<ProductTableProps> = ({ products, onDetail, onEdit, onDelete }) => {
     return (
@@ -55,7 +46,7 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, onDetail, onEdit,
                             </div>
                         </TableCell>
                         <TableCell>{product.description}</TableCell>
-                        <TableCell>{formatToRupiah(product.price)}</TableCell>
+                        <TableCell>{formatRupiah(product.price)}</TableCell>
                         <TableCell>{product.stock}</TableCell>
                         <TableCell className="flex justify-center items-center">
                             <Button variant="light" startContent={<DetailIcon />} onPress={() => onDetail(product)}>Detail</Button>

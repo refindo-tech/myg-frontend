@@ -7,6 +7,7 @@ import DeleteProductModal from "@/components/adminComponent/listProduct/DeleteMo
 import DetailProductModal from "@/components/adminComponent/listProduct/DetailModal";
 import EditProductModal from "@/components/adminComponent/listProduct/EditModal";
 import AddProductModal from "@/components/adminComponent/listProduct/AddModal";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 import {
   Button,
@@ -46,16 +47,6 @@ const Products = [
     imageUrl: "https://i.pravatar.cc/150?u=a04258114e29026702d",
   },
 ];
-
-export const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(number)
-    .replace("IDR", "IDR ");
-};
 
 const ListProductPage = () => {
   const [listProduct, setListProduct] = useState(Products);

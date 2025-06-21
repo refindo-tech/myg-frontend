@@ -13,32 +13,23 @@ import {
   Card,
 } from "@nextui-org/react";
 import { SearchIcon, DetailIcon } from "@/components/adminComponent/icon";
+import { formatRupiah } from '@/helpers/formatRupiah'
 
 interface Transaction {
   kodeTransaksi: string;
   namaPembeli: string;
-  totalPembelian: string;
+  totalPembelian: number;
 }
 
 const transactions: Transaction[] = [
-  { kodeTransaksi: "P0001", namaPembeli: "John Doe", totalPembelian: "912000" },
-  { kodeTransaksi: "P0002", namaPembeli: "Jane Smith", totalPembelian: "120000" },
-  { kodeTransaksi: "P0003", namaPembeli: "Alice Johnson", totalPembelian: "150000" },
-  { kodeTransaksi: "P0004", namaPembeli: "John Doe", totalPembelian: "200000" },
-  { kodeTransaksi: "P0005", namaPembeli: "Jane Smith", totalPembelian: "220000" },
-  { kodeTransaksi: "P0006", namaPembeli: "Alice Johnson", totalPembelian: "180000" },
-  { kodeTransaksi: "P0007", namaPembeli: "Bob Brown", totalPembelian: "300000" },
+  { kodeTransaksi: "P0001", namaPembeli: "John Doe", totalPembelian: 912000 },
+  { kodeTransaksi: "P0002", namaPembeli: "Jane Smith", totalPembelian: 120000 },
+  { kodeTransaksi: "P0003", namaPembeli: "Alice Johnson", totalPembelian: 150000 },
+  { kodeTransaksi: "P0004", namaPembeli: "John Doe", totalPembelian: 200000 },
+  { kodeTransaksi: "P0005", namaPembeli: "Jane Smith", totalPembelian: 220000 },
+  { kodeTransaksi: "P0006", namaPembeli: "Alice Johnson", totalPembelian: 180000 },
+  { kodeTransaksi: "P0007", namaPembeli: "Bob Brown", totalPembelian: 300000 },
 ];
-
-export const formatToRupiah = (number: number): string => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  })
-    .format(number)
-    .replace("IDR", "IDR ");
-};
 
 const TransactionTable = () => {
   const [page, setPage] = useState(1);
@@ -51,7 +42,7 @@ const TransactionTable = () => {
       (transaction) =>
         transaction.kodeTransaksi.toLowerCase().includes(searchQuery.toLowerCase()) ||
         transaction.namaPembeli.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        transaction.totalPembelian.includes(searchQuery)
+        transaction.totalPembelian.toString().includes(searchQuery)
     );
   }, [searchQuery]);
 
@@ -112,7 +103,7 @@ const TransactionTable = () => {
                 <TableRow key={item.kodeTransaksi}>
                   <TableCell>{item.kodeTransaksi}</TableCell>
                   <TableCell>{item.namaPembeli}</TableCell>
-                  <TableCell>{formatToRupiah(Number(item.totalPembelian))}</TableCell>
+                  <TableCell>{`${formatRupiah(item.totalPembelian)}`}</TableCell>
                   <TableCell>
                     <Button isIconOnly size="sm" variant="light" className="w-max">
                       <DetailIcon size={18} />

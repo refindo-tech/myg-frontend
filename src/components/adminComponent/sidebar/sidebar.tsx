@@ -14,6 +14,7 @@ import { useSidebarContext } from "../layout/layout-context";
 import { Image } from "@nextui-org/react";
 import { SidebarItem } from "./sidebar-item";
 import { SidebarMenu } from "./sidebar-menu";
+import Link from "next/link";
 
 const defaultLogo = "/assets/images/logo/myg.png";
 
@@ -36,8 +37,9 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({ onToggle }) => {
       ) : null}
       <div className={Sidebar({ collapsed })}>
         <div className={Sidebar.Header()}>
-          {/* taruh logo di sini */}
-          <Image src={defaultLogo} sizes="lg" alt={"logo"} />
+          <Link href="/dashboard">
+            <Image src={defaultLogo} sizes="lg" alt={"logo"} />
+          </Link>
         </div>
 
         <div className="flex flex-col justify-between h-full">

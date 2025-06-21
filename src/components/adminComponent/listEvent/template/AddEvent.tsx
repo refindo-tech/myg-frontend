@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '@nextui-org/card'
-import FormAddEvent from '../organism/FormAddEvent'
+import FormAddEvent from '../organism/FormEvent'
 const AddEvent:React.FC<{handleIsAdd:()=>void}> = ({handleIsAdd}) => {
     return (
         <div
